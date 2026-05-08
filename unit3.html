@@ -1,0 +1,1355 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>單元三：AI 實作入門 | AI 基礎與應用課程</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Space+Grotesk:wght@400;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+<style>
+  :root {
+    --accent: #06B6D4;
+    --accent-dim: rgba(6,182,212,0.15);
+    --accent-glow: rgba(6,182,212,0.35);
+    --bg: #080810;
+    --glass-bg: rgba(255,255,255,0.04);
+    --glass-border: rgba(255,255,255,0.08);
+    --r-card: 32px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: #e2e8f0;
+    font-family: 'Noto Sans TC', sans-serif;
+    cursor: none;
+    overflow-x: hidden;
+  }
+  @media (pointer: coarse) { body { cursor: auto; } #cursorDot, #cursorRing { display: none; } }
+
+  /* Cursor */
+  #cursorDot {
+    position: fixed; width: 8px; height: 8px;
+    background: #fff; border-radius: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 10000; pointer-events: none;
+    transition: transform 0.1s, background 0.2s;
+  }
+  #cursorRing {
+    position: fixed; width: 40px; height: 40px;
+    border: 1.5px solid rgba(255,255,255,0.35); border-radius: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 9999; pointer-events: none;
+    transition: width 0.3s, height 0.3s, border-color 0.3s;
+  }
+
+  /* Spotlight */
+  #spotlight {
+    position: fixed; inset: 0; z-index: 1;
+    pointer-events: none;
+    background: radial-gradient(700px at 50% 50%, rgba(6,182,212,0.06), transparent 70%);
+  }
+
+  /* Noise */
+  .noise-svg { position: fixed; inset: 0; opacity: 0.045; z-index: 9998; pointer-events: none; }
+
+  /* Glass */
+  .glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--r-card);
+  }
+
+  /* Nav */
+  #nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 1.25rem 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    transition: background 0.4s, backdrop-filter 0.4s, padding 0.4s;
+  }
+  #nav.shrunk {
+    background: rgba(8,8,16,0.85);
+    backdrop-filter: blur(20px);
+    padding: 0.75rem 2rem;
+    border-bottom: 1px solid var(--glass-border);
+  }
+  .nav-logo { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1rem; color: #fff; text-decoration: none; }
+  .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+  .nav-links a {
+    color: rgba(255,255,255,0.6); font-size: 0.85rem; text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: #fff; }
+  .nav-pill {
+    background: var(--accent); color: #000; font-weight: 700;
+    padding: 0.4rem 1.1rem; border-radius: 99px; font-size: 0.8rem;
+    text-decoration: none; transition: opacity 0.2s;
+  }
+  .nav-pill:hover { opacity: 0.85; }
+
+  /* Hero */
+  .hero {
+    min-height: 100vh; display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center; padding: 8rem 1.5rem 4rem;
+    position: relative; z-index: 2;
+  }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: var(--accent-dim); border: 1px solid var(--accent-glow);
+    border-radius: 99px; padding: 0.35rem 1rem;
+    font-size: 0.8rem; color: var(--accent); font-weight: 500; letter-spacing: 0.05em;
+    margin-bottom: 2rem;
+  }
+  .hero h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2.5rem, 7vw, 5rem);
+    font-weight: 900; line-height: 1.05; letter-spacing: -0.03em;
+    color: #fff; margin-bottom: 1.5rem;
+  }
+  .hero h1 span {
+    background: linear-gradient(135deg, var(--accent), #67e8f9);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .hero-desc {
+    max-width: 600px; margin: 0 auto 3rem;
+    color: rgba(255,255,255,0.55); font-size: 1.1rem; line-height: 1.8;
+  }
+  .hero-goals {
+    display: flex; flex-wrap: wrap; gap: 0.75rem;
+    justify-content: center; max-width: 700px; margin: 0 auto;
+  }
+  .hero-goal {
+    background: var(--glass-bg); border: 1px solid var(--glass-border);
+    border-radius: 99px; padding: 0.55rem 1.2rem;
+    font-size: 0.93rem; color: rgba(255,255,255,0.7);
+  }
+
+  /* Section */
+  .section { padding: 6rem 1.5rem; position: relative; z-index: 2; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    font-size: 0.82rem; font-weight: 700; letter-spacing: 0.15em;
+    color: var(--accent); text-transform: uppercase; margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 900; color: #fff; line-height: 1.1;
+    letter-spacing: -0.02em; margin-bottom: 1rem;
+  }
+  .section-subtitle {
+    color: rgba(255,255,255,0.5); font-size: 1.08rem; line-height: 1.75;
+    max-width: 560px; margin-bottom: 3rem;
+  }
+
+  /* Number deco */
+  .num-deco {
+    position: absolute; right: 0; top: -1rem;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 900; font-size: clamp(6rem, 15vw, 12rem);
+    color: rgba(255,255,255,0.022); line-height: 1;
+    pointer-events: none; user-select: none;
+  }
+
+  /* Limit cards */
+  .limits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.25rem;
+  }
+  .limit-card {
+    padding: 1.75rem; position: relative; overflow: hidden;
+    transition: transform 0.3s, border-color 0.3s;
+  }
+  .limit-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(6,182,212,0.25);
+  }
+  .limit-num {
+    font-family: 'Space Grotesk', sans-serif; font-weight: 900;
+    font-size: 3rem; color: rgba(6,182,212,0.12);
+    line-height: 1; margin-bottom: 0.5rem;
+  }
+  .limit-title {
+    font-weight: 700; font-size: 1.05rem; color: #fff; margin-bottom: 0.5rem;
+  }
+  .limit-sub {
+    font-size: 0.9rem; color: var(--accent); margin-bottom: 0.75rem;
+    font-style: italic;
+  }
+  .limit-body { font-size: 0.97rem; color: rgba(255,255,255,0.6); line-height: 1.7; }
+  .limit-tip {
+    margin-top: 0.75rem; padding: 0.6rem 0.8rem;
+    background: rgba(6,182,212,0.07); border-left: 2px solid var(--accent);
+    border-radius: 0 8px 8px 0; font-size: 0.92rem; color: rgba(255,255,255,0.65);
+  }
+
+  /* Comparison table */
+  .compare-table {
+    width: 100%; border-collapse: collapse; margin-top: 2rem;
+  }
+  .compare-table th {
+    padding: 1rem 1.25rem; font-size: 0.95rem; font-weight: 700;
+    background: rgba(255,255,255,0.04); text-align: left;
+    border-bottom: 1px solid var(--glass-border);
+  }
+  .compare-table th:nth-child(2) { color: #10B981; }
+  .compare-table th:nth-child(3) { color: #3B82F6; }
+  .compare-table td {
+    padding: 0.9rem 1.25rem; font-size: 0.97rem; color: rgba(255,255,255,0.7);
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    vertical-align: top; line-height: 1.65;
+  }
+  .compare-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+  /* Scenario cards */
+  .scenarios-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+  .scenario-card { padding: 2rem; transition: transform 0.3s, border-color 0.3s; }
+  .scenario-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(6,182,212,0.3);
+  }
+  .scenario-icon {
+    width: 48px; height: 48px; border-radius: 14px;
+    background: var(--accent-dim); border: 1px solid var(--accent-glow);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem; margin-bottom: 1.25rem;
+  }
+  .scenario-title { font-weight: 700; font-size: 1rem; color: #fff; margin-bottom: 0.75rem; }
+  .scenario-basic, .scenario-advanced {
+    font-size: 0.82rem; color: rgba(255,255,255,0.6); line-height: 1.65;
+  }
+  .scenario-label {
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em;
+    color: var(--accent); text-transform: uppercase; margin-bottom: 0.25rem;
+    margin-top: 0.75rem;
+  }
+
+  /* Prompt sample */
+  .prompt-box {
+    background: rgba(6,182,212,0.05);
+    border: 1px solid rgba(6,182,212,0.2);
+    border-radius: 16px; padding: 1.25rem 1.5rem;
+    font-size: 0.82rem; color: rgba(255,255,255,0.75);
+    line-height: 1.7; margin-top: 0.75rem;
+    font-style: italic;
+  }
+
+  /* Enterprise */
+  .enterprise-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1rem;
+  }
+  .enterprise-card {
+    padding: 1.5rem 1.25rem; text-align: center;
+    transition: transform 0.3s, border-color 0.3s;
+  }
+  .enterprise-card:hover { transform: translateY(-4px); border-color: rgba(6,182,212,0.25); }
+  .enterprise-emoji { font-size: 2rem; margin-bottom: 0.75rem; }
+  .enterprise-dept { font-weight: 700; font-size: 1rem; color: #fff; margin-bottom: 0.5rem; }
+  .enterprise-items { font-size: 0.9rem; color: rgba(255,255,255,0.55); line-height: 1.7; }
+
+  /* Best practices */
+  .practice-list { display: flex; flex-direction: column; gap: 1rem; }
+  .practice-item {
+    display: flex; gap: 1rem; align-items: flex-start;
+    padding: 1.25rem 1.5rem; border-radius: 20px;
+    background: var(--glass-bg); border: 1px solid var(--glass-border);
+    transition: border-color 0.3s;
+  }
+  .practice-item:hover { border-color: rgba(6,182,212,0.25); }
+  .practice-check {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: var(--accent-dim); border: 1px solid var(--accent-glow);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 0.1rem;
+    color: var(--accent); font-size: 0.9rem;
+  }
+  .practice-text { font-size: 1rem; color: rgba(255,255,255,0.75); line-height: 1.75; }
+  .practice-text strong { color: #fff; }
+
+  /* Scenario full-width cards */
+  .scenario-full {
+    display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 2rem;
+    padding: 2rem 2.25rem; border-radius: 28px;
+    background: var(--glass-bg); border: 1px solid var(--glass-border);
+    transition: border-color 0.3s;
+  }
+  .scenario-full:hover { border-color: rgba(6,182,212,0.2); }
+  .scenario-header {
+    display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;
+  }
+  .scenario-num {
+    font-family: 'Space Grotesk', sans-serif; font-weight: 900;
+    font-size: 1.75rem; color: var(--accent); line-height: 1;
+    min-width: 2.2rem;
+  }
+  .scenario-heading {
+    font-family: 'Space Grotesk', sans-serif; font-weight: 700;
+    font-size: 1.35rem; color: #fff;
+  }
+  .scenario-sub-heading {
+    font-size: 0.82rem; font-weight: 700; letter-spacing: 0.1em;
+    color: var(--accent); text-transform: uppercase;
+    margin: 1.25rem 0 0.5rem; border-left: 2px solid var(--accent);
+    padding-left: 0.6rem;
+  }
+  .scenario-body { font-size: 1rem; color: rgba(255,255,255,0.65); line-height: 1.8; }
+  .scenario-body li { margin-left: 1.25rem; margin-bottom: 0.25rem; }
+  .prompt-block {
+    background: rgba(6,182,212,0.05); border: 1px solid rgba(6,182,212,0.18);
+    border-radius: 14px; padding: 1.1rem 1.35rem;
+    font-size: 0.95rem; color: rgba(255,255,255,0.75);
+    line-height: 1.85; margin-top: 0.65rem;
+  }
+  .prompt-block .prompt-label {
+    font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em;
+    color: var(--accent); text-transform: uppercase; margin-bottom: 0.5rem;
+    display: block;
+  }
+  .prompt-block pre {
+    white-space: pre-wrap; word-break: break-word;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 0.95rem; line-height: 1.85;
+    color: rgba(255,255,255,0.75); margin: 0;
+  }
+  .app-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem; }
+  .app-chip {
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 99px; padding: 0.3rem 0.85rem;
+    font-size: 0.88rem; color: rgba(255,255,255,0.7);
+  }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+  @media (max-width: 640px) { .two-col { grid-template-columns: 1fr; } }
+
+  /* Checklist */
+  .checklist { display: flex; flex-direction: column; gap: 0.75rem; }
+  .check-item {
+    display: flex; align-items: center; gap: 0.85rem;
+    padding: 1rem 1.25rem; border-radius: 16px;
+    background: var(--glass-bg); border: 1px solid var(--glass-border);
+    font-size: 1rem; color: rgba(255,255,255,0.75);
+    transition: border-color 0.3s;
+  }
+  .check-item:hover { border-color: rgba(6,182,212,0.3); }
+  .check-box {
+    width: 20px; height: 20px; border-radius: 6px;
+    border: 2px solid rgba(6,182,212,0.5); flex-shrink: 0;
+  }
+
+  /* Unit nav */
+  .unit-nav {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 2rem; gap: 1rem; flex-wrap: wrap;
+  }
+  .unit-nav-btn {
+    display: flex; align-items: center; gap: 0.75rem;
+    padding: 1rem 1.5rem; border-radius: 20px;
+    background: var(--glass-bg); border: 1px solid var(--glass-border);
+    color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.9rem;
+    transition: border-color 0.3s, color 0.3s, transform 0.3s;
+  }
+  .unit-nav-btn:hover { border-color: var(--accent); color: #fff; transform: translateY(-2px); }
+  .unit-nav-btn span { color: var(--accent); font-weight: 700; }
+
+  /* Footer */
+  footer {
+    border-top: 1px solid var(--glass-border);
+    padding: 2rem 1.5rem; text-align: center;
+    color: rgba(255,255,255,0.3); font-size: 0.82rem; z-index: 2; position: relative;
+  }
+
+  /* GSAP reveal */
+  .rev { opacity: 0; transform: translateY(32px); }
+
+  /* Vertical guides */
+  .vguide {
+    position: absolute; top: 0; bottom: 0; width: 1px;
+    background: rgba(255,255,255,0.028); pointer-events: none;
+  }
+
+  /* Tag row */
+  .tag-row { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1rem; }
+  .tag {
+    background: var(--glass-bg); border: 1px solid var(--glass-border);
+    border-radius: 99px; padding: 0.3rem 0.8rem;
+    font-size: 0.75rem; color: rgba(255,255,255,0.55);
+  }
+
+  /* High risk badge */
+  .risk-badge {
+    display: inline-block;
+    background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3);
+    color: #f87171; border-radius: 99px;
+    padding: 0.15rem 0.6rem; font-size: 0.7rem; font-weight: 700;
+    margin-top: 0.5rem;
+  }
+</style>
+</head>
+<body>
+
+<!-- Cursor -->
+<div id="cursorDot"></div>
+<div id="cursorRing"></div>
+
+<!-- Spotlight -->
+<div id="spotlight"></div>
+
+<!-- Noise -->
+<svg class="noise-svg" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+  <filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="4" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>
+  <rect width="100%" height="100%" filter="url(#noise)"/>
+</svg>
+
+<!-- Nav -->
+<nav id="nav">
+  <a href="index.html" class="nav-logo">AI 課程</a>
+  <div class="nav-links">
+    <a href="index.html">首頁</a>
+    <a href="unit2.html">上一單元</a>
+    <a href="unit4.html">下一單元</a>
+    <a href="unit6.html" class="nav-pill">名詞解釋</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="vguide" style="left:8.33%"></div>
+  <div class="vguide" style="left:50%"></div>
+  <div class="vguide" style="right:8.33%"></div>
+
+  <div class="hero-tag">
+    <span class="iconify" data-icon="mdi:robot-happy-outline"></span>
+    單元三
+  </div>
+  <h1 id="heroTitle">AI <span>實作入門</span><br>ChatGPT & Gemini</h1>
+  <p class="hero-desc">學習如何將 AI 應用於實際工作與生活，掌握使用限制、提示詞技巧與多樣化場景實作。</p>
+  <div class="hero-goals">
+    <div class="hero-goal">⚠️ 理解風險與限制</div>
+    <div class="hero-goal">✍️ 掌握提示詞技巧</div>
+    <div class="hero-goal">🛠️ 多樣化場景實作</div>
+    <div class="hero-goal">🤖 建立專屬助理</div>
+    <div class="hero-goal">🏢 探索職場應用</div>
+  </div>
+</section>
+
+<!-- SECTION 1: 使用限制 -->
+<section class="section">
+  <div class="container" style="position:relative">
+    <div class="num-deco">01</div>
+    <p class="section-label rev">使用限制</p>
+    <h2 class="section-title rev">ChatGPT &amp; Gemini<br>使用限制與注意事項</h2>
+    <p class="section-subtitle rev">掌握 AI 工具的邊界，才能更安全有效地使用它們。</p>
+
+    <div class="limits-grid">
+
+      <div class="glass limit-card rev">
+        <div class="limit-num">01</div>
+        <div class="limit-title">上下文限制 (Context Window)</div>
+        <div class="limit-sub">AI 並不是「無限記憶」</div>
+        <div class="limit-body">
+          對話太長時前面內容可能被忘記；上傳文件太大可能無法完整分析；長篇文章可能只抓重點摘要。
+        </div>
+        <div class="limit-tip">💡 建議：分段提問，定期重新整理需求，提供重點摘要給 AI</div>
+      </div>
+
+      <div class="glass limit-card rev">
+        <div class="limit-num">02</div>
+        <div class="limit-title">AI 幻覺 (Hallucination)</div>
+        <div class="limit-sub">AI 可能「一本正經地說錯話」</div>
+        <div class="limit-body">
+          捏造不存在的資料、編造新聞來源、產生錯誤數據、虛構網站、論文、法條。
+        </div>
+        <div class="risk-badge">🔴 高風險：法律、醫療、投資、學術研究</div>
+        <div class="limit-tip">💡 重要資訊一定要查證，不可直接當正式依據</div>
+      </div>
+
+      <div class="glass limit-card rev">
+        <div class="limit-num">03</div>
+        <div class="limit-title">資料隱私與安全</div>
+        <div class="limit-sub">不要把敏感資料直接丟給 AI</div>
+        <div class="limit-body">
+          不建議輸入：身分證字號、密碼、銀行資訊、公司機密、客戶個資。
+        </div>
+        <div class="limit-tip">💡 使用匿名資料，遮蔽敏感資訊，公司內部建立 AI 使用規範</div>
+      </div>
+
+      <div class="glass limit-card rev">
+        <div class="limit-num">04</div>
+        <div class="limit-title">知識更新限制</div>
+        <div class="limit-sub">AI 不一定知道最新資訊</div>
+        <div class="limit-body">
+          常見問題：新聞延遲、法規已更新、商品資訊過時、價格錯誤。
+        </div>
+        <div class="limit-tip">💡 查官方網站、查最新新聞、交叉比對資訊</div>
+      </div>
+
+      <div class="glass limit-card rev">
+        <div class="limit-num">05</div>
+        <div class="limit-title">回答不穩定</div>
+        <div class="limit-sub">同樣問題可能得到不同答案</div>
+        <div class="limit-body">
+          AI 為機率生成、提示詞不同、對話上下文不同，導致回答品質不一致。
+        </div>
+        <div class="limit-tip">💡 使用固定 Prompt 模板，清楚指定格式與角色</div>
+      </div>
+
+      <div class="glass limit-card rev">
+        <div class="limit-num">06</div>
+        <div class="limit-title">無法真正理解世界</div>
+        <div class="limit-sub">AI 是「預測文字」，不是真正理解</div>
+        <div class="limit-body">
+          缺乏常識判斷、容易誤解語意、無法理解真實情緒。反諷語氣誤判，模糊指令理解錯誤。
+        </div>
+      </div>
+
+      <div class="glass limit-card rev">
+        <div class="limit-num">07</div>
+        <div class="limit-title">圖片生成限制</div>
+        <div class="limit-sub">視覺細節容易出錯</div>
+        <div class="limit-body">
+          手指錯亂、中文文字生成錯誤、人物一致性不足、細節容易變形。名人肖像、版權角色、敏感內容受到限制。
+        </div>
+      </div>
+
+      <div class="glass limit-card rev">
+        <div class="limit-num">08</div>
+        <div class="limit-title">檔案分析限制</div>
+        <div class="limit-sub">非純文字格式容易出問題</div>
+        <div class="limit-body">
+          PDF 排版跑掉、Excel 公式判讀錯誤、掃描檔辨識不完整、圖表讀取失敗。
+        </div>
+        <div class="limit-tip">💡 使用清晰檔案，分批上傳，提供資料背景說明</div>
+      </div>
+
+      <div class="glass limit-card rev">
+        <div class="limit-num">09</div>
+        <div class="limit-title">免費版與付費版差異</div>
+        <div class="limit-sub">功能差距顯著</div>
+        <div class="limit-body">
+          <strong style="color:#fff">免費版</strong>：使用次數限制、速度較慢、功能較少。<br>
+          <strong style="color:#fff">付費版</strong>：更強模型、更多功能、更大上下文、可分析檔案與圖片。
+        </div>
+      </div>
+
+      <div class="glass limit-card rev">
+        <div class="limit-num">10</div>
+        <div class="limit-title">法律與版權問題</div>
+        <div class="limit-sub">商業使用需謹慎</div>
+        <div class="limit-body">
+          AI 生成內容侵權、使用他人圖片風格、未授權素材。商業用途需注意版權，不可完全依賴 AI 產出。
+        </div>
+      </div>
+
+      <div class="glass limit-card rev">
+        <div class="limit-num">11</div>
+        <div class="limit-title">過度依賴 AI</div>
+        <div class="limit-sub">保持獨立思考能力</div>
+        <div class="limit-body">
+          缺乏獨立思考、不再查證資料、寫作能力下降。
+        </div>
+        <div class="limit-tip">💡 AI 是「助手」，不是完全替代</div>
+      </div>
+
+      <div class="glass limit-card rev">
+        <div class="limit-num">12</div>
+        <div class="limit-title">各平台差異</div>
+        <div class="limit-sub">ChatGPT vs Gemini</div>
+        <div class="limit-body">
+          各有優勢，適合不同場景。詳見下方比較表。
+        </div>
+      </div>
+
+      <div class="glass limit-card rev" style="grid-column: 1 / -1">
+        <div class="limit-num">13</div>
+        <div class="limit-title">AI 使用最佳實務</div>
+        <div class="limit-sub">養成好習慣，讓 AI 成為可信賴的夥伴</div>
+        <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap:0.75rem; margin-top:0.5rem">
+          <div class="limit-tip">✅ AI 產出要人工覆核</div>
+          <div class="limit-tip">✅ 重要資訊必須查證</div>
+          <div class="limit-tip">✅ 不輸入敏感資料</div>
+          <div class="limit-tip">✅ 清楚描述需求</div>
+          <div class="limit-tip">✅ 善用多輪對話修正結果</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2: ChatGPT vs Gemini -->
+<section class="section" style="padding-top: 2rem">
+  <div class="container" style="position:relative">
+    <div class="num-deco">02</div>
+    <p class="section-label rev">平台比較</p>
+    <h2 class="section-title rev">ChatGPT vs Gemini</h2>
+    <p class="section-subtitle rev">兩大平台各有擅場，選對工具事半功倍。</p>
+
+    <div class="glass rev" style="overflow-x:auto; border-radius: 24px">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>比較項目</th>
+            <th>✦ ChatGPT (OpenAI)</th>
+            <th>✦ Gemini (Google)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong style="color:#fff">核心優勢</strong></td>
+            <td>對話自然、寫作能力強、程式能力佳、GPTs 生態完整</td>
+            <td>整合 Google 生態、文件整理方便、搜尋能力較強</td>
+          </tr>
+          <tr>
+            <td><strong style="color:#fff">Google 整合</strong></td>
+            <td>需第三方串接</td>
+            <td>與 Gmail / Docs / Drive 原生整合佳</td>
+          </tr>
+          <tr>
+            <td><strong style="color:#fff">即時搜尋</strong></td>
+            <td>付費版支援，部分情況較弱</td>
+            <td>預設整合 Google 搜尋，資訊較新</td>
+          </tr>
+          <tr>
+            <td><strong style="color:#fff">自訂 AI 助理</strong></td>
+            <td>GPTs — 功能完整，生態成熟</td>
+            <td>Gems — 自訂專家，工作流整合</td>
+          </tr>
+          <tr>
+            <td><strong style="color:#fff">中文理解</strong></td>
+            <td>繁體中文穩定</td>
+            <td>某些情況不穩定</td>
+          </tr>
+          <tr>
+            <td><strong style="color:#fff">長篇創作</strong></td>
+            <td>結構性強</td>
+            <td>有時較鬆散</td>
+          </tr>
+          <tr>
+            <td><strong style="color:#fff">免費版限制</strong></td>
+            <td>功能限制較多，高峰期可能無法使用</td>
+            <td>限制相對較少，整合功能開放</td>
+          </tr>
+          <tr>
+            <td><strong style="color:#fff">適合對象</strong></td>
+            <td>寫作、程式、創意工作者</td>
+            <td>Google 用戶、資料整理需求者</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3: 應用案例 -->
+<section class="section" style="padding-top: 2rem">
+  <div class="container" style="position:relative">
+    <div class="num-deco">03</div>
+    <p class="section-label rev">應用案例</p>
+    <h2 class="section-title rev">ChatGPT &amp; Gemini<br>六大應用場景</h2>
+    <p class="section-subtitle rev">從文字到圖片、語音到資料，掌握 AI 的多元實作能力。每個場景附上實際可用的提示詞範例。</p>
+
+    <!-- 1. 純文字對話 -->
+    <div class="scenario-full rev">
+      <div class="scenario-header">
+        <div class="scenario-num">01</div>
+        <div class="scenario-heading">✍️ 純文字對話</div>
+      </div>
+
+      <div class="two-col">
+        <div>
+          <div class="scenario-sub-heading">基本應用</div>
+          <div class="app-chips">
+            <span class="app-chip">問答查詢</span>
+            <span class="app-chip">摘要整理</span>
+            <span class="app-chip">翻譯</span>
+            <span class="app-chip">文法修正</span>
+            <span class="app-chip">多語言學習</span>
+          </div>
+        </div>
+        <div>
+          <div class="scenario-sub-heading">進階應用</div>
+          <div class="app-chips">
+            <span class="app-chip">SOP 撰寫</span>
+            <span class="app-chip">Email 回覆</span>
+            <span class="app-chip">履歷修改</span>
+            <span class="app-chip">面試模擬</span>
+            <span class="app-chip">腳本撰寫</span>
+            <span class="app-chip">企劃發想</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="scenario-sub-heading">範例 Prompt</div>
+      <div class="prompt-block">
+        <span class="prompt-label">Email 撰寫</span>
+        <pre>請幫我以主管口吻，寫一封感謝客戶的 Email，語氣正式但親切，150 字以內。</pre>
+      </div>
+      <div class="prompt-block">
+        <span class="prompt-label">面試模擬</span>
+        <pre>你是一位資深 HR，請針對「行銷企劃」職位，模擬 5 個常見面試問題，並提供每題的建議回答方向。</pre>
+      </div>
+      <div class="prompt-block">
+        <span class="prompt-label">SOP 撰寫</span>
+        <pre>請幫我寫一份「客訴處理 SOP」，步驟清晰、條列式，適用於電商客服人員，包含接收客訴、判斷類型、處理流程、回覆話術，共 6 個步驟。</pre>
+      </div>
+      <div class="prompt-block">
+        <span class="prompt-label">中英互譯</span>
+        <pre>【中文 → 英文】
+請將以下段落翻譯成自然流暢的英文，語氣正式，適合商務書信使用：
+
+「感謝您長期以來對本公司的支持與信任。我們目前正在進行系統升級，預計將於下週一恢復正常服務。造成不便，敬請見諒。」
+
+---
+
+【英文 → 中文】
+請將以下英文翻譯成繁體中文，保持原意，語氣自然：
+
+"We are pleased to inform you that your application has been approved. Please review the attached documents and confirm your acceptance by Friday."
+
+---
+
+【額外要求】翻譯完成後，請標注任何有多種譯法的關鍵詞，並說明各自的使用情境。</pre>
+      </div>
+    </div>
+
+    <!-- 2. 文字生成圖片 -->
+    <div class="scenario-full rev">
+      <div class="scenario-header">
+        <div class="scenario-num">02</div>
+        <div class="scenario-heading">🎨 文字生成圖片</div>
+      </div>
+
+      <div class="scenario-sub-heading">應用類型</div>
+      <div class="app-chips">
+        <span class="app-chip">海報設計</span>
+        <span class="app-chip">社群貼文圖片</span>
+        <span class="app-chip">商品情境圖</span>
+        <span class="app-chip">AI 人像生成</span>
+        <span class="app-chip">插畫風格轉換</span>
+        <span class="app-chip">LINE 貼圖</span>
+        <span class="app-chip">老照片修復</span>
+        <span class="app-chip">AI 商品攝影</span>
+        <span class="app-chip">室內設計模擬</span>
+        <span class="app-chip">LOGO 草圖</span>
+        <span class="app-chip">漫畫分鏡</span>
+        <span class="app-chip">YouTube 縮圖</span>
+      </div>
+
+      <div class="scenario-sub-heading">A. 人像生成範例 — 攝影師女生</div>
+      <div class="prompt-block">
+        <pre>真實人像，攝影師女生，長臉，自然立體五官，深咖啡中長髮，觀察型內斂，辨識點是隨性與紀實感，氛圍安靜敏銳。</pre>
+      </div>
+
+      <div class="scenario-sub-heading">B. 創意場景 — 城市星球 (Tiny Planet)</div>
+      <div class="prompt-block">
+        <pre>請基於「上傳圖片中的人物」，生成一張超寫實 tiny planet「京都」旅行影像：
+
+【人物鎖定 — 最高優先】
+• 必須使用原照片人物，photo-real identity lock
+• 臉部不可重繪、不可生成新臉
+• 五官比例（眼睛／鼻子／嘴巴／臉型）需完全一致
+• 表情維持原圖自然微笑，視線直視鏡頭（selfie 視角）
+• 服裝完全一致（顏色、材質、版型不可改）
+
+【構圖 — tiny planet】
+• tiny planet（球形全景城市）
+• 超廣角 fisheye（14mm 等效），自拍視角，一隻手向鏡頭延伸
+• 人物位於「星球頂端中心」
+
+【城市設定 — 京都地標】
+• 3～5 個地標可辨識但自然融合，建築比例合理
+• 地標沿球體自然排列（非拼貼感）
+
+【手帳旅行感】
+• 手寫塗鴉：♥Wonderful trip♥ 2026
+• 旅行印章：墨水暈染、類似護照章
+• 手繪元素：愛心、虛線、箭頭（畫面 10～15% 以下）
+
+【風格】超寫實、旅遊攝影質感、晴天藍天、柔和日光、natural color grading</pre>
+      </div>
+
+      <div class="scenario-sub-heading">C. 商品情境圖範例</div>
+      <div class="prompt-block">
+        <pre>主題元件：不鏽鋼球閥（Ball Valve）、三通（Tee）、彎頭（Elbow）、十字通（Cross）、法蘭（Flange）及卡箍接頭（Tri-Clamp Fittings）。
+左側顯示文字：三衛金屬 AI中心液冷解決方案
+材質光澤：拉絲或拋光不鏽鋼，具有強烈高光與反射效果。
+背景風格：黑＋金配色，低光環境，高對比光影，極簡排版，luxury poster，cinematic lighting
+構圖：產品展示型，物件錯落有致排列，具備產品目錄的專業感。</pre>
+      </div>
+
+      <div class="scenario-sub-heading">D. LINE 貼圖 — 真人表情貼圖合集</div>
+      <div class="prompt-block">
+        <span class="prompt-label">Step 1：先規劃文字內容</span>
+        <pre>幫我做 LINE 表情貼 16 張不同風格
+主題：老闆的每日提醒
+先整理文字內容 3–6 字</pre>
+      </div>
+      <div class="prompt-block">
+        <span class="prompt-label">Step 2：生成真人貼圖</span>
+        <pre>請根據我上傳的照片作為主角（同一人物、同一張臉，高度一致），生成「4x4 共16格」真人表情貼圖合集。
+
+【角色要求】 - 必須完全保留原照片人物的臉型、五官、膚色與辨識度 - 所有格子皆為同一人，不可變臉或風格漂移 - 穿著簡單（建議白色上衣），乾淨自然 - 表情清晰、誇張但不變形
+
+【畫面結構】 - 4x4 網格排版（共16格） - 每格為獨立貼圖，間距一致、整齊排列 - 白色或極淺色乾淨背景
+
+【表情與動作（固定16種）】參考上方 「老闆的每日提醒」整理了 16 組短小精悍（3-6 字）的文字內容
+
+【文字設計】 - 每格上方加入「手寫感繁體中文」 - 文字需對應該格情緒（例如：嗨～、為什麼？、晚安、謝謝你） - 搭配簡單可愛符號（愛心、汗滴、星星、問號等） - 字體風格自然手寫感，不要過於工整或印刷感
+
+【風格要求】 - LINE貼圖風格（可愛、清楚、易讀） - 每個角色外圍需有「白色描邊」，呈現貼紙感 - 表情生動、具有互動感，適合日常聊天使用 【品質要求】 - 高解析度 - 光線均勻、乾淨 - 不模糊、不變形、不裁切到重要部位
+
+【避免】 - 不要出現不同人物 - 不要背景雜亂 - 不要文字錯字或亂碼 - 不要比例錯誤或臉部扭曲</pre>
+      </div>
+
+      <div class="scenario-sub-heading">E. 老照片修復 — 三種做法</div>
+      <div class="two-col">
+        <div>
+          <div class="prompt-block">
+            <span class="prompt-label">第一招：保守修復</span>
+            <pre>請幫我修復這張舊照片，稍微銳化、提高解析度，去除刮痕和照片皺摺，但保持人物臉型、表情和特徵足夠自然，有一些老照片的質感。不要加新東西。</pre>
+          </div>
+        </div>
+        <div>
+          <div class="prompt-block">
+            <span class="prompt-label">第二招：黑白填色</span>
+            <pre>在維持人物長相不變的前提下，根據這張照片的時代背景，幫這張黑白照片加上自然、略微克制、應該有的顏色。</pre>
+          </div>
+        </div>
+      </div>
+      <div class="prompt-block">
+        <span class="prompt-label">第三招：大力改造</span>
+        <pre>請幫我把這張照片重繪成日式插圖風，但保持人物臉型、表情和特徵足夠自然，可辨識出原貌。</pre>
+      </div>
+
+      <div class="scenario-sub-heading">F. 反推圖片提示詞 — 通用結構</div>
+      <div class="prompt-block">
+        <pre>提示詞結構：[主體] + [風格] + [顏色] + [燈光] + [構圖] + [質感]
+
+範例：
+一位穿白色洋裝的女性 [主體]
+日式插畫風格 [風格]
+柔和粉色調 [顏色]
+自然側光 [燈光]
+三分構圖，背景虛化 [構圖]
+水彩紙質感，細緻線條 [質感]</pre>
+      </div>
+    </div>
+
+    <!-- 3. 語音轉文字 -->
+    <div class="scenario-full rev">
+      <div class="scenario-header">
+        <div class="scenario-num">03</div>
+        <div class="scenario-heading">🎙️ 語音轉文字</div>
+      </div>
+      <div class="two-col">
+        <div>
+          <div class="scenario-sub-heading">基本功能</div>
+          <div class="app-chips">
+            <span class="app-chip">語音辨識</span>
+            <span class="app-chip">即時字幕</span>
+            <span class="app-chip">音檔轉文字</span>
+          </div>
+        </div>
+        <div>
+          <div class="scenario-sub-heading">實際應用</div>
+          <div class="app-chips">
+            <span class="app-chip">會議記錄整理</span>
+            <span class="app-chip">訪談逐字稿</span>
+            <span class="app-chip">課程筆記整理</span>
+            <span class="app-chip">Podcast 摘要</span>
+            <span class="app-chip">會議重點與待辦事項</span>
+          </div>
+        </div>
+      </div>
+      <div class="scenario-sub-heading">範例 Prompt — 會議記錄整理</div>
+      <div class="prompt-block">
+        <pre>以下是一段會議錄音的逐字稿，請幫我整理成：
+1. 會議重點摘要（3–5 點）
+2. 決議事項（含負責人與期限）
+3. 待辦清單（分配給各成員）
+格式請用 Markdown 表格呈現。
+
+逐字稿內容：[貼上音檔轉出的文字]</pre>
+      </div>
+      <div class="prompt-block">
+        <span class="prompt-label">Podcast 摘要</span>
+        <pre>以下是一段 Podcast 逐字稿，請幫我：
+1. 寫出 100 字以內的主題摘要
+2. 列出 5 個核心觀點
+3. 摘錄 2–3 句最值得分享的金句
+語氣輕鬆、適合貼到社群媒體。</pre>
+      </div>
+    </div>
+
+    <!-- 4. 資料解析 -->
+    <div class="scenario-full rev">
+      <div class="scenario-header">
+        <div class="scenario-num">04</div>
+        <div class="scenario-heading">📊 資料解析</div>
+      </div>
+      <div class="two-col">
+        <div>
+          <div class="scenario-sub-heading">Excel / Google Sheet</div>
+          <div class="app-chips">
+            <span class="app-chip">表格清洗</span>
+            <span class="app-chip">重複資料處理</span>
+            <span class="app-chip">自動分類</span>
+            <span class="app-chip">函數協助</span>
+            <span class="app-chip">圖表生成</span>
+          </div>
+        </div>
+        <div>
+          <div class="scenario-sub-heading">文件解析</div>
+          <div class="app-chips">
+            <span class="app-chip">PDF 摘要</span>
+            <span class="app-chip">合約重點整理</span>
+            <span class="app-chip">財報閱讀</span>
+            <span class="app-chip">長篇文章摘要</span>
+            <span class="app-chip">銷售分析</span>
+            <span class="app-chip">問卷分析</span>
+            <span class="app-chip">趨勢預測</span>
+            <span class="app-chip">KPI 報表整理</span>
+          </div>
+        </div>
+      </div>
+      <div class="scenario-sub-heading">範例 Prompt</div>
+      <div class="prompt-block">
+        <span class="prompt-label">Excel 函數協助</span>
+        <pre>我有一份 Excel，A 欄是客戶姓名，B 欄是消費金額，C 欄是消費日期。
+請幫我寫公式：
+1. 計算本月總消費金額
+2. 找出消費金額前 10 名的客戶
+3. 統計每位客戶的消費次數</pre>
+      </div>
+      <div class="prompt-block">
+        <span class="prompt-label">問卷分析</span>
+        <pre>以下是 50 份問卷的開放式回答，主題是「員工對遠端工作的看法」。
+請幫我：
+1. 歸納出 5 個主要意見類別
+2. 統計各類別的大概比例
+3. 整理出正面與負面的關鍵詞
+4. 用一段文字總結整體趨勢
+
+問卷內容：[貼上回答]</pre>
+      </div>
+      <div class="prompt-block">
+        <span class="prompt-label">合約重點整理</span>
+        <pre>以下是一份租賃合約，請幫我找出：
+1. 租期與金額
+2. 雙方的主要義務與責任
+3. 違約條款
+4. 終止合約的條件
+5. 有哪些需要特別注意的條款
+
+合約內容：[貼上或上傳 PDF]</pre>
+      </div>
+      <div class="prompt-block">
+        <span class="prompt-label">Excel VBA 自動化</span>
+        <pre>請幫我寫一段 Excel VBA 巨集，功能如下：
+
+【工作表結構】
+・Sheet1「訂單明細」：A欄=日期、B欄=業務員姓名、C欄=產品名稱、D欄=數量、E欄=單價
+・Sheet2「月報表」：自動整理各業務員的月度業績
+
+【需要的功能】
+1. 自動計算每位業務員本月的總銷售額（數量 × 單價）
+2. 依銷售額由高到低排序，列出業績排名
+3. 標記超過目標金額（50,000 元）的業務員，該列底色改為綠色
+4. 在 Sheet2 的 A1 自動顯示「報表產生時間：xxxx/xx/xx」
+
+請附上完整程式碼，並在關鍵步驟加上中文註解。</pre>
+      </div>
+    </div>
+
+    <!-- 5. 旅遊攻略 -->
+    <div class="scenario-full rev">
+      <div class="scenario-header">
+        <div class="scenario-num">05</div>
+        <div class="scenario-heading">✈️ 製作旅遊攻略</div>
+      </div>
+      <div class="two-col">
+        <div>
+          <div class="scenario-sub-heading">行程規劃</div>
+          <div class="app-chips">
+            <span class="app-chip">自由行安排</span>
+            <span class="app-chip">親子旅遊</span>
+            <span class="app-chip">美食地圖</span>
+            <span class="app-chip">一日遊規劃</span>
+          </div>
+        </div>
+        <div>
+          <div class="scenario-sub-heading">旅遊助手功能</div>
+          <div class="app-chips">
+            <span class="app-chip">預算控制</span>
+            <span class="app-chip">景點介紹</span>
+            <span class="app-chip">在地交通建議</span>
+            <span class="app-chip">行李清單</span>
+            <span class="app-chip">外語翻譯</span>
+            <span class="app-chip">旅遊懶人包製作</span>
+          </div>
+        </div>
+      </div>
+      <div class="scenario-sub-heading">範例 Prompt</div>
+      <div class="prompt-block">
+        <span class="prompt-label">完整行程規劃</span>
+        <pre>請幫我規劃一趟「京都 5 天 4 夜」親子自由行：
+• 出發日期：2026 年 10 月（楓葉季）
+• 旅伴：夫妻 2 人 + 10 歲小孩
+• 預算：每人每天台幣 3,000 元（不含機票）
+• 住宿地點：京都車站附近
+
+請提供：
+1. 每天的行程安排（上午 / 下午 / 晚上）
+2. 推薦餐廳（含價位）
+3. 交通方式與票券建議
+4. 親子友善景點特別標注
+5. 注意事項與省錢小技巧</pre>
+      </div>
+      <div class="prompt-block">
+        <span class="prompt-label">行李清單生成</span>
+        <pre>我要去日本旅行 5 天，10 月秋季，請幫我生成一份「完整行李清單」，分類包含：
+衣物、盥洗用品、3C 電子、證件與金融、藥品急救、旅遊必備用品。
+另外請特別提醒日本旅遊的常見遺漏物品。</pre>
+      </div>
+      <div class="prompt-block">
+        <span class="prompt-label">翻譯與在地溝通</span>
+        <pre>我在日本餐廳點餐，想詢問「這道菜有沒有花生成分，因為我對花生過敏」，請翻譯成日文，並提供羅馬拼音發音。</pre>
+      </div>
+    </div>
+
+    <!-- 6. GPTs / Gems -->
+    <div class="scenario-full rev">
+      <div class="scenario-header">
+        <div class="scenario-num">06</div>
+        <div class="scenario-heading">🤖 GPTs / Gems — 建立專屬 AI 助理</div>
+      </div>
+
+      <div class="scenario-body" style="margin-bottom:0.5rem">
+        透過「系統提示詞（System Prompt）」，你可以把 AI 訓練成一位永遠了解你需求的專屬助手，每次對話都不需要重複交代背景。
+      </div>
+
+      <div class="two-col">
+        <div>
+          <div class="scenario-sub-heading">GPTs（ChatGPT）</div>
+          <div class="scenario-body">
+            <ul style="margin-left:1.1rem; margin-top:0.5rem">
+              <li>建立專屬 AI 助理</li>
+              <li>上傳知識庫文件（產品手冊、FAQ）</li>
+              <li>客服 AI — 自動回覆常見問題</li>
+              <li>行銷 AI — 自動生成品牌文案</li>
+              <li>教學 AI — 課程問答助手</li>
+            </ul>
+          </div>
+        </div>
+        <div>
+          <div class="scenario-sub-heading">Gems（Gemini）</div>
+          <div class="scenario-body">
+            <ul style="margin-left:1.1rem; margin-top:0.5rem">
+              <li>自訂 AI 專家角色</li>
+              <li>公司知識庫問答助手</li>
+              <li>業務助手 — 客戶開發話術</li>
+              <li>行銷文案助手</li>
+              <li>AI 秘書 — 行程與郵件管理</li>
+              <li>AI 教師 — 個人化學習</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="scenario-sub-heading">範例：撰寫系統提示詞（System Prompt）</div>
+      <div class="prompt-block">
+        <span class="prompt-label">客服 AI 系統提示詞範例</span>
+        <pre>你是「[公司名稱]」的專業客服助理，名字叫做「小幫手」。
+你的任務是：
+1. 用親切、有耐心的語氣回答客戶問題
+2. 只根據以下知識庫內容回答（不要自行編造）
+3. 若問題超出範圍，請說「這個問題我需要為您轉接給真人客服」
+4. 每次回覆結尾加上：「還有其他問題嗎？我很樂意幫助您 😊」
+
+知識庫重點：
+• 退換貨政策：7 天內可退，商品需保持完好
+• 運費：消費滿 500 元免運，未滿收 60 元
+• 配送時間：下單後 1–3 個工作天
+
+語言：使用繁體中文，語氣輕鬆親切。</pre>
+      </div>
+      <div class="prompt-block">
+        <span class="prompt-label">行銷文案助手系統提示詞範例</span>
+        <pre>你是我的專屬行銷文案助手，熟悉品牌調性如下：
+• 品牌名：[品牌名稱]
+• 目標客群：25–40 歲都市女性，注重生活品質
+• 品牌語氣：知性、溫暖、不浮誇
+• 常用平台：Instagram、LINE 官方帳號
+
+每次我給你產品資訊，你需要自動產出：
+1. Instagram 文案（150 字內 + 5 個 hashtag）
+2. LINE 推播訊息（50 字內，吸引點擊）
+3. 一個可用的 CTA（行動呼籲）
+
+輸出格式請用 Markdown，方便我複製貼上。</pre>
+      </div>
+      <div class="prompt-block">
+        <span class="prompt-label">語言翻譯助手系統提示詞範例</span>
+        <pre>你是我的專屬語言翻譯助手，專精繁體中文、英文、日文、韓文四種語言。
+
+【翻譯規則】
+1. 我給你任何一段文字，你自動判斷原文語言並翻譯
+2. 除非我特別指定目標語言，否則預設翻譯為「繁體中文」
+3. 翻譯要符合在地習慣，避免逐字直譯造成的生硬感
+4. 若原文含有專業術語，翻譯後請在括號內保留原文（例：人工智慧（AI））
+
+【輸出格式】
+• 先給翻譯結果（直接呈現，不加說明）
+• 再用一行提示：「原文語言：___ ｜ 目標語言：___」
+• 若有需要特別說明的翻譯選字，最後加上「📝 翻譯備註」
+
+【額外功能】（我說「幫我潤稿」時啟用）
+• 保留原意，但讓語句更流暢自然
+• 指出原文中可能不地道的表達方式
+
+語氣：精準、簡潔，不多餘解釋。</pre>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SECTION 4: 進階應用 -->
+<section class="section" style="padding-top: 2rem">
+  <div class="container" style="position:relative">
+    <div class="num-deco">04</div>
+    <p class="section-label rev">進階應用</p>
+    <h2 class="section-title rev">5 大進階 AI 應用</h2>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem">
+      <div class="glass rev" style="padding: 1.5rem; border-radius: 24px; text-align:center">
+        <div style="font-size:2rem; margin-bottom:0.75rem">📊</div>
+        <div style="font-weight:700; color:#fff; margin-bottom:0.5rem; font-size:0.95rem">AI 簡報製作</div>
+        <div style="font-size:0.8rem; color:rgba(255,255,255,0.55); line-height:1.6">自動產生簡報內容、排版、演講稿生成</div>
+      </div>
+      <div class="glass rev" style="padding: 1.5rem; border-radius: 24px; text-align:center">
+        <div style="font-size:2rem; margin-bottom:0.75rem">🎬</div>
+        <div style="font-weight:700; color:#fff; margin-bottom:0.5rem; font-size:0.95rem">AI 影片應用</div>
+        <div style="font-size:0.8rem; color:rgba(255,255,255,0.55); line-height:1.6">腳本生成、分鏡設計、字幕生成、AI 配音</div>
+      </div>
+      <div class="glass rev" style="padding: 1.5rem; border-radius: 24px; text-align:center">
+        <div style="font-size:2rem; margin-bottom:0.75rem">💻</div>
+        <div style="font-weight:700; color:#fff; margin-bottom:0.5rem; font-size:0.95rem">AI 程式設計</div>
+        <div style="font-size:0.8rem; color:rgba(255,255,255,0.55); line-height:1.6">程式碼生成、Debug、網頁製作、Python 自動化</div>
+      </div>
+      <div class="glass rev" style="padding: 1.5rem; border-radius: 24px; text-align:center">
+        <div style="font-size:2rem; margin-bottom:0.75rem">📣</div>
+        <div style="font-weight:700; color:#fff; margin-bottom:0.5rem; font-size:0.95rem">AI 行銷應用</div>
+        <div style="font-size:0.8rem; color:rgba(255,255,255,0.55); line-height:1.6">社群文案、廣告文案、SEO 文章、EDM 撰寫</div>
+      </div>
+      <div class="glass rev" style="padding: 1.5rem; border-radius: 24px; text-align:center">
+        <div style="font-size:2rem; margin-bottom:0.75rem">⚙️</div>
+        <div style="font-weight:700; color:#fff; margin-bottom:0.5rem; font-size:0.95rem">AI 工作自動化</div>
+        <div style="font-size:0.8rem; color:rgba(255,255,255,0.55); line-height:1.6">日報週報生成、自動回覆、AI + Notion / Google</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 5: 企業職場 -->
+<section class="section" style="padding-top: 2rem">
+  <div class="container" style="position:relative">
+    <div class="num-deco">05</div>
+    <p class="section-label rev">企業職場</p>
+    <h2 class="section-title rev">各產業 AI 應用</h2>
+    <p class="section-subtitle rev">不同職能都有對應的 AI 應用方式。</p>
+
+    <div class="enterprise-grid">
+      <div class="glass enterprise-card rev">
+        <div class="enterprise-emoji">🗂️</div>
+        <div class="enterprise-dept">行政</div>
+        <div class="enterprise-items">會議整理<br>公文撰寫</div>
+      </div>
+      <div class="glass enterprise-card rev">
+        <div class="enterprise-emoji">💼</div>
+        <div class="enterprise-dept">業務</div>
+        <div class="enterprise-items">客戶開發信<br>銷售話術</div>
+      </div>
+      <div class="glass enterprise-card rev">
+        <div class="enterprise-emoji">📣</div>
+        <div class="enterprise-dept">行銷</div>
+        <div class="enterprise-items">社群經營<br>廣告素材生成</div>
+      </div>
+      <div class="glass enterprise-card rev">
+        <div class="enterprise-emoji">📚</div>
+        <div class="enterprise-dept">教育</div>
+        <div class="enterprise-items">教案設計<br>題庫生成</div>
+      </div>
+      <div class="glass enterprise-card rev">
+        <div class="enterprise-emoji">🛒</div>
+        <div class="enterprise-dept">電商</div>
+        <div class="enterprise-items">商品描述<br>AI 客服</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 6: 最佳實務 -->
+<section class="section" style="padding-top: 2rem">
+  <div class="container" style="position:relative">
+    <div class="num-deco">06</div>
+    <p class="section-label rev">提示詞技巧</p>
+    <h2 class="section-title rev">如何下提示詞</h2>
+    <p class="section-subtitle rev">有效的 Prompt 能讓 AI 更準確地理解你的需求。</p>
+
+    <div class="practice-list">
+      <div class="practice-item rev">
+        <div class="practice-check">
+          <span class="iconify" data-icon="mdi:target"></span>
+        </div>
+        <div class="practice-text"><strong>明確需求</strong>：清楚描述你想要什麼結果，包含範圍、格式、長度等具體要求。避免模糊的指令如「幫我寫一篇文章」，改為「幫我寫一篇 300 字的電商商品介紹，重點強調品質與性價比」。</div>
+      </div>
+      <div class="practice-item rev">
+        <div class="practice-check">
+          <span class="iconify" data-icon="mdi:account-circle-outline"></span>
+        </div>
+        <div class="practice-text"><strong>指定角色</strong>：讓 AI 扮演特定身份能讓回答更貼近需求。例如：「請以資深行銷顧問的角色...」「假設你是國中數學老師...」「以法律專業角度回答...」</div>
+      </div>
+      <div class="practice-item rev">
+        <div class="practice-check">
+          <span class="iconify" data-icon="mdi:format-list-bulleted"></span>
+        </div>
+        <div class="practice-text"><strong>指定格式</strong>：要求 AI 以特定格式輸出，讓結果更易用。例如：「請以表格呈現」「用條列式列出 5 個重點」「請用 Markdown 格式輸出」</div>
+      </div>
+      <div class="practice-item rev">
+        <div class="practice-check">
+          <span class="iconify" data-icon="mdi:chat-outline"></span>
+        </div>
+        <div class="practice-text"><strong>多輪對話</strong>：不滿意結果時，繼續對話修正。告訴 AI 哪裡需要改進：「語氣太正式了，請改得更口語」「請針對年輕族群改寫」「再加入更多數據支撐」</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Checklist -->
+<section class="section" style="padding-top: 2rem">
+  <div class="container">
+    <p class="section-label rev">學習確認</p>
+    <h2 class="section-title rev">單元三 學習清單</h2>
+    <p class="section-subtitle rev">完成這些項目，代表你已掌握本單元核心技能。</p>
+
+    <div class="checklist">
+      <div class="check-item rev">
+        <div class="check-box"></div>
+        我了解 AI 幻覺問題，並知道如何查證重要資訊
+      </div>
+      <div class="check-item rev">
+        <div class="check-box"></div>
+        我知道哪些資料不能輸入給 AI（隱私與安全）
+      </div>
+      <div class="check-item rev">
+        <div class="check-box"></div>
+        我能區分 ChatGPT 與 Gemini 的優勢與適用場景
+      </div>
+      <div class="check-item rev">
+        <div class="check-box"></div>
+        我會撰寫包含角色、格式、明確需求的提示詞
+      </div>
+      <div class="check-item rev">
+        <div class="check-box"></div>
+        我嘗試過至少一種 AI 應用場景（文字/圖片/語音/資料）
+      </div>
+      <div class="check-item rev">
+        <div class="check-box"></div>
+        我了解 GPTs 或 Gems 可以建立專屬 AI 助理
+      </div>
+      <div class="check-item rev">
+        <div class="check-box"></div>
+        我能在職場中找到至少一個適合導入 AI 的應用場景
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Unit Nav -->
+<section class="section" style="padding: 2rem 1.5rem">
+  <div class="container">
+    <div class="glass unit-nav rev">
+      <a href="unit2.html" class="unit-nav-btn">
+        <span class="iconify" data-icon="mdi:arrow-left"></span>
+        <div><span>上一單元</span><br>單元二：AI 應用介紹</div>
+      </a>
+      <a href="index.html" style="color:rgba(255,255,255,0.4); font-size:0.8rem; text-decoration:none">返回首頁</a>
+      <a href="unit4.html" class="unit-nav-btn">
+        <div style="text-align:right"><span>下一單元</span><br>單元四：進階 AI 工具</div>
+        <span class="iconify" data-icon="mdi:arrow-right"></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 AI 基礎與應用課程 | 單元三：AI 實作入門</p>
+</footer>
+
+<script>
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Cursor
+  const dot = document.getElementById('cursorDot');
+  const ring = document.getElementById('cursorRing');
+  const spotlight = document.getElementById('spotlight');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    dot.style.left = mx + 'px'; dot.style.top = my + 'px';
+    spotlight.style.background = `radial-gradient(700px at ${mx}px ${my}px, rgba(6,182,212,0.08), transparent 70%)`;
+  });
+
+  (function loop() {
+    rx += (mx - rx) * 0.13; ry += (my - ry) * 0.13;
+    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+    requestAnimationFrame(loop);
+  })();
+
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      ring.style.width = '60px'; ring.style.height = '60px';
+      ring.style.borderColor = 'rgba(6,182,212,0.6)';
+    });
+    el.addEventListener('mouseleave', () => {
+      ring.style.width = '40px'; ring.style.height = '40px';
+      ring.style.borderColor = 'rgba(255,255,255,0.35)';
+    });
+  });
+
+  // Nav shrink
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('shrunk', window.scrollY > 60);
+  });
+
+  // Hero animation
+  gsap.from('#heroTitle', { duration: 1.2, y: 40, opacity: 0, ease: 'power3.out', delay: 0.3 });
+  gsap.from('.hero-desc', { duration: 1, y: 30, opacity: 0, ease: 'power3.out', delay: 0.55 });
+  gsap.from('.hero-tag', { duration: 0.8, y: 20, opacity: 0, ease: 'power3.out', delay: 0.1 });
+  gsap.from('.hero-goal', { duration: 0.8, y: 20, opacity: 0, stagger: 0.1, ease: 'power3.out', delay: 0.75 });
+
+  // Scroll reveals
+  gsap.utils.toArray('.rev').forEach(el => {
+    gsap.to(el, {
+      scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' },
+      y: 0, opacity: 1, duration: 0.8, ease: 'power3.out'
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>單元四：進階 AI 工具 | AI 基礎與應用課程</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Space+Grotesk:wght@400;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+<style>
+  :root {
+    --accent: #10B981;
+    --accent-dim: rgba(16,185,129,0.12);
+    --accent-glow: rgba(16,185,129,0.3);
+    --bg: #080810;
+    --glass-bg: rgba(255,255,255,0.04);
+    --glass-border: rgba(255,255,255,0.08);
+    --r-card: 32px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; font-size: 18px; }
+  body {
+    background: var(--bg);
+    color: #e2e8f0;
+    font-family: 'Noto Sans TC', sans-serif;
+    cursor: none;
+    overflow-x: hidden;
+  }
+  @media (pointer: coarse) { body { cursor: auto; } #cursorDot, #cursorRing { display: none; } }
+
+  /* Cursor */
+  #cursorDot {
+    position: fixed; width: 8px; height: 8px;
+    background: #fff; border-radius: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 10000; pointer-events: none;
+    transition: transform 0.1s;
+  }
+  #cursorRing {
+    position: fixed; width: 40px; height: 40px;
+    border: 1.5px solid rgba(255,255,255,0.35); border-radius: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 9999; pointer-events: none;
+    transition: width 0.3s, height 0.3s, border-color 0.3s;
+  }
+
+  /* Spotlight */
+  #spotlight {
+    position: fixed; inset: 0; z-index: 1; pointer-events: none;
+    background: radial-gradient(700px at 50% 50%, rgba(16,185,129,0.06), transparent 70%);
+  }
+
+  /* Noise */
+  .noise-svg { position: fixed; inset: 0; opacity: 0.045; z-index: 9998; pointer-events: none; }
+
+  /* Glass */
+  .glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--r-card);
+  }
+
+  /* Nav */
+  #nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 1.25rem 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    transition: background 0.4s, padding 0.4s;
+  }
+  #nav.shrunk {
+    background: rgba(8,8,16,0.85);
+    backdrop-filter: blur(20px);
+    padding: 0.75rem 2rem;
+    border-bottom: 1px solid var(--glass-border);
+  }
+  .nav-logo { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1rem; color: #fff; text-decoration: none; }
+  .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+  .nav-links a { color: rgba(255,255,255,0.6); font-size: 0.85rem; text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: #fff; }
+  .nav-pill {
+    background: var(--accent); color: #000; font-weight: 700;
+    padding: 0.4rem 1.1rem; border-radius: 99px; font-size: 0.8rem;
+    text-decoration: none; transition: opacity 0.2s;
+  }
+  .nav-pill:hover { opacity: 0.85; }
+
+  /* Hero */
+  .hero {
+    min-height: 100vh; display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center; padding: 8rem 1.5rem 4rem;
+    position: relative; z-index: 2;
+  }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: var(--accent-dim); border: 1px solid var(--accent-glow);
+    border-radius: 99px; padding: 0.35rem 1rem;
+    font-size: 0.8rem; color: var(--accent); font-weight: 500; letter-spacing: 0.05em;
+    margin-bottom: 2rem;
+  }
+  .hero h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2.5rem, 7vw, 5rem);
+    font-weight: 900; line-height: 1.05; letter-spacing: -0.03em;
+    color: #fff; margin-bottom: 1.5rem;
+  }
+  .hero h1 span {
+    background: linear-gradient(135deg, var(--accent), #6ee7b7);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .hero-desc {
+    max-width: 600px; margin: 0 auto 3rem;
+    color: rgba(255,255,255,0.55); font-size: 1.1rem; line-height: 1.8;
+  }
+  .hero-goals { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; max-width: 700px; margin: 0 auto; }
+  .hero-goal {
+    background: var(--glass-bg); border: 1px solid var(--glass-border);
+    border-radius: 99px; padding: 0.5rem 1.1rem; font-size: 0.82rem; color: rgba(255,255,255,0.7);
+  }
+
+  /* Section */
+  .section { padding: 6rem 1.5rem; position: relative; z-index: 2; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    font-size: 0.75rem; font-weight: 700; letter-spacing: 0.15em;
+    color: var(--accent); text-transform: uppercase; margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 900; color: #fff; line-height: 1.1;
+    letter-spacing: -0.02em; margin-bottom: 1rem;
+  }
+  .section-subtitle {
+    color: rgba(255,255,255,0.5); font-size: 1rem; line-height: 1.7;
+    max-width: 560px; margin-bottom: 3rem;
+  }
+
+  /* Number deco */
+  .num-deco {
+    position: absolute; right: 0; top: -1rem;
+    font-family: 'Space Grotesk', sans-serif; font-weight: 900;
+    font-size: clamp(6rem, 15vw, 12rem);
+    color: rgba(255,255,255,0.022); line-height: 1;
+    pointer-events: none; user-select: none;
+  }
+
+  /* Tool cards */
+  .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
+  .tool-card { padding: 2rem; transition: transform 0.3s, border-color 0.3s; }
+  .tool-card:hover { transform: translateY(-4px); border-color: rgba(16,185,129,0.3); }
+  .tool-badge {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    background: var(--accent-dim); border: 1px solid var(--accent-glow);
+    border-radius: 99px; padding: 0.25rem 0.8rem;
+    font-size: 0.72rem; color: var(--accent); font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1rem;
+  }
+  .tool-name { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.2rem; color: #fff; margin-bottom: 0.5rem; }
+  .tool-desc { font-size: 0.85rem; color: rgba(255,255,255,0.55); line-height: 1.65; margin-bottom: 1rem; }
+  .tool-features { display: flex; flex-direction: column; gap: 0.4rem; }
+  .tool-feature {
+    display: flex; align-items: flex-start; gap: 0.5rem;
+    font-size: 0.82rem; color: rgba(255,255,255,0.65); line-height: 1.5;
+  }
+  .tool-feature::before { content: '→'; color: var(--accent); flex-shrink: 0; font-weight: 700; }
+  .tool-link {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    margin-top: 1.25rem;
+    color: var(--accent); font-size: 0.8rem; font-weight: 700;
+    text-decoration: none; transition: opacity 0.2s;
+  }
+  .tool-link:hover { opacity: 0.75; }
+
+  /* AI Agent section */
+  .agent-hero {
+    background: linear-gradient(135deg, rgba(16,185,129,0.08), rgba(6,182,212,0.06));
+    border: 1px solid rgba(16,185,129,0.2);
+    border-radius: 32px; padding: 3rem 2.5rem;
+    position: relative; overflow: hidden;
+  }
+  .agent-hero::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 50% at 80% 50%, rgba(16,185,129,0.08), transparent);
+    pointer-events: none;
+  }
+  .agent-quote {
+    font-size: clamp(0.9rem, 2vw, 1.05rem);
+    color: rgba(255,255,255,0.75); line-height: 1.85;
+    border-left: 3px solid var(--accent); padding-left: 1.5rem;
+    margin-bottom: 1.5rem; font-style: italic;
+  }
+  .agent-quote + .agent-quote { margin-bottom: 2rem; }
+  .agent-main-desc {
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 16px; padding: 1.25rem 1.5rem;
+    font-size: 0.9rem; color: rgba(255,255,255,0.7); line-height: 1.75;
+  }
+
+  /* Agent capabilities */
+  .capabilities-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.25rem; margin-top: 2.5rem; }
+  .cap-card { padding: 1.75rem; transition: transform 0.3s, border-color 0.3s; }
+  .cap-card:hover { transform: translateY(-4px); border-color: rgba(16,185,129,0.3); }
+  .cap-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+  .cap-title { font-weight: 700; font-size: 0.95rem; color: #fff; margin-bottom: 0.5rem; }
+  .cap-desc { font-size: 0.82rem; color: rgba(255,255,255,0.55); line-height: 1.65; }
+
+  /* Compare table */
+  .compare-table { width: 100%; border-collapse: collapse; }
+  .compare-table th {
+    padding: 1rem 1.25rem; font-size: 0.85rem; font-weight: 700;
+    background: rgba(255,255,255,0.04); text-align: left;
+    border-bottom: 1px solid var(--glass-border);
+  }
+  .compare-table th:nth-child(2) { color: rgba(255,255,255,0.7); }
+  .compare-table th:nth-child(3) { color: var(--accent); }
+  .compare-table td {
+    padding: 0.9rem 1.25rem; font-size: 0.85rem; color: rgba(255,255,255,0.65);
+    border-bottom: 1px solid rgba(255,255,255,0.04); vertical-align: top; line-height: 1.6;
+  }
+  .compare-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+  /* Architecture boxes */
+  .arch-row {
+    display: flex; gap: 0; margin-top: 2rem;
+    border: 1px solid var(--glass-border); border-radius: 20px; overflow: hidden;
+  }
+  .arch-box {
+    flex: 1; padding: 1.5rem 1.25rem; text-align: center;
+    border-right: 1px solid var(--glass-border);
+    background: var(--glass-bg);
+  }
+  .arch-box:last-child { border-right: none; }
+  .arch-box-icon { font-size: 1.8rem; margin-bottom: 0.5rem; }
+  .arch-box-title { font-weight: 700; font-size: 0.9rem; color: #fff; margin-bottom: 0.25rem; }
+  .arch-box-desc { font-size: 0.75rem; color: rgba(255,255,255,0.5); line-height: 1.5; }
+
+  /* Automation cards */
+  .auto-card { padding: 2rem; transition: transform 0.3s, border-color 0.3s; }
+  .auto-card:hover { transform: translateY(-4px); border-color: rgba(16,185,129,0.3); }
+  .auto-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem; border-radius: 99px;
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em;
+    margin-bottom: 1rem;
+  }
+  .auto-name { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.2rem; color: #fff; margin-bottom: 0.5rem; }
+  .auto-desc { font-size: 0.85rem; color: rgba(255,255,255,0.55); line-height: 1.65; margin-bottom: 1rem; }
+  .auto-features { display: flex; flex-direction: column; gap: 0.4rem; }
+  .auto-feature { display: flex; align-items: flex-start; gap: 0.5rem; font-size: 0.82rem; color: rgba(255,255,255,0.65); line-height: 1.5; }
+  .auto-feature::before { content: '✦'; color: var(--accent); flex-shrink: 0; font-size: 0.65rem; margin-top: 0.2rem; }
+
+  /* Video cards */
+  .video-card { padding: 2rem; transition: transform 0.3s, border-color 0.3s; }
+  .video-card:hover { transform: translateY(-4px); border-color: rgba(16,185,129,0.3); }
+
+  /* Chrome extension cards */
+  .ext-card {
+    display: flex; gap: 1.25rem; align-items: flex-start;
+    padding: 1.5rem 1.75rem; transition: transform 0.3s, border-color 0.3s;
+  }
+  .ext-card:hover { transform: translateY(-4px); border-color: rgba(16,185,129,0.25); }
+  .ext-icon-box {
+    width: 48px; height: 48px; border-radius: 14px;
+    background: var(--accent-dim); border: 1px solid var(--accent-glow);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem; flex-shrink: 0;
+  }
+  .ext-name { font-weight: 700; font-size: 0.95rem; color: #fff; margin-bottom: 0.35rem; }
+  .ext-desc { font-size: 0.82rem; color: rgba(255,255,255,0.55); line-height: 1.6; margin-bottom: 0.5rem; }
+  .ext-link {
+    display: inline-flex; align-items: center; gap: 0.3rem;
+    color: var(--accent); font-size: 0.78rem; font-weight: 700; text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .ext-link:hover { opacity: 0.75; }
+
+  /* Checklist */
+  .checklist { display: flex; flex-direction: column; gap: 0.75rem; }
+  .check-item {
+    display: flex; align-items: center; gap: 0.85rem;
+    padding: 1rem 1.25rem; border-radius: 16px;
+    background: var(--glass-bg); border: 1px solid var(--glass-border);
+    font-size: 0.9rem; color: rgba(255,255,255,0.75);
+    transition: border-color 0.3s;
+  }
+  .check-item:hover { border-color: rgba(16,185,129,0.3); }
+  .check-box { width: 20px; height: 20px; border-radius: 6px; border: 2px solid rgba(16,185,129,0.5); flex-shrink: 0; }
+
+  /* Unit nav */
+  .unit-nav {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 2rem; gap: 1rem; flex-wrap: wrap;
+  }
+  .unit-nav-btn {
+    display: flex; align-items: center; gap: 0.75rem;
+    padding: 1rem 1.5rem; border-radius: 20px;
+    background: var(--glass-bg); border: 1px solid var(--glass-border);
+    color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.9rem;
+    transition: border-color 0.3s, color 0.3s, transform 0.3s;
+  }
+  .unit-nav-btn:hover { border-color: var(--accent); color: #fff; transform: translateY(-2px); }
+  .unit-nav-btn span { color: var(--accent); font-weight: 700; }
+
+  /* Footer */
+  footer {
+    border-top: 1px solid var(--glass-border);
+    padding: 2rem 1.5rem; text-align: center;
+    color: rgba(255,255,255,0.3); font-size: 0.82rem; z-index: 2; position: relative;
+  }
+
+  /* GSAP reveal */
+  .rev { opacity: 0; transform: translateY(32px); }
+
+  /* Vertical guides */
+  .vguide { position: absolute; top: 0; bottom: 0; width: 1px; background: rgba(255,255,255,0.028); pointer-events: none; }
+
+  /* Sonar */
+  .sonar-dot {
+    position: relative; display: inline-block;
+    width: 10px; height: 10px; border-radius: 50%; background: var(--accent);
+  }
+  .sonar-dot::after {
+    content: ''; position: absolute;
+    inset: -5px; border-radius: 50%;
+    background: var(--accent); opacity: 0;
+    animation: sonar 2.5s ease-out infinite;
+  }
+  @keyframes sonar {
+    0% { transform: scale(1); opacity: 0.5; }
+    100% { transform: scale(1.6); opacity: 0; }
+  }
+
+  /* Learning resources */
+  .resource-link {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    color: var(--accent); font-size: 0.85rem; text-decoration: none; font-weight: 700;
+    transition: opacity 0.2s;
+  }
+  .resource-link:hover { opacity: 0.75; }
+</style>
+</head>
+<body>
+
+<!-- Cursor -->
+<div id="cursorDot"></div>
+<div id="cursorRing"></div>
+
+<!-- Spotlight -->
+<div id="spotlight"></div>
+
+<!-- Noise -->
+<svg class="noise-svg" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+  <filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="4" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>
+  <rect width="100%" height="100%" filter="url(#noise)"/>
+</svg>
+
+<!-- Nav -->
+<nav id="nav">
+  <a href="index.html" class="nav-logo">AI 課程</a>
+  <div class="nav-links">
+    <a href="index.html">首頁</a>
+    <a href="unit3.html">上一單元</a>
+    <a href="unit5.html">下一單元</a>
+    <a href="unit6.html" class="nav-pill">名詞解釋</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="vguide" style="left:8.33%"></div>
+  <div class="vguide" style="left:50%"></div>
+  <div class="vguide" style="right:8.33%"></div>
+
+  <div class="hero-tag">
+    <span class="iconify" data-icon="mdi:lightning-bolt"></span>
+    單元四
+  </div>
+  <h1 id="heroTitle">進階 <span>AI 工具</span><br>全面提升生產力</h1>
+  <p class="hero-desc">探索音樂語音 AI、智慧生產力工具、工作流自動化，以及下一代 AI Agent 的革命性潛力。</p>
+  <div class="hero-goals">
+    <div class="hero-goal">🎵 音樂與語音 AI</div>
+    <div class="hero-goal">🚀 生產力工具</div>
+    <div class="hero-goal">⚙️ 工作流自動化</div>
+    <div class="hero-goal">🤖 AI Agent</div>
+    <div class="hero-goal">🎬 影片生成</div>
+    <div class="hero-goal">🔌 Chrome 外掛</div>
+  </div>
+</section>
+
+<!-- SECTION 1: 音樂與語音 AI -->
+<section class="section">
+  <div class="container" style="position:relative">
+    <div class="num-deco">01</div>
+    <p class="section-label rev">音樂 · 語音</p>
+    <h2 class="section-title rev">音樂與語音 AI 應用</h2>
+    <p class="section-subtitle rev">利用 AI 技術，從文字直接生成旋律、歌曲或專業配音。</p>
+
+    <div class="tools-grid">
+
+      <div class="glass tool-card rev">
+        <div class="tool-badge">
+          <span class="iconify" data-icon="mdi:music-note"></span>
+          音樂創作
+        </div>
+        <div class="tool-name">🎶 SUNO</div>
+        <div class="tool-desc">目前全球最強大的 AI 音樂生成工具之一，可根據文字描述生成包含歌詞、旋律與人聲的完整歌曲。</div>
+        <div class="tool-features">
+          <div class="tool-feature">支援多種音樂風格：Pop, Rock, Jazz, EDM 等</div>
+          <div class="tool-feature">歌詞自動生成，高音質輸出</div>
+          <div class="tool-feature">應用：個人主題曲、社群媒體背景音樂、廣告配樂</div>
+        </div>
+        <a href="https://suno.com/" target="_blank" rel="noopener" class="tool-link">
+          前往 suno.com <span class="iconify" data-icon="mdi:open-in-new"></span>
+        </a>
+      </div>
+
+      <div class="glass tool-card rev">
+        <div class="tool-badge">
+          <span class="iconify" data-icon="mdi:volume-high"></span>
+          基礎配音
+        </div>
+        <div class="tool-name">🗣️ ttsmaker</div>
+        <div class="tool-desc">簡單易用的線上文字轉語音 (Text-to-Speech) 工具，介面直覺友善。</div>
+        <div class="tool-features">
+          <div class="tool-feature">支援多種語言與多樣化聲音選擇</div>
+          <div class="tool-feature">快速生成音檔，無需安裝</div>
+          <div class="tool-feature">應用：影片旁白、教學配音、語音訊息</div>
+        </div>
+        <a href="https://ttsmaker.com/" target="_blank" rel="noopener" class="tool-link">
+          前往 ttsmaker.com <span class="iconify" data-icon="mdi:open-in-new"></span>
+        </a>
+      </div>
+
+      <div class="glass tool-card rev">
+        <div class="tool-badge">
+          <span class="iconify" data-icon="mdi:microphone-variant"></span>
+          進階語音合成
+        </div>
+        <div class="tool-name">🎙️ F5-TTS</div>
+        <div class="tool-desc">基於最新研究技術的語音合成模型，提供極高自然度的語音輸出。</div>
+        <div class="tool-features">
+          <div class="tool-feature">強大的語音複製能力 (Voice Cloning)</div>
+          <div class="tool-feature">情感表達豐富，語調平滑自然</div>
+          <div class="tool-feature">應用：角色配音、高品質 Podcast、擬真音訊內容</div>
+        </div>
+        <a href="https://huggingface.co/spaces/mrfakename/E2-F5-TTS" target="_blank" rel="noopener" class="tool-link">
+          前往 Hugging Face <span class="iconify" data-icon="mdi:open-in-new"></span>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2: 影片生成 -->
+<section class="section" style="padding-top: 2rem">
+  <div class="container" style="position:relative">
+    <div class="num-deco">02</div>
+    <p class="section-label rev">影片生成</p>
+    <h2 class="section-title rev">AI 影片生成工具</h2>
+    <p class="section-subtitle rev">進入「文字轉影片」的全新時代，創造極具視覺衝擊力的內容。</p>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem">
+
+      <div class="glass video-card rev">
+        <div class="tool-badge">
+          <span class="iconify" data-icon="mdi:video-outline"></span>
+          ByteDance 出品
+        </div>
+        <div class="tool-name">✨ 既夢 AI (Jimeng AI)</div>
+        <div class="tool-desc">字節跳動推出的高品質影片生成模型，對指令理解精準，視覺風格多樣。</div>
+        <div class="tool-features">
+          <div class="tool-feature">對指令理解精準，生成效果可控</div>
+          <div class="tool-feature">視覺風格多樣，動作流暢度高</div>
+          <div class="tool-feature">應用：廣告短片、創意視覺藝術、短影音素材製作</div>
+        </div>
+        <a href="https://dreamina.capcut.com/ai-tool/home/" target="_blank" rel="noopener" class="tool-link">前往使用 →</a>
+      </div>
+
+      <div class="glass video-card rev">
+        <div class="tool-badge">
+          <span class="iconify" data-icon="mdi:movie-play-outline"></span>
+          Kuaishou 出品
+        </div>
+        <div class="tool-name">🐉 可靈 AI (Kling AI)</div>
+        <div class="tool-desc">快手開發的領先影片生成模型，被譽為目前的頂尖技術，物理真實感驚人。</div>
+        <div class="tool-features">
+          <div class="tool-feature">極高的影片時長潛力</div>
+          <div class="tool-feature">驚人的物理真實感，人物與動作一致性極佳</div>
+          <div class="tool-feature">應用：電影級特效模擬、寫實風格短片、高品質動畫製作</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3: 生產力工具 -->
+<section class="section" style="padding-top: 2rem">
+  <div class="container" style="position:relative">
+    <div class="num-deco">02</div>
+    <p class="section-label rev">知識管理</p>
+    <h2 class="section-title rev">生產力與知識管理工具</h2>
+    <p class="section-subtitle rev">將 AI 整合進工作流，加速資訊處理與決策速度。</p>
+
+    <div class="tools-grid">
+
+      <div class="glass tool-card rev">
+        <div class="tool-badge">
+          <span class="iconify" data-icon="mdi:google"></span>
+          Google AI
+        </div>
+        <div class="tool-name">📓 NotebookLM</div>
+        <div class="tool-desc">Google 推出的 AI 筆記與研究工具，專為理解複雜資料而設計，以「來源」為核心。</div>
+        <div class="tool-features">
+          <div class="tool-feature">僅根據你上傳的文件進行回答（不亂編造）</div>
+          <div class="tool-feature">自動生成摘要，甚至能生成「音訊對話摘要 (Audio Overview)」</div>
+          <div class="tool-feature">應用：論文閱讀、大量報告分析、專案知識庫建立</div>
+        </div>
+        <a href="https://notebooklm.google.com/" target="_blank" rel="noopener" class="tool-link">前往使用 →</a>
+      </div>
+
+      <div class="glass tool-card rev">
+        <div class="tool-badge">
+          <span class="iconify" data-icon="mdi:notebook-outline"></span>
+          全方位助手
+        </div>
+        <div class="tool-name">📝 Notion AI</div>
+        <div class="tool-desc">整合於 Notion 筆記軟體內的 AI 功能，讓工作記錄自動化智慧化。</div>
+        <div class="tool-features">
+          <div class="tool-feature">自動整理筆記、草擬文章、轉換語氣</div>
+          <div class="tool-feature">提取待辦事項、自動化資料庫填寫</div>
+          <div class="tool-feature">應用：會議記錄整理、專案管理、內容創作、個人知識管理</div>
+        </div>
+        <a href="https://www.notion.com/" target="_blank" rel="noopener" class="tool-link">前往使用 →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3: 工作流自動化 -->
+<section class="section" style="padding-top: 2rem">
+  <div class="container" style="position:relative">
+    <div class="num-deco">03</div>
+    <p class="section-label rev">自動化</p>
+    <h2 class="section-title rev">工作流自動化工具</h2>
+    <p class="section-subtitle rev">透過自動化平台將 AI 與各類 App 串聯，實現「無需人工干預」的任務自動化。</p>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem">
+
+      <div class="glass auto-card rev">
+        <div class="auto-badge" style="background: rgba(255,139,0,0.1); border: 1px solid rgba(255,139,0,0.3); color: #fb923c;">
+          ☁️ 視覺化平台
+        </div>
+        <div class="auto-name">Make（原 Integromat）</div>
+        <div class="auto-desc">強大的視覺化自動化平台，專為連接數千種 App 而設計。</div>
+        <div class="auto-features">
+          <div class="auto-feature"><strong style="color:#fff">視覺化介面</strong>：透過拖拉模組建立直覺工作流</div>
+          <div class="auto-feature"><strong style="color:#fff">高度邏輯化</strong>：支援複雜的分支判斷、迴圈與數據轉換</div>
+          <div class="auto-feature"><strong style="color:#fff">強大整合</strong>：支援幾乎所有主流 SaaS 服務</div>
+          <div class="auto-feature">應用：自動化行銷漏斗、跨平台資料同步、AI 自動回覆系統</div>
+        </div>
+        <a href="https://eu2.make.com/" target="_blank" rel="noopener" class="tool-link">前往使用 →</a>
+      </div>
+
+      <div class="glass auto-card rev">
+        <div class="auto-badge" style="background: rgba(99,102,241,0.1); border: 1px solid rgba(99,102,241,0.3); color: #818cf8;">
+          🔗 開源自架
+        </div>
+        <div class="auto-name">n8n</div>
+        <div class="auto-desc">高度靈活且可自架的節點式自動化工具，深受開發者與技術型使用者喜愛。</div>
+        <div class="auto-features">
+          <div class="auto-feature"><strong style="color:#fff">高度自定義</strong>：支援撰寫 JavaScript 節點，處理複雜邏輯</div>
+          <div class="auto-feature"><strong style="color:#fff">隱私與控制</strong>：支援 Self-hosted，資料完全掌控</div>
+          <div class="auto-feature"><strong style="color:#fff">強大 AI 整合</strong>：擁有豐富的 AI 節點，適合構建 AI Agent 工作流</div>
+          <div class="auto-feature">應用：企業級複雜流程、高度自定義 AI 代理人架構</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4: AI Agent (PROMINENT) -->
+<section class="section" style="padding-top: 2rem">
+  <div class="container" style="position:relative">
+    <div class="num-deco">04</div>
+    <p class="section-label rev">核心概念</p>
+    <h2 class="section-title rev">AI Agent<br>人工智慧代理</h2>
+
+    <!-- Hero quote card -->
+    <div class="agent-hero rev" style="margin-bottom: 2.5rem">
+      <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:1.75rem">
+        <div class="sonar-dot"></div>
+        <span style="font-size:0.78rem; color:var(--accent); font-weight:700; letter-spacing:0.1em; text-transform:uppercase">核心比喻</span>
+      </div>
+      <blockquote class="agent-quote">
+        「生成式 AI 就像一位『博學的教授』：你可以問他如何寫一封信，他會給你非常完美的草稿，但他不會幫你把信寄出去。」
+      </blockquote>
+      <blockquote class="agent-quote">
+        「AI Agent 就像一位『全能秘書』：你只要跟他說『幫我處理好這件事』，他不但會寫好信，還會主動去查對方的信箱、附加檔案、點擊發送，並在收到回信後提醒你。」
+      </blockquote>
+      <div class="agent-main-desc">
+        AI Agent 是一種具備<strong style="color:#fff">自主性、規劃能力、記憶力及工具調用能力</strong>的軟體系統，能主動感知環境並執行複雜任務，而不僅僅是問答聊天。它以生成式 AI (LLM) 為「大腦」，自主將高階目標拆解為步驟，並與各種軟體工具串接、執行行動，直至完成目標。
+      </div>
+    </div>
+
+    <!-- 3 Core capabilities -->
+    <p class="section-label rev" style="margin-top:3rem">核心能力</p>
+    <div class="capabilities-grid">
+      <div class="glass cap-card rev">
+        <div class="cap-icon">🧠</div>
+        <div class="cap-title">自主規劃 (Planning)</div>
+        <div class="cap-desc">能自動將繁雜任務分解成可執行的步驟，並在失敗時自我修正策略，持續調整直到完成目標。</div>
+      </div>
+      <div class="glass cap-card rev">
+        <div class="cap-icon">💾</div>
+        <div class="cap-title">記憶能力 (Memory)</div>
+        <div class="cap-desc">擁有短期與長期記憶來紀錄上下文和任務狀態，甚至能累積經驗優化未來表現。</div>
+      </div>
+      <div class="glass cap-card rev">
+        <div class="cap-icon">🔧</div>
+        <div class="cap-title">工具調用 (Tool Use)</div>
+        <div class="cap-desc">能像人一樣操作電腦、調用 API、使用搜尋引擎或點擊網頁，獲取外部資訊或執行動作。</div>
+      </div>
+    </div>
+
+    <!-- Chatbot vs Agent comparison -->
+    <p class="section-label rev" style="margin-top: 3.5rem">比較</p>
+    <h3 class="section-title rev" style="font-size: clamp(1.4rem, 3vw, 2rem)">Chatbot vs AI Agent</h3>
+    <div class="glass rev" style="overflow-x:auto; border-radius: 24px; margin-bottom: 2.5rem">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>特性</th>
+            <th>💬 Chatbot (生成式 AI)</th>
+            <th>🤖 AI Agent (代理人)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong style="color:#fff">運作模式</strong></td>
+            <td>「輸入 → 輸出」模式</td>
+            <td>「輸入 → 規劃 → 工具使用 → 行動 → 結果」模式</td>
+          </tr>
+          <tr>
+            <td><strong style="color:#fff">核心定位</strong></td>
+            <td>回答問題、生成內容，停留在回答階段</td>
+            <td>「數位執行分身」，幫你完成任務</td>
+          </tr>
+          <tr>
+            <td><strong style="color:#fff">自主性</strong></td>
+            <td>每次需要人工發起請求</td>
+            <td>可主動感知環境並自主行動</td>
+          </tr>
+          <tr>
+            <td><strong style="color:#fff">工具使用</strong></td>
+            <td>通常僅限於文字生成</td>
+            <td>可調用搜尋引擎、API、操作瀏覽器</td>
+          </tr>
+          <tr>
+            <td><strong style="color:#fff">記憶</strong></td>
+            <td>僅有對話內的短期上下文</td>
+            <td>具備短期與長期記憶，可學習優化</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Architecture -->
+    <p class="section-label rev">運作架構</p>
+    <div class="arch-row rev" style="flex-wrap: wrap">
+      <div class="arch-box">
+        <div class="arch-box-icon">🧠</div>
+        <div class="arch-box-title">大腦 (Brain/LLM)</div>
+        <div class="arch-box-desc">負責邏輯推理、規劃與決策</div>
+      </div>
+      <div class="arch-box">
+        <div class="arch-box-icon">👁️</div>
+        <div class="arch-box-title">感知 (Perception)</div>
+        <div class="arch-box-desc">理解外部環境的變化</div>
+      </div>
+      <div class="arch-box">
+        <div class="arch-box-icon">💾</div>
+        <div class="arch-box-title">記憶 (Memory)</div>
+        <div class="arch-box-desc">紀錄歷史紀錄與中間狀態</div>
+      </div>
+      <div class="arch-box">
+        <div class="arch-box-icon">⚡</div>
+        <div class="arch-box-title">行動 (Action)</div>
+        <div class="arch-box-desc">實際執行任務的工具能力</div>
+      </div>
+    </div>
+
+    <!-- Trends -->
+    <div class="glass rev" style="padding: 2rem; border-radius: 24px; margin-top: 2rem; border-color: rgba(16,185,129,0.2)">
+      <p style="font-size:0.75rem; font-weight:700; letter-spacing:0.1em; color:var(--accent); text-transform:uppercase; margin-bottom:1rem">🌟 熱門趨勢與實例</p>
+      <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap:1rem">
+        <div style="background:rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); border-radius:16px; padding:1.25rem">
+          <div style="font-weight:700; color:#fff; margin-bottom:0.4rem">Manus</div>
+          <div style="font-size:0.82rem; color:rgba(255,255,255,0.6); line-height:1.65">具備強大執行能力的 AI Agent，能自主操作瀏覽器處理複雜任務，是目前最具代表性的 Agent 工具之一。</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); border-radius:16px; padding:1.25rem">
+          <div style="font-weight:700; color:#fff; margin-bottom:0.4rem">OpenAI Operator</div>
+          <div style="font-size:0.82rem; color:rgba(255,255,255,0.6); line-height:1.65">自動化操作瀏覽器，能幫用戶完成網頁上的各種操作任務，展示了 Agent 自主操作的趨勢。</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); border-radius:16px; padding:1.25rem">
+          <div style="font-weight:700; color:#fff; margin-bottom:0.4rem">Deep Research</div>
+          <div style="font-size:0.82rem; color:rgba(255,255,255,0.6); line-height:1.65">自動化深度研究工具，能自主搜集、分析、整理資料並生成完整研究報告。</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SECTION 6: Chrome 外掛 -->
+<section class="section" style="padding-top: 2rem">
+  <div class="container" style="position:relative">
+    <div class="num-deco">06</div>
+    <p class="section-label rev">實用工具</p>
+    <h2 class="section-title rev">實用 Chrome 外掛</h2>
+    <p class="section-subtitle rev">讓瀏覽器變成 AI 加持的生產力工具。</p>
+
+    <div style="display: flex; flex-direction: column; gap: 1.25rem">
+
+      <div class="glass ext-card rev">
+        <div class="ext-icon-box">📺</div>
+        <div>
+          <div class="ext-name">YouTube Summary with ChatGPT</div>
+          <div class="ext-desc">快速摘要 YouTube 影片內容，幫助你快速抓到重點，節省大量觀看時間。特別適合學習型影片、長篇演講、課程內容。</div>
+          <a href="https://chromewebstore.google.com/detail/youtube-summary-with-chat/nmmicjeknamkfloonkhhcjmomieiodli" target="_blank" rel="noopener" class="ext-link">
+            前往 Chrome 線上應用程式商店 <span class="iconify" data-icon="mdi:open-in-new"></span>
+          </a>
+        </div>
+      </div>
+
+      <div class="glass ext-card rev">
+        <div class="ext-icon-box">🌐</div>
+        <div>
+          <div class="ext-name">沉浸式翻譯 — 網頁翻譯及 PDF 翻譯</div>
+          <div class="ext-desc">提供優質的雙語對照翻譯體驗，支援網頁與 PDF 文件。原文與譯文並排顯示，非常適合閱讀外文資料、學術論文、英文新聞。</div>
+          <a href="https://chromewebstore.google.com/detail/%E6%B2%89%E6%B5%B8%E5%BC%8F%E7%BF%BB%E8%AD%AF-%E7%B6%B2%E9%A0%81%E7%BF%BB%E8%AD%AF%E5%8F%8A-pdf%E7%BF%BB%E8%AD%AF/bpoadfkcbjbfhfodiogcnhhhpibjhbnh" target="_blank" rel="noopener" class="ext-link">
+            前往 Chrome 線上應用程式商店 <span class="iconify" data-icon="mdi:open-in-new"></span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 7: 推薦資源 -->
+<section class="section" style="padding-top: 2rem">
+  <div class="container" style="position:relative">
+    <div class="num-deco">07</div>
+    <p class="section-label rev">學習資源</p>
+    <h2 class="section-title rev">推薦學習頻道</h2>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.25rem">
+      <div class="glass rev" style="padding: 1.75rem; border-radius: 24px; transition: border-color 0.3s" onmouseenter="this.style.borderColor='rgba(16,185,129,0.3)'" onmouseleave="this.style.borderColor=''">
+        <div style="font-size:2rem; margin-bottom:0.75rem">🔬</div>
+        <div style="font-weight:700; color:#fff; margin-bottom:0.5rem">PanSci 泛科學</div>
+        <div style="font-size:0.82rem; color:rgba(255,255,255,0.55); line-height:1.65; margin-bottom:1rem">科學知識普及，含大量 AI 與科技相關主題影片，解說清晰易懂。</div>
+        <a href="https://www.youtube.com/@panscischool" target="_blank" rel="noopener" class="resource-link">
+          YouTube 頻道 <span class="iconify" data-icon="mdi:open-in-new"></span>
+        </a>
+      </div>
+      <div class="glass rev" style="padding: 1.75rem; border-radius: 24px; transition: border-color 0.3s" onmouseenter="this.style.borderColor='rgba(16,185,129,0.3)'" onmouseleave="this.style.borderColor=''">
+        <div style="font-size:2rem; margin-bottom:0.75rem">🎓</div>
+        <div style="font-weight:700; color:#fff; margin-bottom:0.5rem">Papaya Class</div>
+        <div style="font-size:0.82rem; color:rgba(255,255,255,0.55); line-height:1.65; margin-bottom:1rem">實用技能教學頻道，AI 工具操作教學豐富，適合初學者快速上手。</div>
+        <a href="https://www.youtube.com/@papayaclass" target="_blank" rel="noopener" class="resource-link">
+          YouTube 頻道 <span class="iconify" data-icon="mdi:open-in-new"></span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Checklist -->
+<section class="section" style="padding-top: 2rem">
+  <div class="container">
+    <p class="section-label rev">學習確認</p>
+    <h2 class="section-title rev">單元四 學習清單</h2>
+    <p class="section-subtitle rev">完成這些項目，代表你已掌握本單元核心技能。</p>
+
+    <div class="checklist">
+      <div class="check-item rev">
+        <div class="check-box"></div>
+        我嘗試用 SUNO 生成了一段 AI 音樂
+      </div>
+      <div class="check-item rev">
+        <div class="check-box"></div>
+        我了解 NotebookLM 如何根據上傳文件進行問答
+      </div>
+      <div class="check-item rev">
+        <div class="check-box"></div>
+        我能說明 Make 與 n8n 的主要差異與使用場景
+      </div>
+      <div class="check-item rev">
+        <div class="check-box"></div>
+        我能清楚解釋 AI Agent 與 Chatbot 的核心差異
+      </div>
+      <div class="check-item rev">
+        <div class="check-box"></div>
+        我了解 AI Agent 的四個核心架構：大腦、感知、記憶、行動
+      </div>
+      <div class="check-item rev">
+        <div class="check-box"></div>
+        我知道既夢 AI 與可靈 AI 的特色與應用場景
+      </div>
+      <div class="check-item rev">
+        <div class="check-box"></div>
+        我已安裝至少一個實用的 Chrome AI 外掛
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Unit Nav -->
+<section class="section" style="padding: 2rem 1.5rem">
+  <div class="container">
+    <div class="glass unit-nav rev">
+      <a href="unit3.html" class="unit-nav-btn">
+        <span class="iconify" data-icon="mdi:arrow-left"></span>
+        <div><span>上一單元</span><br>單元三：AI 實作入門</div>
+      </a>
+      <a href="index.html" style="color:rgba(255,255,255,0.4); font-size:0.8rem; text-decoration:none">返回首頁</a>
+      <a href="unit5.html" class="unit-nav-btn">
+        <div style="text-align:right"><span>下一單元</span><br>單元五：安全與未來</div>
+        <span class="iconify" data-icon="mdi:arrow-right"></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 AI 基礎與應用課程 | 單元四：進階 AI 工具</p>
+</footer>
+
+<script>
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Cursor
+  const dot = document.getElementById('cursorDot');
+  const ring = document.getElementById('cursorRing');
+  const spotlight = document.getElementById('spotlight');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    dot.style.left = mx + 'px'; dot.style.top = my + 'px';
+    spotlight.style.background = `radial-gradient(700px at ${mx}px ${my}px, rgba(16,185,129,0.08), transparent 70%)`;
+  });
+
+  (function loop() {
+    rx += (mx - rx) * 0.13; ry += (my - ry) * 0.13;
+    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+    requestAnimationFrame(loop);
+  })();
+
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      ring.style.width = '60px'; ring.style.height = '60px';
+      ring.style.borderColor = 'rgba(16,185,129,0.6)';
+    });
+    el.addEventListener('mouseleave', () => {
+      ring.style.width = '40px'; ring.style.height = '40px';
+      ring.style.borderColor = 'rgba(255,255,255,0.35)';
+    });
+  });
+
+  // Nav shrink
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('shrunk', window.scrollY > 60);
+  });
+
+  // Hero animation
+  gsap.from('#heroTitle', { duration: 1.2, y: 40, opacity: 0, ease: 'power3.out', delay: 0.3 });
+  gsap.from('.hero-desc', { duration: 1, y: 30, opacity: 0, ease: 'power3.out', delay: 0.55 });
+  gsap.from('.hero-tag', { duration: 0.8, y: 20, opacity: 0, ease: 'power3.out', delay: 0.1 });
+  gsap.from('.hero-goal', { duration: 0.8, y: 20, opacity: 0, stagger: 0.1, ease: 'power3.out', delay: 0.75 });
+
+  // Scroll reveals
+  gsap.utils.toArray('.rev').forEach(el => {
+    gsap.to(el, {
+      scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' },
+      y: 0, opacity: 1, duration: 0.8, ease: 'power3.out'
+    });
+  });
+</script>
+</body>
+</html>

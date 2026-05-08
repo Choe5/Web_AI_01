@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>講師介紹 — 周丘 Choe | AI 基礎與應用課程</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+  <style>
+    :root{--bg:#060912;--accent:#EC4899;--accent-dim:rgba(236,72,153,.12);--accent-border:rgba(236,72,153,.25);--text:#F1F5F9;--muted:#94A3B8;--border:rgba(255,255,255,.08);--glass:rgba(255,255,255,.04);--r:32px;}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;font-size:18px;}
+    body{font-family:'Noto Sans TC','Space Grotesk',sans-serif;background:var(--bg);color:var(--text);cursor:none;overflow-x:hidden;}
+    .noise-svg{position:fixed;inset:0;width:100%;height:100%;opacity:.045;pointer-events:none;z-index:9998;}
+    #spotlight{position:fixed;inset:0;pointer-events:none;z-index:1;background:radial-gradient(700px at 50% 50%,rgba(236,72,153,.06),transparent 70%);transition:background .1s linear;}
+    #cursorDot{position:fixed;width:8px;height:8px;background:#fff;border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;z-index:10000;transition:transform .15s,background .2s;}
+    #cursorRing{position:fixed;width:40px;height:40px;border:1.5px solid rgba(255,255,255,.35);border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;z-index:9999;transition:width .25s,height .25s,border-color .25s;}
+    body.hovering #cursorDot{transform:translate(-50%,-50%) scale(3);background:var(--accent);}
+    body.hovering #cursorRing{width:64px;height:64px;border-color:rgba(236,72,153,.35);}
+    .glass{background:var(--glass);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:var(--r);transition:all .35s cubic-bezier(.16,1,.3,1);}
+    .glass:hover{background:rgba(255,255,255,.065);border-color:rgba(255,255,255,.14);}
+    .nav-bar{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(6,9,18,.78);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);padding:.9rem 1.5rem;display:flex;align-items:center;justify-content:space-between;transition:padding .3s;}
+    .logo{display:flex;align-items:center;gap:.625rem;}
+    .logo-icon{width:2rem;height:2rem;border-radius:.5rem;background:linear-gradient(135deg,#3B82F6,#8B5CF6);display:flex;align-items:center;justify-content:center;}
+    .nav-links{display:flex;align-items:center;gap:2rem;font-size:.82rem;color:#CBD5E1;}
+    .nav-links a{text-decoration:none;color:#CBD5E1;transition:color .2s;}
+    .nav-links a:hover{color:#F1F5F9;} .nav-links a.active{color:#F9A8D4;}
+    .btn-ghost{border:1px solid rgba(255,255,255,.15);border-radius:999px;color:rgba(255,255,255,.9);font-weight:500;padding:.45rem 1.1rem;transition:all .3s;display:inline-flex;align-items:center;gap:.4rem;font-size:.82rem;text-decoration:none;cursor:none;}
+    .btn-ghost:hover{border-color:rgba(255,255,255,.35);color:#fff;background:rgba(255,255,255,.06);}
+    .btn-primary{background:linear-gradient(135deg,#EC4899,#8B5CF6);border-radius:999px;color:white;font-weight:600;padding:.75rem 2rem;transition:all .3s;display:inline-flex;align-items:center;gap:.5rem;font-size:.95rem;text-decoration:none;cursor:none;}
+    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 32px rgba(236,72,153,.3);}
+    .guide-lines{position:absolute;inset:0;display:flex;justify-content:space-evenly;pointer-events:none;}
+    .guide-line{width:1px;height:100%;background:rgba(255,255,255,.028);}
+    .num-deco{font-family:'Space Grotesk',sans-serif;font-weight:900;color:rgba(255,255,255,.022);line-height:1;position:absolute;user-select:none;pointer-events:none;}
+    ::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-track{background:var(--bg);}::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:2px;}
+    @media(max-width:768px){#cursorDot,#cursorRing{display:none;}body{cursor:auto;}.nav-links{display:none;}}
+  </style>
+</head>
+<body>
+  <svg class="noise-svg" xmlns="http://www.w3.org/2000/svg"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="4" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100%" height="100%" filter="url(#n)"/></svg>
+  <div id="spotlight"></div>
+  <div id="cursorDot"></div>
+  <div id="cursorRing"></div>
+
+  <nav class="nav-bar">
+    <div class="logo"><div class="logo-icon"><iconify-icon icon="mdi:robot-outline" width="16" style="color:white;"></iconify-icon></div><span style="font-weight:700;font-size:.875rem;">AI 課程</span></div>
+    <div class="nav-links">
+      <a href="index.html">首頁</a><a href="unit1.html">單元一</a><a href="unit5.html">單元五</a><a href="unit6.html">名詞解釋</a><a href="unit7.html" class="active">講師介紹</a>
+    </div>
+    <a href="index.html" class="btn-ghost"><iconify-icon icon="mdi:arrow-left" width="14"></iconify-icon> 返回首頁</a>
+  </nav>
+
+  <!-- Hero -->
+  <section style="position:relative;padding:8rem 1.5rem 4rem;overflow:hidden;min-height:80vh;display:flex;align-items:center;">
+    <div class="guide-lines"><div class="guide-line"></div><div class="guide-line"></div><div class="guide-line"></div><div class="guide-line"></div></div>
+    <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.016) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.016) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;"></div>
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 80% 70% at 50% 50%,rgba(236,72,153,.07),rgba(139,92,246,.04),transparent 70%);pointer-events:none;"></div>
+    <span class="num-deco" style="font-size:clamp(8rem,20vw,18rem);right:-1rem;top:-1rem;opacity:.018;"></span>
+
+    <div style="max-width:900px;margin:0 auto;position:relative;z-index:2;display:flex;flex-wrap:wrap;align-items:center;gap:4rem;" id="heroContent">
+      <!-- Avatar -->
+      <div style="flex-shrink:0;">
+        <div style="width:9rem;height:9rem;border-radius:2rem;position:relative;margin-bottom:1.25rem;box-shadow:0 0 60px rgba(236,72,153,.25);overflow:hidden;">
+          <img src="profile.jpg" alt="講師照片" style="width:100%;height:100%;object-fit:cover;display:block;">
+          <div style="position:absolute;inset:-4px;border-radius:2.25rem;border:1px solid rgba(236,72,153,.3);pointer-events:none;"></div>
+        </div>
+        <div style="display:flex;gap:.5rem;justify-content:center;">
+          <span style="display:inline-flex;align-items:center;padding:.2rem .65rem;border-radius:999px;font-size:.7rem;font-weight:500;border:1px solid rgba(236,72,153,.3);color:#EC4899;background:rgba(236,72,153,.08);">INFJ</span>
+          <span style="display:inline-flex;align-items:center;padding:.2rem .65rem;border-radius:999px;font-size:.7rem;font-weight:500;border:1px solid rgba(139,92,246,.3);color:#8B5CF6;background:rgba(139,92,246,.08);">創作者</span>
+        </div>
+      </div>
+
+      <!-- Info -->
+      <div style="flex:1;min-width:260px;">
+        <div style="font-size:.68rem;font-weight:600;color:#F9A8D4;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.75rem;">INSTRUCTOR</div>
+        <h1 style="font-size:clamp(2rem,5vw,3.5rem);font-weight:900;letter-spacing:-.02em;line-height:1.1;margin-bottom:.75rem;">
+          周丘<br><span style="font-family:'Space Grotesk',sans-serif;font-size:clamp(1.2rem,3vw,2rem);background:linear-gradient(135deg,#EC4899,#8B5CF6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Choe</span>
+        </h1>
+        <p style="color:#CBD5E1;font-size:1rem;line-height:1.85;margin-bottom:2rem;max-width:480px;">一個不小心活超過 40 歲的 INFJ 創作者<br>40 歲那年，送自己一份生日禮物：<br>離職 ＋ 出國 ＋ 有點搞不清楚方向的旅程組合包 🎁</p>
+        <div style="display:flex;flex-wrap:wrap;gap:1rem;">
+          <a href="https://www.linkedin.com/in/chin-yuan-chou-ba6b6a110/" target="_blank" class="btn-primary">
+            <iconify-icon icon="mdi:linkedin" width="20"></iconify-icon> LinkedIn 聯絡我
+          </a>
+          <a href="index.html" class="btn-ghost">
+            <iconify-icon icon="mdi:book-open-outline" width="16"></iconify-icon> 查看課程
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main style="max-width:800px;margin:0 auto;padding:0 1.5rem 6rem;">
+
+    <!-- Story section -->
+    <div class="glass" style="padding:2.5rem;margin-bottom:2rem;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#EC4899,#8B5CF6,transparent);"></div>
+      <div style="font-size:.68rem;font-weight:600;color:#F9A8D4;letter-spacing:.12em;text-transform:uppercase;margin-bottom:1rem;">MY STORY</div>
+      <h2 style="font-size:1.5rem;font-weight:800;margin-bottom:1.5rem;">40 歲的禮物</h2>
+      <div style="color:#CBD5E1;line-height:2;font-size:.9rem;">
+        <p style="margin-bottom:1rem;">40 歲那年，我做了一個讓周圍所有人都很困惑的決定——離職。</p>
+        <p style="margin-bottom:1rem;">不是因為工作不好，也不是因為遇到了什麼大問題。只是突然覺得，如果不在這個時候探索一下，等到 50 歲再回頭看，可能會有點遺憾。</p>
+        <p style="margin-bottom:1rem;">所以我送了自己一份禮物：<strong style="color:#E2E8F0;">離職 ＋ 出國 ＋ 有點搞不清楚方向的旅程組合包。</strong></p>
+        <p>跨越地理的邊界探索生命，同時深度關注 AI 科技脈動。我不止步於觀望，而是以實踐者的視角，深入探究技術的核心。這門課程，不賣弄術語，只有我這顆『普通人大腦』學習後的筆記整理，希望能成為對你有用的知識分享。</p>
+      </div>
+    </div>
+
+    <!-- Course section -->
+    <div class="glass" style="padding:2rem;margin-bottom:2rem;">
+      <div style="font-size:.68rem;font-weight:600;color:#A78BFA;letter-spacing:.12em;text-transform:uppercase;margin-bottom:1rem;">THIS COURSE</div>
+      <h2 style="font-size:1.2rem;font-weight:800;margin-bottom:1rem;">關於這門課</h2>
+      <p style="color:#CBD5E1;line-height:1.85;font-size:.875rem;margin-bottom:1rem;">這是一門為「沒有程式背景的人」設計的 AI 課程。不需要懂程式碼，不需要是技術人員，只需要帶著好奇心。</p>
+      <p style="color:#CBD5E1;line-height:1.85;font-size:.875rem;">從 AI 是什麼、到怎麼用、到要小心什麼，我們一起把這個複雜的主題，用最清楚的方式說明白。</p>
+    </div>
+
+    <!-- Values -->
+    <h2 style="font-size:1.2rem;font-weight:800;margin-bottom:1.25rem;">教學理念</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem;margin-bottom:3rem;">
+      <div class="glass" style="padding:1.5rem;text-align:center;border-top:2px solid #3B82F6;">
+        <iconify-icon icon="mdi:book-open-outline" width="32" style="color:#3B82F6;margin-bottom:.75rem;display:block;"></iconify-icon>
+        <h3 style="font-size:.95rem;font-weight:700;margin-bottom:.5rem;">持續學習</h3>
+        <p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">技術快速演進，保持好奇心是唯一不落伍的方法。</p>
+      </div>
+      <div class="glass" style="padding:1.5rem;text-align:center;border-top:2px solid #EC4899;">
+        <iconify-icon icon="mdi:wrench-outline" width="32" style="color:#EC4899;margin-bottom:.75rem;display:block;"></iconify-icon>
+        <h3 style="font-size:.95rem;font-weight:700;margin-bottom:.5rem;">實用導向</h3>
+        <p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">真正有用的 AI 工具與技巧，而非理論的堆砌。</p>
+      </div>
+      <div class="glass" style="padding:1.5rem;text-align:center;border-top:2px solid #8B5CF6;">
+        <iconify-icon icon="mdi:heart-outline" width="32" style="color:#8B5CF6;margin-bottom:.75rem;display:block;"></iconify-icon>
+        <h3 style="font-size:.95rem;font-weight:700;margin-bottom:.5rem;">人本關懷</h3>
+        <p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">理解 AI 的社會影響，讓科技服務人類生活。</p>
+      </div>
+    </div>
+
+    <!-- LinkedIn CTA -->
+    <div class="glass" style="padding:2.5rem;text-align:center;border-color:rgba(236,72,153,.2);position:relative;overflow:hidden;margin-bottom:2rem;">
+      <div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(236,72,153,.05),transparent 70%);pointer-events:none;"></div>
+      <div style="position:relative;z-index:1;">
+        <iconify-icon icon="mdi:linkedin" width="40" style="color:#0A66C2;display:block;margin:0 auto 1rem;"></iconify-icon>
+        <h3 style="font-size:1.1rem;font-weight:700;margin-bottom:.75rem;">讓我們在 LinkedIn 上連結</h3>
+        <p style="color:#CBD5E1;font-size:.875rem;margin-bottom:1.5rem;line-height:1.7;">歡迎分享您的 AI 學習心得，或提出任何問題。</p>
+        <a href="https://www.linkedin.com/in/chin-yuan-chou-ba6b6a110/" target="_blank" class="btn-primary" style="display:inline-flex;">
+          <iconify-icon icon="mdi:linkedin" width="20"></iconify-icon> 前往 LinkedIn
+        </a>
+      </div>
+    </div>
+
+    <!-- Return CTA -->
+    <div style="text-align:center;">
+      <p style="color:#94A3B8;font-size:.875rem;margin-bottom:1.5rem;">準備好開始學習了嗎？</p>
+      <a href="index.html" class="btn-ghost" style="font-size:1rem;padding:.75rem 2rem;">
+        <iconify-icon icon="mdi:home-outline" width="18"></iconify-icon> 回到課程首頁
+      </a>
+    </div>
+
+  </main>
+
+  <!-- Prev/Next -->
+  <div style="max-width:920px;margin:0 auto;padding:0 1.5rem 4rem;display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+    <a href="unit6.html" class="glass" style="padding:1.25rem;text-decoration:none;display:flex;align-items:center;gap:.75rem;transition:all .3s;border-radius:1rem;"><iconify-icon icon="mdi:arrow-left" width="18" style="color:#CBD5E1;"></iconify-icon><div><div style="font-size:.68rem;color:#94A3B8;margin-bottom:.2rem;">上一頁</div><div style="font-size:.875rem;font-weight:600;">名詞解釋</div></div></a>
+    <a href="index.html" class="glass" style="padding:1.25rem;text-decoration:none;display:flex;align-items:center;justify-content:flex-end;gap:.75rem;transition:all .3s;border-radius:1rem;border-color:rgba(59,130,246,.2);"><div style="text-align:right;"><div style="font-size:.68rem;color:#60A5FA;margin-bottom:.2rem;">返回</div><div style="font-size:.875rem;font-weight:600;">課程首頁</div></div><iconify-icon icon="mdi:home-outline" width="18" style="color:#3B82F6;"></iconify-icon></a>
+  </div>
+
+  <footer style="border-top:1px solid rgba(255,255,255,.05);padding:2.5rem 1.5rem;">
+    <div style="max-width:1280px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1.5rem;">
+      <div style="display:flex;align-items:center;gap:.875rem;"><div style="width:2rem;height:2rem;border-radius:.5rem;background:linear-gradient(135deg,#3B82F6,#8B5CF6);display:flex;align-items:center;justify-content:center;"><iconify-icon icon="mdi:robot-outline" width="16" style="color:white;"></iconify-icon></div><div><div style="font-size:.875rem;font-weight:600;">AI 基礎與應用課程</div><div style="font-size:.72rem;color:#94A3B8;">© 2026 Choe · 持續學習，掌握未來</div></div></div>
+      <div style="display:flex;align-items:center;gap:1.5rem;font-size:.82rem;flex-wrap:wrap;"><a href="index.html" style="color:#94A3B8;text-decoration:none;" onmouseover="this.style.color='#F1F5F9'" onmouseout="this.style.color='#94A3B8'">首頁</a><a href="unit1.html" style="color:#94A3B8;text-decoration:none;" onmouseover="this.style.color='#F1F5F9'" onmouseout="this.style.color='#94A3B8'">開始學習</a><a href="https://www.linkedin.com/in/chin-yuan-chou-ba6b6a110/" target="_blank" style="color:#94A3B8;text-decoration:none;display:flex;align-items:center;gap:.3rem;" onmouseover="this.style.color='#F1F5F9'" onmouseout="this.style.color='#94A3B8'"><iconify-icon icon="mdi:linkedin" width="14"></iconify-icon>LinkedIn</a></div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script>
+    const dot=document.getElementById('cursorDot'),ring=document.getElementById('cursorRing'),spotlight=document.getElementById('spotlight');
+    let mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';spotlight.style.background=`radial-gradient(700px at ${mx}px ${my}px,rgba(236,72,153,.07),transparent 70%)`;});
+    (function loop(){rx+=(mx-rx)*.13;ry+=(my-ry)*.13;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
+    document.querySelectorAll('a,button,.glass').forEach(el=>{el.addEventListener('mouseenter',()=>document.body.classList.add('hovering'));el.addEventListener('mouseleave',()=>document.body.classList.remove('hovering'));});
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.from('#heroContent',{opacity:0,y:48,duration:1,ease:'power3.out',delay:.15});
+    gsap.utils.toArray('.glass').forEach((el,i)=>{gsap.fromTo(el,{opacity:0,y:30},{opacity:1,y:0,duration:.8,ease:'power3.out',delay:(i%3)*.08,scrollTrigger:{trigger:el,start:'top 90%',toggleActions:'play none none none'}});});
+    window.addEventListener('scroll',()=>{document.querySelector('.nav-bar').style.padding=window.scrollY>60?'.55rem 1.5rem':'.9rem 1.5rem';});
+  </script>
+</body>
+</html>

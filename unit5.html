@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>單元五：安全與未來 | AI 基礎與應用課程</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+  <style>
+    :root{--bg:#060912;--accent:#F43F5E;--accent-dim:rgba(244,63,94,.12);--accent-border:rgba(244,63,94,.25);--text:#F1F5F9;--muted:#94A3B8;--border:rgba(255,255,255,.08);--glass:rgba(255,255,255,.04);--r:32px;}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;font-size:18px;}
+    body{font-family:'Noto Sans TC','Space Grotesk',sans-serif;background:var(--bg);color:var(--text);cursor:none;overflow-x:hidden;}
+    .noise-svg{position:fixed;inset:0;width:100%;height:100%;opacity:.045;pointer-events:none;z-index:9998;}
+    #spotlight{position:fixed;inset:0;pointer-events:none;z-index:1;background:radial-gradient(700px at 50% 50%,rgba(244,63,94,.06),transparent 70%);transition:background .1s linear;}
+    #cursorDot{position:fixed;width:8px;height:8px;background:#fff;border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;z-index:10000;transition:transform .15s,background .2s;}
+    #cursorRing{position:fixed;width:40px;height:40px;border:1.5px solid rgba(255,255,255,.35);border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;z-index:9999;transition:width .25s,height .25s,border-color .25s;}
+    body.hovering #cursorDot{transform:translate(-50%,-50%) scale(3);background:var(--accent);}
+    body.hovering #cursorRing{width:64px;height:64px;border-color:rgba(244,63,94,.35);}
+    .glass{background:var(--glass);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:var(--r);transition:all .35s cubic-bezier(.16,1,.3,1);}
+    .glass:hover{background:rgba(255,255,255,.065);border-color:rgba(255,255,255,.14);}
+    .nav-bar{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(6,9,18,.78);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);padding:.9rem 1.5rem;display:flex;align-items:center;justify-content:space-between;transition:padding .3s;}
+    .logo{display:flex;align-items:center;gap:.625rem;}
+    .logo-icon{width:2rem;height:2rem;border-radius:.5rem;background:linear-gradient(135deg,#3B82F6,#8B5CF6);display:flex;align-items:center;justify-content:center;}
+    .nav-links{display:flex;align-items:center;gap:2rem;font-size:.82rem;color:#CBD5E1;}
+    .nav-links a{text-decoration:none;color:#CBD5E1;transition:color .2s;}
+    .nav-links a:hover{color:#F1F5F9;} .nav-links a.active{color:#FB7185;}
+    .btn-ghost{border:1px solid rgba(255,255,255,.15);border-radius:999px;color:rgba(255,255,255,.9);font-weight:500;padding:.45rem 1.1rem;transition:all .3s;display:inline-flex;align-items:center;gap:.4rem;font-size:.82rem;text-decoration:none;cursor:none;}
+    .btn-ghost:hover{border-color:rgba(255,255,255,.35);color:#fff;background:rgba(255,255,255,.06);}
+    .guide-lines{position:absolute;inset:0;display:flex;justify-content:space-evenly;pointer-events:none;}
+    .guide-line{width:1px;height:100%;background:rgba(255,255,255,.028);}
+    .num-deco{font-family:'Space Grotesk',sans-serif;font-weight:900;color:rgba(255,255,255,.022);line-height:1;position:absolute;user-select:none;pointer-events:none;}
+    .gradient-text{background:linear-gradient(135deg,#60A5FA,#A78BFA,#34D399);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+    .section-label{display:flex;align-items:center;gap:.875rem;margin-bottom:.625rem;}
+    .section-label::before{content:'';display:block;width:2rem;height:1px;background:var(--accent);}
+    .section-label span{font-size:.68rem;font-weight:600;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;}
+    .tag{display:inline-flex;align-items:center;padding:.2rem .65rem;border-radius:999px;font-size:.7rem;font-weight:500;border:1px solid;}
+    table{width:100%;border-collapse:collapse;}
+    table th{text-align:left;padding:.6rem 1rem;font-size:.78rem;font-weight:600;color:#94A3B8;background:rgba(255,255,255,.03);border-bottom:1px solid rgba(255,255,255,.07);}
+    table td{padding:.65rem 1rem;font-size:.82rem;color:#94A3B8;border-bottom:1px solid rgba(255,255,255,.04);line-height:1.6;}
+    table td:first-child{color:#E2E8F0;font-weight:500;}
+    ::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-track{background:var(--bg);}::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:2px;}
+    @media(max-width:768px){#cursorDot,#cursorRing{display:none;}body{cursor:auto;}.nav-links{display:none;}}
+    .checklist-item{display:flex;align-items:flex-start;gap:.75rem;padding:.75rem 0;border-bottom:1px solid rgba(255,255,255,.05);}
+  </style>
+</head>
+<body>
+  <svg class="noise-svg" xmlns="http://www.w3.org/2000/svg"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="4" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100%" height="100%" filter="url(#n)"/></svg>
+  <div id="spotlight"></div>
+  <div id="cursorDot"></div>
+  <div id="cursorRing"></div>
+
+  <nav class="nav-bar">
+    <div class="logo"><div class="logo-icon"><iconify-icon icon="mdi:robot-outline" width="16" style="color:white;"></iconify-icon></div><span style="font-weight:700;font-size:.875rem;">AI 課程</span></div>
+    <div class="nav-links">
+      <a href="index.html">首頁</a><a href="unit1.html">單元一</a><a href="unit2.html">單元二</a><a href="unit3.html">單元三</a><a href="unit4.html">單元四</a><a href="unit5.html" class="active">單元五</a>
+    </div>
+    <a href="index.html" class="btn-ghost"><iconify-icon icon="mdi:arrow-left" width="14"></iconify-icon> 返回首頁</a>
+  </nav>
+
+  <!-- Hero -->
+  <section style="position:relative;padding:8rem 1.5rem 4rem;overflow:hidden;min-height:52vh;display:flex;align-items:center;">
+    <div class="guide-lines"><div class="guide-line"></div><div class="guide-line"></div><div class="guide-line"></div><div class="guide-line"></div></div>
+    <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.016) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.016) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;"></div>
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(244,63,94,.08),transparent);pointer-events:none;"></div>
+    <span class="num-deco" style="font-size:clamp(10rem,22vw,20rem);right:-1rem;top:-2rem;opacity:.018;">5</span>
+    <div style="max-width:800px;margin:0 auto;position:relative;z-index:2;" id="heroContent">
+      <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:1.25rem;">
+        <div style="width:2.5rem;height:2.5rem;border-radius:.75rem;background:var(--accent-dim);border:1px solid var(--accent-border);display:flex;align-items:center;justify-content:center;"><iconify-icon icon="mdi:shield-lock-outline" width="20" style="color:#F43F5E;"></iconify-icon></div>
+        <div><div style="font-size:.68rem;font-weight:600;color:#FB7185;letter-spacing:.12em;text-transform:uppercase;">UNIT 05</div><div style="font-size:.75rem;color:#94A3B8;">AI 基礎與應用課程</div></div>
+      </div>
+      <h1 style="font-size:clamp(2.2rem,6vw,4rem);font-weight:900;letter-spacing:-.02em;line-height:1.1;margin-bottom:1.25rem;">安全與<span style="background:linear-gradient(135deg,#F43F5E,#FB7185);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">未來</span></h1>
+      <p style="color:#CBD5E1;font-size:1rem;line-height:1.8;max-width:560px;margin-bottom:2rem;">理解 AI 帶來的挑戰與未來發展趨勢，建立面對 AI 時代的核心思維與倫理責任感。</p>
+      <div style="display:flex;gap:.75rem;flex-wrap:wrap;">
+        <span class="tag" style="color:#F43F5E;border-color:var(--accent-border);background:var(--accent-dim);">AI 倫理</span>
+        <span class="tag" style="color:#F43F5E;border-color:var(--accent-border);background:var(--accent-dim);">隱私安全</span>
+        <span class="tag" style="color:#F43F5E;border-color:var(--accent-border);background:var(--accent-dim);">Deepfake</span>
+        <span class="tag" style="color:#F43F5E;border-color:var(--accent-border);background:var(--accent-dim);">全球治理</span>
+      </div>
+    </div>
+  </section>
+
+  <main style="max-width:920px;margin:0 auto;padding:0 1.5rem 6rem;">
+
+    <!-- Learning objectives -->
+    <div class="glass rev" style="padding:2rem;margin-bottom:3rem;">
+      <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:1.25rem;"><iconify-icon icon="mdi:target" width="20" style="color:#F43F5E;"></iconify-icon><h2 style="font-size:1rem;font-weight:700;">學習目標</h2></div>
+      <div style="display:flex;flex-direction:column;gap:.5rem;">
+        <div style="display:flex;align-items:center;gap:.75rem;"><iconify-icon icon="mdi:check-circle" width="18" style="color:#F43F5E;flex-shrink:0;"></iconify-icon><span style="font-size:.875rem;color:#94A3B8;">認識 AI 的主要爭議議題</span></div>
+        <div style="display:flex;align-items:center;gap:.75rem;"><iconify-icon icon="mdi:check-circle" width="18" style="color:#F43F5E;flex-shrink:0;"></iconify-icon><span style="font-size:.875rem;color:#94A3B8;">了解 AI 偏見與隱私權風險</span></div>
+        <div style="display:flex;align-items:center;gap:.75rem;"><iconify-icon icon="mdi:check-circle" width="18" style="color:#F43F5E;flex-shrink:0;"></iconify-icon><span style="font-size:.875rem;color:#94A3B8;">掌握全球 AI 治理趨勢</span></div>
+        <div style="display:flex;align-items:center;gap:.75rem;"><iconify-icon icon="mdi:check-circle" width="18" style="color:#F43F5E;flex-shrink:0;"></iconify-icon><span style="font-size:.875rem;color:#94A3B8;">建立面對 AI 未來的核心思維</span></div>
+      </div>
+    </div>
+
+    <!-- 5.1 Main controversies -->
+    <section class="rev" style="margin-bottom:3.5rem;">
+      <div class="section-label"><span>5.1</span></div>
+      <h2 style="font-size:clamp(1.4rem,3vw,2rem);font-weight:800;margin-bottom:1.5rem;">主要爭議議題</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.25rem;">
+
+        <div class="glass rev" style="padding:1.75rem;border-top:2px solid #F43F5E;">
+          <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:1rem;">
+            <div style="width:2.5rem;height:2.5rem;border-radius:.75rem;background:rgba(244,63,94,.12);border:1px solid rgba(244,63,94,.25);display:flex;align-items:center;justify-content:center;"><iconify-icon icon="mdi:video-box" width="20" style="color:#F43F5E;"></iconify-icon></div>
+            <h3 style="font-size:1rem;font-weight:700;">深度偽造</h3>
+          </div>
+          <p style="font-size:.68rem;color:#F43F5E;font-family:'Space Grotesk',sans-serif;margin-bottom:.75rem;">Deepfake</p>
+          <ul style="color:#CBD5E1;font-size:.82rem;line-height:1.8;list-style:none;padding:0;">
+            <li style="display:flex;gap:.5rem;margin-bottom:.3rem;"><span style="color:#F43F5E;">→</span> 利用 AI 生成逼真的虛假影像與音訊</li>
+            <li style="display:flex;gap:.5rem;margin-bottom:.3rem;"><span style="color:#F43F5E;">→</span> 可能被用於詐騙、假新聞等惡意用途</li>
+            <li style="display:flex;gap:.5rem;"><span style="color:#F43F5E;">→</span> 需要具備辨識能力與防制技術</li>
+          </ul>
+        </div>
+
+        <div class="glass rev" style="padding:1.75rem;border-top:2px solid #F59E0B;">
+          <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:1rem;">
+            <div style="width:2.5rem;height:2.5rem;border-radius:.75rem;background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.25);display:flex;align-items:center;justify-content:center;"><iconify-icon icon="mdi:briefcase-outline" width="20" style="color:#F59E0B;"></iconify-icon></div>
+            <h3 style="font-size:1rem;font-weight:700;">就業影響</h3>
+          </div>
+          <p style="font-size:.68rem;color:#F59E0B;font-family:'Space Grotesk',sans-serif;margin-bottom:.75rem;">Employment Impact</p>
+          <ul style="color:#CBD5E1;font-size:.82rem;line-height:1.8;list-style:none;padding:0;">
+            <li style="display:flex;gap:.5rem;margin-bottom:.3rem;"><span style="color:#F59E0B;">→</span> AI 自動化可能取代部分重複性工作</li>
+            <li style="display:flex;gap:.5rem;margin-bottom:.3rem;"><span style="color:#F59E0B;">→</span> 同時也創造新工作：AI 訓練師、提示詞工程師</li>
+            <li style="display:flex;gap:.5rem;"><span style="color:#F59E0B;">→</span> 建議持續學習與技能升級</li>
+          </ul>
+        </div>
+
+        <div class="glass rev" style="padding:1.75rem;border-top:2px solid #8B5CF6;">
+          <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:1rem;">
+            <div style="width:2.5rem;height:2.5rem;border-radius:.75rem;background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.25);display:flex;align-items:center;justify-content:center;"><iconify-icon icon="mdi:scale-balance" width="20" style="color:#8B5CF6;"></iconify-icon></div>
+            <h3 style="font-size:1rem;font-weight:700;">決策公平性</h3>
+          </div>
+          <p style="font-size:.68rem;color:#8B5CF6;font-family:'Space Grotesk',sans-serif;margin-bottom:.75rem;">Decision Fairness</p>
+          <ul style="color:#CBD5E1;font-size:.82rem;line-height:1.8;list-style:none;padding:0;">
+            <li style="display:flex;gap:.5rem;margin-bottom:.3rem;"><span style="color:#8B5CF6;">→</span> AI 系統可能放大既有社會偏見</li>
+            <li style="display:flex;gap:.5rem;"><span style="color:#8B5CF6;">→</span> 在信貸、醫療、司法等領域需特別注意</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 5.2 Bias -->
+    <section class="rev" style="margin-bottom:3.5rem;">
+      <div class="section-label"><span>5.2</span></div>
+      <h2 style="font-size:clamp(1.4rem,3vw,2rem);font-weight:800;margin-bottom:1.5rem;">偏見問題</h2>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;">
+        <div class="glass rev" style="padding:1.5rem;">
+          <h3 style="font-size:.95rem;font-weight:700;margin-bottom:1rem;color:#CBD5E1;">偏見來源</h3>
+          <div style="display:flex;flex-direction:column;gap:.75rem;">
+            <div style="display:flex;gap:.75rem;align-items:flex-start;"><iconify-icon icon="mdi:database-outline" width="18" style="color:#F43F5E;flex-shrink:0;margin-top:.1rem;"></iconify-icon><p style="font-size:.82rem;color:#CBD5E1;line-height:1.65;">訓練資料本身存在偏見</p></div>
+            <div style="display:flex;gap:.75rem;align-items:flex-start;"><iconify-icon icon="mdi:account-group-outline" width="18" style="color:#F43F5E;flex-shrink:0;margin-top:.1rem;"></iconify-icon><p style="font-size:.82rem;color:#CBD5E1;line-height:1.65;">開發團隊的背景與價值觀</p></div>
+            <div style="display:flex;gap:.75rem;align-items:flex-start;"><iconify-icon icon="mdi:code-tags" width="18" style="color:#F43F5E;flex-shrink:0;margin-top:.1rem;"></iconify-icon><p style="font-size:.82rem;color:#CBD5E1;line-height:1.65;">算法設計的局限性</p></div>
+          </div>
+        </div>
+        <div class="glass rev" style="padding:1.5rem;">
+          <h3 style="font-size:.95rem;font-weight:700;margin-bottom:1rem;color:#CBD5E1;">實際案例</h3>
+          <div style="display:flex;flex-direction:column;gap:.75rem;">
+            <div style="display:flex;gap:.75rem;align-items:flex-start;"><iconify-icon icon="mdi:face-recognition" width="18" style="color:#F59E0B;flex-shrink:0;margin-top:.1rem;"></iconify-icon><p style="font-size:.82rem;color:#CBD5E1;line-height:1.65;">某些人臉辨識系統對特定族群準確率較低</p></div>
+            <div style="display:flex;gap:.75rem;align-items:flex-start;"><iconify-icon icon="mdi:briefcase-account-outline" width="18" style="color:#F59E0B;flex-shrink:0;margin-top:.1rem;"></iconify-icon><p style="font-size:.82rem;color:#CBD5E1;line-height:1.65;">招聘 AI 可能傾向特定性別的候選人</p></div>
+            <div style="display:flex;gap:.75rem;align-items:flex-start;"><iconify-icon icon="mdi:hospital-box-outline" width="18" style="color:#F59E0B;flex-shrink:0;margin-top:.1rem;"></iconify-icon><p style="font-size:.82rem;color:#CBD5E1;line-height:1.65;">醫療診斷 AI 對少數族群診斷較不準確</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5.2 Privacy -->
+    <section class="rev" style="margin-bottom:3.5rem;">
+      <div class="section-label"><span>隱私</span></div>
+      <h2 style="font-size:clamp(1.4rem,3vw,2rem);font-weight:800;margin-bottom:1.5rem;">隱私權風險</h2>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;">
+        <div class="glass rev" style="padding:1.5rem;border-color:rgba(244,63,94,.2);">
+          <h3 style="font-size:.95rem;font-weight:700;margin-bottom:1rem;color:#CBD5E1;">⚠ 資料使用議題</h3>
+          <div style="display:flex;flex-direction:column;gap:.6rem;">
+            <p style="font-size:.82rem;color:#CBD5E1;line-height:1.7;">AI 模型訓練需要大量用戶資料</p>
+            <p style="font-size:.82rem;color:#CBD5E1;line-height:1.7;">資料可能被濫用於不當目的</p>
+            <p style="font-size:.82rem;color:#CBD5E1;line-height:1.7;">需要透明的資料使用政策</p>
+          </div>
+        </div>
+        <div class="glass rev" style="padding:1.5rem;border-color:rgba(16,185,129,.2);">
+          <h3 style="font-size:.95rem;font-weight:700;margin-bottom:1rem;color:#34D399;">✓ 防護措施</h3>
+          <div style="display:flex;flex-direction:column;gap:.6rem;">
+            <p style="font-size:.82rem;color:#CBD5E1;line-height:1.7;">選擇可信賴的服務提供者</p>
+            <p style="font-size:.82rem;color:#CBD5E1;line-height:1.7;">閱讀並了解隱私條款</p>
+            <p style="font-size:.82rem;color:#CBD5E1;line-height:1.7;">注意個資揭露風險（上傳文件、照片）</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5.3 Future -->
+    <section class="rev" style="margin-bottom:3.5rem;">
+      <div class="section-label"><span>5.3</span></div>
+      <h2 style="font-size:clamp(1.4rem,3vw,2rem);font-weight:800;margin-bottom:1.5rem;">AI 發展展望</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.25rem;">
+        <div class="glass rev" style="padding:1.5rem;position:relative;overflow:hidden;"><div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#3B82F6,transparent);"></div><div style="width:2.25rem;height:2.25rem;border-radius:.75rem;background:rgba(59,130,246,.12);border:1px solid rgba(59,130,246,.25);display:flex;align-items:center;justify-content:center;margin-bottom:.875rem;"><iconify-icon icon="mdi:layers-outline" width="18" style="color:#3B82F6;"></iconify-icon></div><h3 style="font-size:.95rem;font-weight:700;margin-bottom:.5rem;">多模態模型</h3><p style="font-size:.8rem;color:#CBD5E1;line-height:1.7;">整合文字、影像、音訊、影片等多種模態，例如 GPT-4o、Claude 3.5，提供更全面的人機互動體驗。</p></div>
+        <div class="glass rev" style="padding:1.5rem;position:relative;overflow:hidden;"><div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#10B981,transparent);"></div><div style="width:2.25rem;height:2.25rem;border-radius:.75rem;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.25);display:flex;align-items:center;justify-content:center;margin-bottom:.875rem;"><iconify-icon icon="mdi:chip" width="18" style="color:#10B981;"></iconify-icon></div><h3 style="font-size:.95rem;font-weight:700;margin-bottom:.5rem;">邊緣計算</h3><p style="font-size:.8rem;color:#CBD5E1;line-height:1.7;">AI 模型直接在端側裝置運行，減少延遲與網路依賴，同時提升隱私與安全性。</p></div>
+        <div class="glass rev" style="padding:1.5rem;position:relative;overflow:hidden;"><div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#8B5CF6,transparent);"></div><div style="width:2.25rem;height:2.25rem;border-radius:.75rem;background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.25);display:flex;align-items:center;justify-content:center;margin-bottom:.875rem;"><iconify-icon icon="mdi:flask-outline" width="18" style="color:#8B5CF6;"></iconify-icon></div><h3 style="font-size:.95rem;font-weight:700;margin-bottom:.5rem;">科學研究應用</h3><p style="font-size:.8rem;color:#CBD5E1;line-height:1.7;">AI 協助藥物研發、氣候變化模擬、天體物理研究，加速人類科學突破。</p></div>
+      </div>
+    </section>
+
+    <!-- 5.4 Global governance -->
+    <section class="rev" style="margin-bottom:3.5rem;">
+      <div class="section-label"><span>5.4</span></div>
+      <h2 style="font-size:clamp(1.4rem,3vw,2rem);font-weight:800;margin-bottom:1.5rem;">全球 AI 治理</h2>
+      <div class="glass rev" style="padding:1.5rem;overflow-x:auto;">
+        <table>
+          <thead><tr><th>地區 / 政策</th><th>重點說明</th></tr></thead>
+          <tbody>
+            <tr><td>🇪🇺 歐盟 AI Act</td><td>分級規範 AI 系統風險，禁止高風險應用，是全球最嚴格的 AI 立法框架</td></tr>
+            <tr><td>🇺🇸 美國 AI 執行令</td><td>投資 AI 基礎建設，推動 AI 研究與倫理框架，強調技術領導地位</td></tr>
+            <tr><td>🇹🇼 台灣政策</td><td>發展 AI 產業，建立倫理準則與治理機制，推動產業數位轉型</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 5.5 Message for learners -->
+    <section class="rev" style="margin-bottom:3.5rem;">
+      <div class="section-label"><span>5.5</span></div>
+      <h2 style="font-size:clamp(1.4rem,3vw,2rem);font-weight:800;margin-bottom:1.5rem;">給學習者的訊息</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.25rem;margin-bottom:1.5rem;">
+        <div class="glass rev" style="padding:1.5rem;text-align:center;"><iconify-icon icon="mdi:book-open-outline" width="32" style="color:#3B82F6;margin-bottom:.75rem;display:block;"></iconify-icon><h3 style="font-size:.95rem;font-weight:700;margin-bottom:.5rem;">保持學習</h3><p style="font-size:.8rem;color:#CBD5E1;line-height:1.7;">AI 技術快速演進，持續學習新工具與概念是唯一不落伍的方法。</p></div>
+        <div class="glass rev" style="padding:1.5rem;text-align:center;"><iconify-icon icon="mdi:thought-bubble-outline" width="32" style="color:#8B5CF6;margin-bottom:.75rem;display:block;"></iconify-icon><h3 style="font-size:.95rem;font-weight:700;margin-bottom:.5rem;">批判性思考</h3><p style="font-size:.8rem;color:#CBD5E1;line-height:1.7;">不盲目相信 AI 輸出，學會驗證與判斷，AI 是助手而非真理。</p></div>
+        <div class="glass rev" style="padding:1.5rem;text-align:center;"><iconify-icon icon="mdi:heart-outline" width="32" style="color:#F43F5E;margin-bottom:.75rem;display:block;"></iconify-icon><h3 style="font-size:.95rem;font-weight:700;margin-bottom:.5rem;">倫理責任</h3><p style="font-size:.8rem;color:#CBD5E1;line-height:1.7;">理解 AI 的社會影響，負起使用責任，讓科技服務人類而非傷害人類。</p></div>
+      </div>
+      <div class="glass rev" style="padding:1.75rem;border-color:rgba(244,63,94,.15);">
+        <h3 style="font-size:.95rem;font-weight:700;margin-bottom:1rem;">行動建議</h3>
+        <div style="display:flex;flex-direction:column;gap:.6rem;">
+          <div style="display:flex;align-items:center;gap:.75rem;"><div style="width:1.5rem;height:1.5rem;border-radius:.4rem;border:1.5px solid #F43F5E;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><iconify-icon icon="mdi:check" width="12" style="color:#F43F5E;"></iconify-icon></div><p style="font-size:.875rem;color:#94A3B8;">每天花一點時間探索新 AI 工具</p></div>
+          <div style="display:flex;align-items:center;gap:.75rem;"><div style="width:1.5rem;height:1.5rem;border-radius:.4rem;border:1.5px solid #F43F5E;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><iconify-icon icon="mdi:check" width="12" style="color:#F43F5E;"></iconify-icon></div><p style="font-size:.875rem;color:#94A3B8;">參與社群討論，了解各方觀點</p></div>
+          <div style="display:flex;align-items:center;gap:.75rem;"><div style="width:1.5rem;height:1.5rem;border-radius:.4rem;border:1.5px solid #F43F5E;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><iconify-icon icon="mdi:check" width="12" style="color:#F43F5E;"></iconify-icon></div><p style="font-size:.875rem;color:#94A3B8;">將 AI 應用於實際需求，而非為用而用</p></div>
+          <div style="display:flex;align-items:center;gap:.75rem;"><div style="width:1.5rem;height:1.5rem;border-radius:.4rem;border:1.5px solid #F43F5E;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><iconify-icon icon="mdi:check" width="12" style="color:#F43F5E;"></iconify-icon></div><p style="font-size:.875rem;color:#94A3B8;">教導身邊的人正確使用 AI</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Checklist -->
+    <div class="glass rev" style="padding:2rem;border-color:rgba(244,63,94,.2);">
+      <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:1.5rem;"><iconify-icon icon="mdi:clipboard-check-outline" width="20" style="color:#F43F5E;"></iconify-icon><h2 style="font-size:1rem;font-weight:700;">學習檢定</h2></div>
+      <div>
+        <div class="checklist-item"><div style="width:1.25rem;height:1.25rem;border-radius:.35rem;border:1.5px solid #F43F5E;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><iconify-icon icon="mdi:check" width="12" style="color:#F43F5E;"></iconify-icon></div><span style="font-size:.875rem;color:#94A3B8;">能說明 AI 的主要爭議議題（Deepfake、就業影響、決策公平性）</span></div>
+        <div class="checklist-item"><div style="width:1.25rem;height:1.25rem;border-radius:.35rem;border:1.5px solid #F43F5E;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><iconify-icon icon="mdi:check" width="12" style="color:#F43F5E;"></iconify-icon></div><span style="font-size:.875rem;color:#94A3B8;">了解 AI 偏見的來源與實際案例</span></div>
+        <div class="checklist-item"><div style="width:1.25rem;height:1.25rem;border-radius:.35rem;border:1.5px solid #F43F5E;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><iconify-icon icon="mdi:check" width="12" style="color:#F43F5E;"></iconify-icon></div><span style="font-size:.875rem;color:#94A3B8;">認識全球 AI 治理趨勢（歐盟 AI Act、美國、台灣）</span></div>
+        <div class="checklist-item" style="border:none;"><div style="width:1.25rem;height:1.25rem;border-radius:.35rem;border:1.5px solid #F43F5E;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><iconify-icon icon="mdi:check" width="12" style="color:#F43F5E;"></iconify-icon></div><span style="font-size:.875rem;color:#94A3B8;">掌握面對 AI 未來的核心思維與行動建議</span></div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Prev/Next -->
+  <div style="max-width:920px;margin:0 auto;padding:0 1.5rem 4rem;display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+    <a href="unit4.html" class="glass" style="padding:1.25rem;text-decoration:none;display:flex;align-items:center;gap:.75rem;transition:all .3s;border-radius:1rem;"><iconify-icon icon="mdi:arrow-left" width="18" style="color:#CBD5E1;"></iconify-icon><div><div style="font-size:.68rem;color:#94A3B8;margin-bottom:.2rem;">上一單元</div><div style="font-size:.875rem;font-weight:600;">進階 AI 工具</div></div></a>
+    <a href="unit6.html" class="glass" style="padding:1.25rem;text-decoration:none;display:flex;align-items:center;justify-content:flex-end;gap:.75rem;transition:all .3s;border-radius:1rem;border-color:rgba(245,158,11,.2);"><div style="text-align:right;"><div style="font-size:.68rem;color:#FCD34D;margin-bottom:.2rem;">下一單元</div><div style="font-size:.875rem;font-weight:600;">名詞解釋</div></div><iconify-icon icon="mdi:arrow-right" width="18" style="color:#F59E0B;"></iconify-icon></a>
+  </div>
+
+  <footer style="border-top:1px solid rgba(255,255,255,.05);padding:2.5rem 1.5rem;">
+    <div style="max-width:1280px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1.5rem;">
+      <div style="display:flex;align-items:center;gap:.875rem;"><div style="width:2rem;height:2rem;border-radius:.5rem;background:linear-gradient(135deg,#3B82F6,#8B5CF6);display:flex;align-items:center;justify-content:center;"><iconify-icon icon="mdi:robot-outline" width="16" style="color:white;"></iconify-icon></div><div><div style="font-size:.875rem;font-weight:600;">AI 基礎與應用課程</div><div style="font-size:.72rem;color:#94A3B8;">© 2026 Choe · 持續學習，掌握未來</div></div></div>
+      <div style="display:flex;align-items:center;gap:1.5rem;font-size:.82rem;flex-wrap:wrap;"><a href="index.html" style="color:#94A3B8;text-decoration:none;" onmouseover="this.style.color='#F1F5F9'" onmouseout="this.style.color='#94A3B8'">首頁</a><a href="unit6.html" style="color:#94A3B8;text-decoration:none;" onmouseover="this.style.color='#F1F5F9'" onmouseout="this.style.color='#94A3B8'">名詞解釋</a><a href="unit7.html" style="color:#94A3B8;text-decoration:none;" onmouseover="this.style.color='#F1F5F9'" onmouseout="this.style.color='#94A3B8'">講師介紹</a></div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+    const dot=document.getElementById('cursorDot'),ring=document.getElementById('cursorRing'),spotlight=document.getElementById('spotlight');
+    let mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';spotlight.style.background=`radial-gradient(700px at ${mx}px ${my}px,rgba(244,63,94,.07),transparent 70%)`;});
+    (function loop(){rx+=(mx-rx)*.13;ry+=(my-ry)*.13;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
+    document.querySelectorAll('a,button,.glass').forEach(el=>{el.addEventListener('mouseenter',()=>document.body.classList.add('hovering'));el.addEventListener('mouseleave',()=>document.body.classList.remove('hovering'));});
+    gsap.from('#heroContent',{opacity:0,y:48,duration:1,ease:'power3.out',delay:.15});
+    gsap.utils.toArray('.rev').forEach((el,i)=>{gsap.fromTo(el,{opacity:0,y:40},{opacity:1,y:0,duration:.85,ease:'power3.out',delay:(i%3)*.08,scrollTrigger:{trigger:el,start:'top 88%',toggleActions:'play none none none'}});});
+    window.addEventListener('scroll',()=>{document.querySelector('.nav-bar').style.padding=window.scrollY>60?'.55rem 1.5rem':'.9rem 1.5rem';});
+  </script>
+</body>
+</html>

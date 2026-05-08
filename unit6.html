@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>名詞解釋 | AI 基礎與應用課程</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+  <style>
+    :root{--bg:#060912;--accent:#F59E0B;--accent-dim:rgba(245,158,11,.12);--accent-border:rgba(245,158,11,.25);--text:#F1F5F9;--muted:#94A3B8;--border:rgba(255,255,255,.08);--glass:rgba(255,255,255,.04);--r:32px;}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;font-size:18px;}
+    body{font-family:'Noto Sans TC','Space Grotesk',sans-serif;background:var(--bg);color:var(--text);cursor:none;overflow-x:hidden;}
+    .noise-svg{position:fixed;inset:0;width:100%;height:100%;opacity:.045;pointer-events:none;z-index:9998;}
+    #spotlight{position:fixed;inset:0;pointer-events:none;z-index:1;background:radial-gradient(700px at 50% 50%,rgba(245,158,11,.06),transparent 70%);transition:background .1s linear;}
+    #cursorDot{position:fixed;width:8px;height:8px;background:#fff;border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;z-index:10000;transition:transform .15s,background .2s;}
+    #cursorRing{position:fixed;width:40px;height:40px;border:1.5px solid rgba(255,255,255,.35);border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;z-index:9999;transition:width .25s,height .25s,border-color .25s;}
+    body.hovering #cursorDot{transform:translate(-50%,-50%) scale(3);background:var(--accent);}
+    body.hovering #cursorRing{width:64px;height:64px;border-color:rgba(245,158,11,.35);}
+    .glass{background:var(--glass);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:var(--r);transition:all .35s cubic-bezier(.16,1,.3,1);}
+    .glass:hover{background:rgba(255,255,255,.065);border-color:rgba(255,255,255,.14);}
+    .nav-bar{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(6,9,18,.78);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);padding:.9rem 1.5rem;display:flex;align-items:center;justify-content:space-between;transition:padding .3s;}
+    .logo{display:flex;align-items:center;gap:.625rem;}
+    .logo-icon{width:2rem;height:2rem;border-radius:.5rem;background:linear-gradient(135deg,#3B82F6,#8B5CF6);display:flex;align-items:center;justify-content:center;}
+    .nav-links{display:flex;align-items:center;gap:2rem;font-size:.82rem;color:#CBD5E1;}
+    .nav-links a{text-decoration:none;color:#CBD5E1;transition:color .2s;}
+    .nav-links a:hover{color:#F1F5F9;} .nav-links a.active{color:#FCD34D;}
+    .btn-ghost{border:1px solid rgba(255,255,255,.15);border-radius:999px;color:rgba(255,255,255,.9);font-weight:500;padding:.45rem 1.1rem;transition:all .3s;display:inline-flex;align-items:center;gap:.4rem;font-size:.82rem;text-decoration:none;cursor:none;}
+    .btn-ghost:hover{border-color:rgba(255,255,255,.35);color:#fff;background:rgba(255,255,255,.06);}
+    .guide-lines{position:absolute;inset:0;display:flex;justify-content:space-evenly;pointer-events:none;}
+    .guide-line{width:1px;height:100%;background:rgba(255,255,255,.028);}
+    .num-deco{font-family:'Space Grotesk',sans-serif;font-weight:900;color:rgba(255,255,255,.022);line-height:1;position:absolute;user-select:none;pointer-events:none;}
+    .gradient-text{background:linear-gradient(135deg,#60A5FA,#A78BFA,#34D399);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+    .tag{display:inline-flex;align-items:center;padding:.2rem .65rem;border-radius:999px;font-size:.7rem;font-weight:500;border:1px solid;}
+    /* Search */
+    #searchBox{width:100%;padding:.75rem 1.25rem;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:var(--text);font-family:inherit;font-size:.9rem;outline:none;transition:all .3s;}
+    #searchBox::placeholder{color:#94A3B8;}
+    #searchBox:focus{border-color:rgba(245,158,11,.4);background:rgba(255,255,255,.07);}
+    /* Term card */
+    .term-card{background:rgba(255,255,255,.03);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.07);border-radius:1rem;padding:1rem 1.25rem;transition:all .25s ease;cursor:pointer;}
+    .term-card:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.12);transform:translateY(-2px);}
+    .term-card.hidden{display:none;}
+    /* Category colors */
+    .cat-1{color:#3B82F6;} .cat-2{color:#8B5CF6;} .cat-3{color:#06B6D4;} .cat-4{color:#10B981;}
+    .cat-5{color:#F43F5E;} .cat-6{color:#F59E0B;} .cat-7{color:#EC4899;} .cat-8{color:#A78BFA;} .cat-9{color:#34D399;}
+    ::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-track{background:var(--bg);}::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:2px;}
+    @media(max-width:768px){#cursorDot,#cursorRing{display:none;}body{cursor:auto;}.nav-links{display:none;}}
+  </style>
+</head>
+<body>
+  <svg class="noise-svg" xmlns="http://www.w3.org/2000/svg"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="4" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100%" height="100%" filter="url(#n)"/></svg>
+  <div id="spotlight"></div>
+  <div id="cursorDot"></div>
+  <div id="cursorRing"></div>
+
+  <nav class="nav-bar">
+    <div class="logo"><div class="logo-icon"><iconify-icon icon="mdi:robot-outline" width="16" style="color:white;"></iconify-icon></div><span style="font-weight:700;font-size:.875rem;">AI 課程</span></div>
+    <div class="nav-links">
+      <a href="index.html">首頁</a><a href="unit1.html">單元一</a><a href="unit2.html">單元二</a><a href="unit3.html">單元三</a><a href="unit5.html">單元五</a><a href="unit6.html" class="active">名詞解釋</a>
+    </div>
+    <a href="index.html" class="btn-ghost"><iconify-icon icon="mdi:arrow-left" width="14"></iconify-icon> 返回首頁</a>
+  </nav>
+
+  <!-- Hero -->
+  <section style="position:relative;padding:8rem 1.5rem 4rem;overflow:hidden;min-height:48vh;display:flex;align-items:center;">
+    <div class="guide-lines"><div class="guide-line"></div><div class="guide-line"></div><div class="guide-line"></div><div class="guide-line"></div></div>
+    <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.016) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.016) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;"></div>
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(245,158,11,.08),transparent);pointer-events:none;"></div>
+    <span class="num-deco" style="font-size:clamp(8rem,20vw,18rem);right:-1rem;top:-1rem;opacity:.018;">辭</span>
+    <div style="max-width:800px;margin:0 auto;position:relative;z-index:2;" id="heroContent">
+      <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:1.25rem;">
+        <div style="width:2.5rem;height:2.5rem;border-radius:.75rem;background:var(--accent-dim);border:1px solid var(--accent-border);display:flex;align-items:center;justify-content:center;"><iconify-icon icon="mdi:book-open-outline" width="20" style="color:#F59E0B;"></iconify-icon></div>
+        <div><div style="font-size:.68rem;font-weight:600;color:#FCD34D;letter-spacing:.12em;text-transform:uppercase;">GLOSSARY</div><div style="font-size:.75rem;color:#94A3B8;">AI 基礎與應用課程</div></div>
+      </div>
+      <h1 style="font-size:clamp(2.2rem,6vw,4rem);font-weight:900;letter-spacing:-.02em;line-height:1.1;margin-bottom:1.25rem;"><span style="background:linear-gradient(135deg,#F59E0B,#FCD34D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">名詞解釋</span></h1>
+      <p style="color:#CBD5E1;font-size:1rem;line-height:1.8;max-width:560px;margin-bottom:2rem;">75+ 個 AI 專業術語的完整解釋，涵蓋機器學習、NLP、電腦視覺、部署與倫理等九大類別。用人話解釋專業概念。</p>
+      <div style="display:flex;gap:.75rem;flex-wrap:wrap;">
+        <span class="tag" style="color:#F59E0B;border-color:var(--accent-border);background:var(--accent-dim);">75+ 詞彙</span>
+        <span class="tag" style="color:#F59E0B;border-color:var(--accent-border);background:var(--accent-dim);">9 大類別</span>
+        <span class="tag" style="color:#F59E0B;border-color:var(--accent-border);background:var(--accent-dim);">生活化比喻</span>
+      </div>
+    </div>
+  </section>
+
+  <main style="max-width:1100px;margin:0 auto;padding:0 1.5rem 6rem;">
+
+    <!-- Search -->
+    <div style="margin-bottom:3rem;position:relative;">
+      <iconify-icon icon="mdi:magnify" width="20" style="position:absolute;left:1.25rem;top:50%;transform:translateY(-50%);color:#94A3B8;z-index:1;pointer-events:none;"></iconify-icon>
+      <input id="searchBox" type="text" placeholder="搜尋名詞... 例如：機器學習、幻覺、Transformer" style="padding-left:3rem;" oninput="filterTerms()">
+    </div>
+    <div id="noResults" style="display:none;text-align:center;padding:3rem;color:#94A3B8;">
+      <iconify-icon icon="mdi:emoticon-sad-outline" width="48" style="display:block;margin:0 auto 1rem;opacity:.4;"></iconify-icon>
+      <p>找不到相關名詞，請嘗試其他關鍵字</p>
+    </div>
+
+    <!-- Category 1 -->
+    <section class="category-section" style="margin-bottom:3rem;">
+      <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;padding-bottom:.75rem;border-bottom:1px solid rgba(255,255,255,.06);">
+        <div style="width:2rem;height:2rem;border-radius:.5rem;background:rgba(59,130,246,.15);border:1px solid rgba(59,130,246,.3);display:flex;align-items:center;justify-content:center;"><iconify-icon icon="mdi:brain" width="16" style="color:#3B82F6;"></iconify-icon></div>
+        <div><div style="font-size:.68rem;font-weight:600;color:#3B82F6;letter-spacing:.1em;">01</div><h2 style="font-size:1rem;font-weight:700;">機器學習基礎</h2></div>
+        <span style="margin-left:auto;font-size:.72rem;color:#94A3B8;font-family:'Space Grotesk',sans-serif;">Machine Learning</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:.875rem;" id="cat1">
+        <div class="term-card" data-terms="機器學習 machine learning ml"><div style="font-size:.8rem;font-weight:700;margin-bottom:.2rem;">機器學習 <span style="font-size:.68rem;font-weight:400;color:#3B82F6;font-family:'Space Grotesk',sans-serif;">Machine Learning / ML</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">透過資料訓練模型，讓電腦系統自動學習與改進，不需人工編寫死板的規則。</p></div>
+        <div class="term-card" data-terms="深度學習 deep learning"><div style="font-size:.8rem;font-weight:700;margin-bottom:.2rem;">深度學習 <span style="font-size:.68rem;font-weight:400;color:#3B82F6;font-family:'Space Grotesk',sans-serif;">Deep Learning</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">模仿大腦神經元的「多層神經網絡」技術，特別擅長處理影像與語音等複雜資料。</p></div>
+        <div class="term-card" data-terms="神經網絡 neural network"><div style="font-size:.8rem;font-weight:700;margin-bottom:.2rem;">神經網絡 <span style="font-size:.68rem;font-weight:400;color:#3B82F6;font-family:'Space Grotesk',sans-serif;">Neural Network</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">模擬人類大腦神經元連接結構的人工架構。</p></div>
+        <div class="term-card" data-terms="監督學習 supervised learning"><div style="font-size:.8rem;font-weight:700;margin-bottom:.2rem;">監督學習 <span style="font-size:.68rem;font-weight:400;color:#3B82F6;font-family:'Space Grotesk',sans-serif;">Supervised Learning</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">使用「有標準答案（標籤）」的資料來訓練模型。例如：給每張圖片標註「貓」或「狗」。</p></div>
+        <div class="term-card" data-terms="非監督學習 unsupervised learning"><div style="font-size:.8rem;font-weight:700;margin-bottom:.2rem;">非監督學習 <span style="font-size:.68rem;font-weight:400;color:#3B82F6;font-family:'Space Grotesk',sans-serif;">Unsupervised Learning</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">使用「沒有標記」的資料，讓模型自行尋找其中的規律與結構。</p></div>
+        <div class="term-card" data-terms="強化學習 reinforcement learning"><div style="font-size:.8rem;font-weight:700;margin-bottom:.2rem;">強化學習 <span style="font-size:.68rem;font-weight:400;color:#3B82F6;font-family:'Space Grotesk',sans-serif;">Reinforcement Learning</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">透過獎勵與懲罰機制，讓 AI 在環境中不斷嘗試，學習最佳的行為策略。</p></div>
+        <div class="term-card" data-terms="過擬合 overfitting"><div style="font-size:.8rem;font-weight:700;margin-bottom:.2rem;">過擬合 <span style="font-size:.68rem;font-weight:400;color:#3B82F6;font-family:'Space Grotesk',sans-serif;">Overfitting</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;"><strong style="color:#F59E0B;">AI 讀死書。</strong>模型把訓練資料的「雜訊」也背下來了，遇到新資料就失靈。</p></div>
+        <div class="term-card" data-terms="欠擬合 underfitting"><div style="font-size:.8rem;font-weight:700;margin-bottom:.2rem;">欠擬合 <span style="font-size:.68rem;font-weight:400;color:#3B82F6;font-family:'Space Grotesk',sans-serif;">Underfitting</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;"><strong style="color:#F59E0B;">AI 不讀書。</strong>模型太簡單，連訓練資料的基本規律都學不會。</p></div>
+        <div class="term-card" data-terms="泛化 generalization"><div style="font-size:.8rem;font-weight:700;margin-bottom:.2rem;">泛化 <span style="font-size:.68rem;font-weight:400;color:#3B82F6;font-family:'Space Grotesk',sans-serif;">Generalization</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">AI「舉一反三」的能力。不只會做課本題目，還能應付現實中的各種變化。</p></div>
+        <div class="term-card" data-terms="正則化 regularization"><div style="font-size:.8rem;font-weight:700;margin-bottom:.2rem;">正則化 <span style="font-size:.68rem;font-weight:400;color:#3B82F6;font-family:'Space Grotesk',sans-serif;">Regularization</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">強迫 AI「抓重點」。在訓練時加入懲罰機制，不讓模型鑽牛角尖去背細節。</p></div>
+        <div class="term-card" data-terms="提前停止 early stopping"><div style="font-size:.8rem;font-weight:700;margin-bottom:.2rem;">提前停止 <span style="font-size:.68rem;font-weight:400;color:#3B82F6;font-family:'Space Grotesk',sans-serif;">Early Stopping</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">見好就收。在 AI 開始死背之前，就趕快結束訓練。</p></div>
+        <div class="term-card" data-terms="資料增強 data augmentation"><div style="font-size:.8rem;font-weight:700;margin-bottom:.2rem;">資料增強 <span style="font-size:.68rem;font-weight:400;color:#3B82F6;font-family:'Space Grotesk',sans-serif;">Data Augmentation</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">把照片旋轉、修剪或變色，讓 AI 看過同一張圖的各種變體，防止它死背單張圖片。</p></div>
+      </div>
+    </section>
+
+    <!-- Category 2 -->
+    <section class="category-section" style="margin-bottom:3rem;">
+      <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;padding-bottom:.75rem;border-bottom:1px solid rgba(255,255,255,.06);">
+        <div style="width:2rem;height:2rem;border-radius:.5rem;background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.3);display:flex;align-items:center;justify-content:center;"><iconify-icon icon="mdi:message-text-outline" width="16" style="color:#8B5CF6;"></iconify-icon></div>
+        <div><div style="font-size:.68rem;font-weight:600;color:#8B5CF6;letter-spacing:.1em;">02</div><h2 style="font-size:1rem;font-weight:700;">大語言模型與對話核心</h2></div>
+        <span style="margin-left:auto;font-size:.72rem;color:#94A3B8;font-family:'Space Grotesk',sans-serif;">LLM & Context</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:.875rem;" id="cat2">
+        <div class="term-card" data-terms="大型語言模型 llm large language model gpt"><div style="font-size:.8rem;font-weight:700;margin-bottom:.2rem;">大型語言模型 <span style="font-size:.68rem;font-weight:400;color:#8B5CF6;font-family:'Space Grotesk',sans-serif;">LLM</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">如 GPT 系列，經過巨量文字訓練，能理解與生成人類語言的模型。</p></div>
+        <div class="term-card" data-terms="字詞單位 token"><div style="font-size:.8rem;font-weight:700;margin-bottom:.2rem;">字詞單位 <span style="font-size:.68rem;font-weight:400;color:#8B5CF6;font-family:'Space Grotesk',sans-serif;">Token</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">AI 處理文字的最小碎片（可能是一個字或字根）。它是計算成本、速度與記憶量的基準。</p></div>
+        <div class="term-card" data-terms="上下文視窗 context window"><div style="font-size:.8rem;font-weight:700;margin-bottom:.2rem;">上下文視窗 <span style="font-size:.68rem;font-weight:400;color:#8B5CF6;font-family:'Space Grotesk',sans-serif;">Context Window</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">AI 單次對話能「記住」的訊息範圍。超出此範圍，AI 會開始遺忘先前的內容。</p></div>
+        <div class="term-card" data-terms="提示詞工程 prompt engineering"><div style="font-size:.8rem;font-weight:700;margin-bottom:.2rem;">提示詞工程 <span style="font-size:.68rem;font-weight:400;color:#8B5CF6;font-family:'Space Grotesk',sans-serif;">Prompt Engineering</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">透過設計精確的輸入指令，引導 AI 產出更理想、更專業的答案。</p></div>
+        <div class="term-card" data-terms="ai幻覺 hallucination 幻覺"><div style="font-size:.8rem;font-weight:700;margin-bottom:.2rem;">AI 幻覺 <span style="font-size:.68rem;font-weight:400;color:#8B5CF6;font-family:'Space Grotesk',sans-serif;">AI Hallucination</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">指 AI 以自信的語氣產生看似合理、但事實完全錯誤或虛構的內容。</p></div>
+      </div>
+    </section>
+
+    <!-- Category 3 -->
+    <section class="category-section" style="margin-bottom:3rem;">
+      <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;padding-bottom:.75rem;border-bottom:1px solid rgba(255,255,255,.06);">
+        <div style="width:2rem;height:2rem;border-radius:.5rem;background:rgba(6,182,212,.15);border:1px solid rgba(6,182,212,.3);display:flex;align-items:center;justify-content:center;"><iconify-icon icon="mdi:text-box-outline" width="16" style="color:#06B6D4;"></iconify-icon></div>
+        <div><div style="font-size:.68rem;font-weight:600;color:#06B6D4;letter-spacing:.1em;">03</div><h2 style="font-size:1rem;font-weight:700;">自然語言處理</h2></div>
+        <span style="margin-left:auto;font-size:.72rem;color:#94A3B8;font-family:'Space Grotesk',sans-serif;">NLP</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:.875rem;" id="cat3">
+        <div class="term-card" data-terms="分詞 tokenization"><div style="font-size:.8rem;font-weight:700;margin-bottom:.2rem;">分詞 <span style="font-size:.68rem;font-weight:400;color:#06B6D4;font-family:'Space Grotesk',sans-serif;">Tokenization</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">將整段文字拆解成 Token 的過程，是所有 NLP 任務的起點。</p></div>
+        <div class="term-card" data-terms="轉換器架構 transformer"><div style="font-size:.8rem;font-weight:700;margin-bottom:.2rem;">轉換器架構 <span style="font-size:.68rem;font-weight:400;color:#06B6D4;font-family:'Space Grotesk',sans-serif;">Transformer</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">現代 AI 的底層架構，靠「自注意力機制」理解文字間的深層邏輯。GPT 和 BERT 都基於此。</p></div>
+        <div class="term-card" data-terms="bert 雙向編碼理解模型"><div style="font-size:.8rem;font-weight:700;margin-bottom:.2rem;">雙向編碼理解模型 <span style="font-size:.68rem;font-weight:400;color:#06B6D4;font-family:'Space Grotesk',sans-serif;">BERT</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">擅長「理解」語意，會同時讀取文字的前後文。</p></div>
+        <div class="term-card" data-terms="gpt 生成式預訓練轉換器"><div style="font-size:.8rem;font-weight:700;margin-bottom:.2rem;">生成式預訓練轉換器 <span style="font-size:.68rem;font-weight:400;color:#06B6D4;font-family:'Space Grotesk',sans-serif;">GPT</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">擅長「生成」內容，能像人類一樣流利地寫作與對談。</p></div>
+        <div class="term-card" data-terms="少樣本學習 few-shot learning"><div style="font-size:.8rem;font-weight:700;margin-bottom:.2rem;">少樣本學習 <span style="font-size:.68rem;font-weight:400;color:#06B6D4;font-family:'Space Grotesk',sans-serif;">Few-shot Learning</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">只要給 AI 幾個範例，它就能學會新的任務。</p></div>
+      </div>
+    </section>
+
+    <!-- Category 4 -->
+    <section class="category-section" style="margin-bottom:3rem;">
+      <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;padding-bottom:.75rem;border-bottom:1px solid rgba(255,255,255,.06);">
+        <div style="width:2rem;height:2rem;border-radius:.5rem;background:rgba(16,185,129,.15);border:1px solid rgba(16,185,129,.3);display:flex;align-items:center;justify-content:center;"><iconify-icon icon="mdi:eye-outline" width="16" style="color:#10B981;"></iconify-icon></div>
+        <div><div style="font-size:.68rem;font-weight:600;color:#10B981;letter-spacing:.1em;">04</div><h2 style="font-size:1rem;font-weight:700;">電腦視覺與生成技術</h2></div>
+        <span style="margin-left:auto;font-size:.72rem;color:#94A3B8;font-family:'Space Grotesk',sans-serif;">Computer Vision</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:.875rem;" id="cat4">
+        <div class="term-card" data-terms="圖像分類 image classification"><div style="font-size:.8rem;font-weight:700;margin-bottom:.2rem;">圖像分類 <span style="font-size:.68rem;font-weight:400;color:#10B981;font-family:'Space Grotesk',sans-serif;">Image Classification</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">辨識圖片中的主角是誰（例如：這是一隻貓）。</p></div>
+        <div class="term-card" data-terms="物體偵測 object detection"><div style="font-size:.8rem;font-weight:700;margin-bottom:.2rem;">物體偵測 <span style="font-size:.68rem;font-weight:400;color:#10B981;font-family:'Space Grotesk',sans-serif;">Object Detection</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">找出圖片中所有物件的位置，並用框框標註出來。</p></div>
+        <div class="term-card" data-terms="圖像分割 image segmentation"><div style="font-size:.8rem;font-weight:700;margin-bottom:.2rem;">圖像分割 <span style="font-size:.68rem;font-weight:400;color:#10B981;font-family:'Space Grotesk',sans-serif;">Image Segmentation</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">將圖片分割成不同區域，精確到像素級的分類。</p></div>
+        <div class="term-card" data-terms="臉部辨識 face recognition"><div style="font-size:.8rem;font-weight:700;margin-bottom:.2rem;">臉部辨識 <span style="font-size:.68rem;font-weight:400;color:#10B981;font-family:'Space Grotesk',sans-serif;">Face Recognition</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">辨識並驗證圖像中人臉的身份。</p></div>
+        <div class="term-card" data-terms="生成式人工智慧 generative ai"><div style="font-size:.8rem;font-weight:700;margin-bottom:.2rem;">生成式人工智慧 <span style="font-size:.68rem;font-weight:400;color:#10B981;font-family:'Space Grotesk',sans-serif;">Generative AI</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">能夠創造新內容（文字、圖像、音樂等）的技術，如 GPT、Midjourney。</p></div>
+        <div class="term-card" data-terms="擴散模型 diffusion model"><div style="font-size:.8rem;font-weight:700;margin-bottom:.2rem;">擴散模型 <span style="font-size:.68rem;font-weight:400;color:#10B981;font-family:'Space Grotesk',sans-serif;">Diffusion Model</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">透過「去噪」技術生成高品質影像的技術（如 Midjourney 採用的原理）。</p></div>
+      </div>
+    </section>
+
+    <!-- Category 5 -->
+    <section class="category-section" style="margin-bottom:3rem;">
+      <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;padding-bottom:.75rem;border-bottom:1px solid rgba(255,255,255,.06);">
+        <div style="width:2rem;height:2rem;border-radius:.5rem;background:rgba(244,63,94,.15);border:1px solid rgba(244,63,94,.3);display:flex;align-items:center;justify-content:center;"><iconify-icon icon="mdi:server-outline" width="16" style="color:#F43F5E;"></iconify-icon></div>
+        <div><div style="font-size:.68rem;font-weight:600;color:#F43F5E;letter-spacing:.1em;">05</div><h2 style="font-size:1rem;font-weight:700;">部署、應用與倫理</h2></div>
+        <span style="margin-left:auto;font-size:.72rem;color:#94A3B8;font-family:'Space Grotesk',sans-serif;">Deployment & Agents</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:.875rem;" id="cat5">
+        <div class="term-card" data-terms="ai代理 ai agent 智慧代理"><div style="font-size:.8rem;font-weight:700;margin-bottom:.2rem;">AI 代理 <span style="font-size:.68rem;font-weight:400;color:#F43F5E;font-family:'Space Grotesk',sans-serif;">AI Agent</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">具備「自主性」的系統，能自行規劃步驟並調用工具（如發郵件、查資料）來達成任務。</p></div>
+        <div class="term-card" data-terms="mcp model context protocol 模型情境協議 anthropic"><div style="font-size:.8rem;font-weight:700;margin-bottom:.2rem;">模型情境協議 <span style="font-size:.68rem;font-weight:400;color:#F43F5E;font-family:'Space Grotesk',sans-serif;">MCP（Model Context Protocol）</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">讓 AI 能連接外部工具（如查天氣、讀檔案、查日曆）的共同規格。就像「AI 的 USB-C 接口」—插上就能用，不需要每次重新設定。</p></div>
+        <div class="term-card" data-terms="agent skills 代理技能 技能 skill"><div style="font-size:.8rem;font-weight:700;margin-bottom:.2rem;">代理技能 <span style="font-size:.68rem;font-weight:400;color:#F43F5E;font-family:'Space Grotesk',sans-serif;">Agent Skills</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">AI Agent 能執行的一項具體能力，例如「搜尋網路」、「寄出 Email」、「讀取檔案」。技能越多，Agent 能完成的任務就越複雜，就像員工學的技能越多能接的工作就越多。</p></div>
+        <div class="term-card" data-terms="本地模型 local model"><div style="font-size:.8rem;font-weight:700;margin-bottom:.2rem;">本地模型 <span style="font-size:.68rem;font-weight:400;color:#F43F5E;font-family:'Space Grotesk',sans-serif;">Local Model</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">運行在自己電腦設備上的模型，隱私度高且無須連網。</p></div>
+        <div class="term-card" data-terms="雲端模型 cloud model"><div style="font-size:.8rem;font-weight:700;margin-bottom:.2rem;">雲端模型 <span style="font-size:.68rem;font-weight:400;color:#F43F5E;font-family:'Space Grotesk',sans-serif;">Cloud Model</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">透過 API 串接廠商伺服器（如 GPT-4），性能強大但需依賴網路。</p></div>
+        <div class="term-card" data-terms="開源模型 open source"><div style="font-size:.8rem;font-weight:700;margin-bottom:.2rem;">開源模型 <span style="font-size:.68rem;font-weight:400;color:#F43F5E;font-family:'Space Grotesk',sans-serif;">Open Source</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">開發者公開模型的原始碼、架構以及模型權重，任何人都可以下載、部署、修改。</p></div>
+        <div class="term-card" data-terms="閉源模型 closed source proprietary"><div style="font-size:.8rem;font-weight:700;margin-bottom:.2rem;">閉源模型 <span style="font-size:.68rem;font-weight:400;color:#F43F5E;font-family:'Space Grotesk',sans-serif;">Closed Source</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">模型受專利保護，只能透過 API 或網頁介面使用，無法看到內部運作邏輯。</p></div>
+        <div class="term-card" data-terms="種子 seed"><div style="font-size:.8rem;font-weight:700;margin-bottom:.2rem;">種子 <span style="font-size:.68rem;font-weight:400;color:#F43F5E;font-family:'Space Grotesk',sans-serif;">Seed</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">初始化隨機數生成器的數值。設定相同種子可確保在相同條件下產出完全一致的結果。</p></div>
+        <div class="term-card" data-terms="rag 檢索增強生成 retrieval augmented generation"><div style="font-size:.8rem;font-weight:700;margin-bottom:.2rem;">檢索增強生成 <span style="font-size:.68rem;font-weight:400;color:#F43F5E;font-family:'Space Grotesk',sans-serif;">RAG</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">讓 AI 先去「翻閱」特定文件或資料庫，再根據結果回答，是解決幻覺的關鍵。</p></div>
+        <div class="term-card" data-terms="api 應用程式介面"><div style="font-size:.8rem;font-weight:700;margin-bottom:.2rem;">應用程式介面 <span style="font-size:.68rem;font-weight:400;color:#F43F5E;font-family:'Space Grotesk',sans-serif;">API</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">軟體之間溝通的橋樑，讓你將 AI 功能嵌入到自己的 App 中。</p></div>
+        <div class="term-card" data-terms="推論 inference"><div style="font-size:.8rem;font-weight:700;margin-bottom:.2rem;">推論 <span style="font-size:.68rem;font-weight:400;color:#F43F5E;font-family:'Space Grotesk',sans-serif;">Inference</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">模型實際根據輸入產生結果的運作過程。</p></div>
+        <div class="term-card" data-terms="微調 fine-tuning"><div style="font-size:.8rem;font-weight:700;margin-bottom:.2rem;">微調 <span style="font-size:.68rem;font-weight:400;color:#F43F5E;font-family:'Space Grotesk',sans-serif;">Fine-tuning</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">針對特定領域資料進行二次訓練，讓模型變成專才。</p></div>
+        <div class="term-card" data-terms="深度偽造 deepfake"><div style="font-size:.8rem;font-weight:700;margin-bottom:.2rem;">深度偽造 <span style="font-size:.68rem;font-weight:400;color:#F43F5E;font-family:'Space Grotesk',sans-serif;">Deepfake</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">使用 AI 合成極其逼真的影像或聲音，常涉及倫理與詐騙疑慮。</p></div>
+        <div class="term-card" data-terms="邊緣計算 edge computing"><div style="font-size:.8rem;font-weight:700;margin-bottom:.2rem;">邊緣計算 <span style="font-size:.68rem;font-weight:400;color:#F43F5E;font-family:'Space Grotesk',sans-serif;">Edge Computing</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">在靠近資料源的設備（如手機）進行運算，減少延遲。</p></div>
+        <div class="term-card" data-terms="偏見 bias"><div style="font-size:.8rem;font-weight:700;margin-bottom:.2rem;">偏見 <span style="font-size:.68rem;font-weight:400;color:#F43F5E;font-family:'Space Grotesk',sans-serif;">Bias</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">AI 因為訓練資料不均，而產生的不公平或歧視性決策。</p></div>
+      </div>
+    </section>
+
+    <!-- Category 6 -->
+    <section class="category-section" style="margin-bottom:3rem;">
+      <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;padding-bottom:.75rem;border-bottom:1px solid rgba(255,255,255,.06);">
+        <div style="width:2rem;height:2rem;border-radius:.5rem;background:rgba(245,158,11,.15);border:1px solid rgba(245,158,11,.3);display:flex;align-items:center;justify-content:center;"><iconify-icon icon="mdi:cpu-64-bit" width="16" style="color:#F59E0B;"></iconify-icon></div>
+        <div><div style="font-size:.68rem;font-weight:600;color:#F59E0B;letter-spacing:.1em;">06</div><h2 style="font-size:1rem;font-weight:700;">進階模型機制與架構</h2></div>
+        <span style="margin-left:auto;font-size:.72rem;color:#94A3B8;font-family:'Space Grotesk',sans-serif;">Advanced Architectures</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:.875rem;" id="cat6">
+        <div class="term-card" data-terms="多模態 multimodal"><div style="font-size:.8rem;font-weight:700;margin-bottom:.2rem;">多模態 <span style="font-size:.68rem;font-weight:400;color:#F59E0B;font-family:'Space Grotesk',sans-serif;">Multimodal</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">指 AI 能同時處理並理解多種型態的資料（文字、影像、語音、影片），並在不同型態間轉換。</p></div>
+        <div class="term-card" data-terms="參數 parameters"><div style="font-size:.8rem;font-weight:700;margin-bottom:.2rem;">參數 <span style="font-size:.68rem;font-weight:400;color:#F59E0B;font-family:'Space Grotesk',sans-serif;">Parameters</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">模型內部的變數（權重與偏差），代表模型的「腦容量」。通常參數越多，能力越強。</p></div>
+        <div class="term-card" data-terms="自注意力機制 self-attention"><div style="font-size:.8rem;font-weight:700;margin-bottom:.2rem;">自注意力機制 <span style="font-size:.68rem;font-weight:400;color:#F59E0B;font-family:'Space Grotesk',sans-serif;">Self-Attention</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">Transformer 的靈魂。讓模型在處理文字時，能判斷哪些詞對理解當前語義最重要。</p></div>
+        <div class="term-card" data-terms="混合專家模型 moe mixture of experts"><div style="font-size:.8rem;font-weight:700;margin-bottom:.2rem;">混合專家模型 <span style="font-size:.68rem;font-weight:400;color:#F59E0B;font-family:'Space Grotesk',sans-serif;">MoE</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">模型由多個「專家」小組組成，處理問題時只激活部分專家，節省運算資源（如 GPT-4 傳聞採用）。</p></div>
+      </div>
+    </section>
+
+    <!-- Category 7 -->
+    <section class="category-section" style="margin-bottom:3rem;">
+      <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;padding-bottom:.75rem;border-bottom:1px solid rgba(255,255,255,.06);">
+        <div style="width:2rem;height:2rem;border-radius:.5rem;background:rgba(236,72,153,.15);border:1px solid rgba(236,72,153,.3);display:flex;align-items:center;justify-content:center;"><iconify-icon icon="mdi:tune" width="16" style="color:#EC4899;"></iconify-icon></div>
+        <div><div style="font-size:.68rem;font-weight:600;color:#EC4899;letter-spacing:.1em;">07</div><h2 style="font-size:1rem;font-weight:700;">訓練與優化技術</h2></div>
+        <span style="margin-left:auto;font-size:.72rem;color:#94A3B8;font-family:'Space Grotesk',sans-serif;">Training & Alignment</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:.875rem;" id="cat7">
+        <div class="term-card" data-terms="預訓練 pre-training"><div style="font-size:.8rem;font-weight:700;margin-bottom:.2rem;">預訓練 <span style="font-size:.68rem;font-weight:400;color:#EC4899;font-family:'Space Grotesk',sans-serif;">Pre-training</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">在海量通用資料上進行的大規模初步訓練，賦予 AI 基礎的語言與常識能力。</p></div>
+        <div class="term-card" data-terms="rlhf 人類回饋強化學習"><div style="font-size:.8rem;font-weight:700;margin-bottom:.2rem;">人類回饋強化學習 <span style="font-size:.68rem;font-weight:400;color:#EC4899;font-family:'Space Grotesk',sans-serif;">RLHF</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">透過人類對 AI 回答進行評分，引導 AI 行為更符合人類的價值觀、更有禮貌且更安全。</p></div>
+        <div class="term-card" data-terms="量化 quantization"><div style="font-size:.8rem;font-weight:700;margin-bottom:.2rem;">量化 <span style="font-size:.68rem;font-weight:400;color:#EC4899;font-family:'Space Grotesk',sans-serif;">Quantization</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">將高精度數值壓縮成低精度，大幅降低對顯示卡記憶體（VRAM）的需求，讓普通電腦也能跑大模型。</p></div>
+        <div class="term-card" data-terms="lora low-rank adaptation"><div style="font-size:.8rem;font-weight:700;margin-bottom:.2rem;">LoRA <span style="font-size:.68rem;font-weight:400;color:#EC4899;font-family:'Space Grotesk',sans-serif;">Low-Rank Adaptation</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">高效率微調技術。不需要改動整個模型，只訓練極小比例的附加參數，就能讓模型學會特定風格。</p></div>
+      </div>
+    </section>
+
+    <!-- Category 8 -->
+    <section class="category-section" style="margin-bottom:3rem;">
+      <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;padding-bottom:.75rem;border-bottom:1px solid rgba(255,255,255,.06);">
+        <div style="width:2rem;height:2rem;border-radius:.5rem;background:rgba(167,139,250,.15);border:1px solid rgba(167,139,250,.3);display:flex;align-items:center;justify-content:center;"><iconify-icon icon="mdi:lightbulb-on-outline" width="16" style="color:#A78BFA;"></iconify-icon></div>
+        <div><div style="font-size:.68rem;font-weight:600;color:#A78BFA;letter-spacing:.1em;">08</div><h2 style="font-size:1rem;font-weight:700;">提示詞進階策略</h2></div>
+        <span style="margin-left:auto;font-size:.72rem;color:#94A3B8;font-family:'Space Grotesk',sans-serif;">Advanced Prompting</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:.875rem;" id="cat8">
+        <div class="term-card" data-terms="思維鏈 chain of thought cot"><div style="font-size:.8rem;font-weight:700;margin-bottom:.2rem;">思維鏈 <span style="font-size:.68rem;font-weight:400;color:#A78BFA;font-family:'Space Grotesk',sans-serif;">Chain of Thought / CoT</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">誘導 AI「一步一步思考」的技術。要求 AI 在給出答案前先寫出推理過程，顯著提升邏輯問題能力。</p></div>
+        <div class="term-card" data-terms="少樣本 零樣本 few-shot zero-shot"><div style="font-size:.8rem;font-weight:700;margin-bottom:.2rem;">少樣本／零樣本提示 <span style="font-size:.68rem;font-weight:400;color:#A78BFA;font-family:'Space Grotesk',sans-serif;">Few/Zero-shot</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">「少樣本」是給 AI 幾個範例；「零樣本」則是直接下令。考驗模型的通用理解能力。</p></div>
+        <div class="term-card" data-terms="系統提示詞 system prompt"><div style="font-size:.8rem;font-weight:700;margin-bottom:.2rem;">系統提示詞 <span style="font-size:.68rem;font-weight:400;color:#A78BFA;font-family:'Space Grotesk',sans-serif;">System Prompt</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">設定 AI 的「人格」或「底層規則」。在對話開始前就餵給 AI 的指令（例如：你現在是一位資深工程師）。</p></div>
+      </div>
+    </section>
+
+    <!-- Category 9 -->
+    <section class="category-section" style="margin-bottom:3rem;">
+      <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;padding-bottom:.75rem;border-bottom:1px solid rgba(255,255,255,.06);">
+        <div style="width:2rem;height:2rem;border-radius:.5rem;background:rgba(52,211,153,.15);border:1px solid rgba(52,211,153,.3);display:flex;align-items:center;justify-content:center;"><iconify-icon icon="mdi:rocket-launch-outline" width="16" style="color:#34D399;"></iconify-icon></div>
+        <div><div style="font-size:.68rem;font-weight:600;color:#34D399;letter-spacing:.1em;">09</div><h2 style="font-size:1rem;font-weight:700;">未來趨勢與通用人工智慧</h2></div>
+        <span style="margin-left:auto;font-size:.72rem;color:#94A3B8;font-family:'Space Grotesk',sans-serif;">AGI & Future</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:.875rem;" id="cat9">
+        <div class="term-card" data-terms="agi 通用人工智慧 artificial general intelligence"><div style="font-size:.8rem;font-weight:700;margin-bottom:.2rem;">通用人工智慧 <span style="font-size:.68rem;font-weight:400;color:#34D399;font-family:'Space Grotesk',sans-serif;">AGI</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">AI 發展的終極目標：在各個認知領域都能達到或超越人類水平，具備自我學習與跨域解決問題的能力。</p></div>
+        <div class="term-card" data-terms="llm as os 大語言模型作為作業系統"><div style="font-size:.8rem;font-weight:700;margin-bottom:.2rem;">LLM as OS <span style="font-size:.68rem;font-weight:400;color:#34D399;font-family:'Space Grotesk',sans-serif;">大語言模型作業系統</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">未來的電腦操作不再是點擊圖標，而是由 LLM 作為核心調度所有軟體工具來完成任務。</p></div>
+        <div class="term-card" data-terms="具身智慧 embodied ai"><div style="font-size:.8rem;font-weight:700;margin-bottom:.2rem;">具身智慧 <span style="font-size:.68rem;font-weight:400;color:#34D399;font-family:'Space Grotesk',sans-serif;">Embodied AI</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">將 AI 大腦放入物理實體（如人形機器人），讓 AI 能在現實世界中感知、移動並操作物體。</p></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Prev/Next -->
+  <div style="max-width:920px;margin:0 auto;padding:0 1.5rem 4rem;display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+    <a href="unit5.html" class="glass" style="padding:1.25rem;text-decoration:none;display:flex;align-items:center;gap:.75rem;transition:all .3s;border-radius:1rem;"><iconify-icon icon="mdi:arrow-left" width="18" style="color:#CBD5E1;"></iconify-icon><div><div style="font-size:.68rem;color:#94A3B8;margin-bottom:.2rem;">上一單元</div><div style="font-size:.875rem;font-weight:600;">安全與未來</div></div></a>
+    <a href="unit7.html" class="glass" style="padding:1.25rem;text-decoration:none;display:flex;align-items:center;justify-content:flex-end;gap:.75rem;transition:all .3s;border-radius:1rem;border-color:rgba(236,72,153,.2);"><div style="text-align:right;"><div style="font-size:.68rem;color:#F9A8D4;margin-bottom:.2rem;">下一單元</div><div style="font-size:.875rem;font-weight:600;">講師介紹</div></div><iconify-icon icon="mdi:arrow-right" width="18" style="color:#EC4899;"></iconify-icon></a>
+  </div>
+
+  <footer style="border-top:1px solid rgba(255,255,255,.05);padding:2.5rem 1.5rem;">
+    <div style="max-width:1280px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1.5rem;">
+      <div style="display:flex;align-items:center;gap:.875rem;"><div style="width:2rem;height:2rem;border-radius:.5rem;background:linear-gradient(135deg,#3B82F6,#8B5CF6);display:flex;align-items:center;justify-content:center;"><iconify-icon icon="mdi:robot-outline" width="16" style="color:white;"></iconify-icon></div><div><div style="font-size:.875rem;font-weight:600;">AI 基礎與應用課程</div><div style="font-size:.72rem;color:#94A3B8;">© 2026 Choe · 持續學習，掌握未來</div></div></div>
+      <div style="display:flex;align-items:center;gap:1.5rem;font-size:.82rem;flex-wrap:wrap;"><a href="index.html" style="color:#94A3B8;text-decoration:none;" onmouseover="this.style.color='#F1F5F9'" onmouseout="this.style.color='#94A3B8'">首頁</a><a href="unit1.html" style="color:#94A3B8;text-decoration:none;" onmouseover="this.style.color='#F1F5F9'" onmouseout="this.style.color='#94A3B8'">開始學習</a><a href="unit7.html" style="color:#94A3B8;text-decoration:none;" onmouseover="this.style.color='#F1F5F9'" onmouseout="this.style.color='#94A3B8'">講師介紹</a></div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+    const dot=document.getElementById('cursorDot'),ring=document.getElementById('cursorRing'),spotlight=document.getElementById('spotlight');
+    let mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';spotlight.style.background=`radial-gradient(700px at ${mx}px ${my}px,rgba(245,158,11,.07),transparent 70%)`;});
+    (function loop(){rx+=(mx-rx)*.13;ry+=(my-ry)*.13;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
+    document.querySelectorAll('a,button,.glass,.term-card').forEach(el=>{el.addEventListener('mouseenter',()=>document.body.classList.add('hovering'));el.addEventListener('mouseleave',()=>document.body.classList.remove('hovering'));});
+    gsap.from('#heroContent',{opacity:0,y:48,duration:1,ease:'power3.out',delay:.15});
+    window.addEventListener('scroll',()=>{document.querySelector('.nav-bar').style.padding=window.scrollY>60?'.55rem 1.5rem':'.9rem 1.5rem';});
+
+    // Search filter
+    function filterTerms() {
+      const q = document.getElementById('searchBox').value.toLowerCase().trim();
+      const cards = document.querySelectorAll('.term-card');
+      const sections = document.querySelectorAll('.category-section');
+      let totalVisible = 0;
+      cards.forEach(card => {
+        const text = (card.dataset.terms + ' ' + card.textContent).toLowerCase();
+        const visible = !q || text.includes(q);
+        card.style.display = visible ? '' : 'none';
+        if(visible) totalVisible++;
+      });
+      sections.forEach(sec => {
+        const visible = sec.querySelectorAll('.term-card:not([style*="display: none"])').length > 0;
+        sec.style.display = visible ? '' : 'none';
+      });
+      document.getElementById('noResults').style.display = totalVisible === 0 ? '' : 'none';
+    }
+  </script>
+
+  <!-- Term Modal -->
+  <div id="termModal" onclick="if(event.target===this)closeTermModal()" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.78);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);align-items:center;justify-content:center;padding:1.5rem;">
+    <div style="position:relative;width:min(580px,94vw);background:rgba(8,10,22,.96);border:1px solid var(--tm-color,rgba(255,255,255,.15));border-radius:24px;padding:2.5rem 2.5rem 2rem;box-shadow:0 0 48px rgba(0,0,0,.6);" id="termModalBox">
+      <button onclick="closeTermModal()" style="position:absolute;top:1rem;right:1rem;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:#fff;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;">✕</button>
+      <div style="margin-bottom:1.25rem;">
+        <div id="tmTitle" style="font-family:'Space Grotesk',sans-serif;font-size:2rem;font-weight:900;color:#fff;line-height:1.15;margin-bottom:.4rem;"></div>
+        <div id="tmEng" style="font-size:.95rem;font-family:'Space Grotesk',sans-serif;font-weight:500;letter-spacing:.04em;"></div>
+      </div>
+      <div id="tmDivider" style="width:100%;height:1px;background:rgba(255,255,255,.08);margin-bottom:1.5rem;"></div>
+      <p id="tmDesc" style="font-size:1.15rem;color:#CBD5E1;line-height:2;"></p>
+    </div>
+  </div>
+  <script>
+    function closeTermModal(){
+      document.getElementById('termModal').style.display='none';
+      document.body.style.overflow='';
+    }
+    document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeTermModal(); });
+
+    document.querySelectorAll('.term-card').forEach(card=>{
+      card.addEventListener('click',()=>{
+        const titleDiv = card.querySelector('div');
+        const engSpan  = titleDiv.querySelector('span');
+        const color    = engSpan ? (engSpan.style.color || '#F59E0B') : '#F59E0B';
+        const termName = titleDiv.childNodes[0].textContent.trim();
+        const engName  = engSpan ? engSpan.textContent.trim() : '';
+        const desc     = card.querySelector('p').innerHTML;
+
+        document.getElementById('tmTitle').textContent = termName;
+        document.getElementById('tmEng').textContent   = engName;
+        document.getElementById('tmEng').style.color   = color;
+        document.getElementById('tmDivider').style.background = color.replace(')',', .35)').replace('rgb','rgba');
+        document.getElementById('termModalBox').style.borderColor = color.replace(')',', .4)').replace('rgb','rgba');
+        document.getElementById('tmDesc').innerHTML    = desc;
+        const modal = document.getElementById('termModal');
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      });
+    });
+  </script>
+</body>
+</html>
