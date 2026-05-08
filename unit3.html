@@ -834,17 +834,43 @@
         <pre>請幫我把這張照片重繪成日式插圖風，但保持人物臉型、表情和特徵足夠自然，可辨識出原貌。</pre>
       </div>
 
-      <div class="scenario-sub-heading">F. 反推圖片提示詞 — 通用結構</div>
+      <div class="scenario-sub-heading">F. 反推圖片提示詞 — 讓 AI 幫你分析圖片</div>
       <div class="prompt-block">
-        <pre>提示詞結構：[主體] + [風格] + [顏色] + [燈光] + [構圖] + [質感]
+        <span class="prompt-label">基本反推 — 上傳圖片後使用</span>
+        <pre>請分析這張圖片，幫我寫出能在 AI 圖像生成工具（如 Midjourney、DALL-E）中重現類似效果的英文提示詞。
+格式請包含：主體描述、藝術風格、色調、燈光、構圖方式、畫面質感。</pre>
+      </div>
+      <div class="prompt-block">
+        <span class="prompt-label">進階反推 — 要求拆解說明</span>
+        <pre>請看這張圖，用以下格式幫我反推提示詞，並解釋每個元素的作用：
 
-範例：
-一位穿白色洋裝的女性 [主體]
-日式插畫風格 [風格]
-柔和粉色調 [顏色]
-自然側光 [燈光]
-三分構圖，背景虛化 [構圖]
-水彩紙質感，細緻線條 [質感]</pre>
+【主體】圖中的主角是什麼？有哪些細節？
+【風格】屬於哪種藝術或攝影風格？
+【色調】整體色彩傾向是什麼？
+【燈光】光線來自哪個方向？屬於何種燈光類型？
+【構圖】使用了什麼構圖手法？
+【質感】畫面有什麼特殊質感或後製效果？
+
+最後整合成一段可直接使用的英文 prompt。</pre>
+      </div>
+      <div class="prompt-block">
+        <span class="prompt-label">快速版 — 只要可用的 prompt</span>
+        <pre>（上傳圖片後輸入）
+請直接給我這張圖的 AI 生成提示詞，英文，不需要解釋。</pre>
+      </div>
+
+      <div class="scenario-sub-heading">G. 製作一週晚餐菜單</div>
+      <div class="prompt-block">
+        <span class="prompt-label">Step 1 — Deep Research：找餐廳 + 規劃菜單</span>
+        <pre>請幫我完成以下三個步驟：
+1.列出[台北市士林區]Google 評分4星以上的美食20個，
+2.請列成表格
+3.以上表為基礎, 規劃一週晚餐菜單, 不吃[生食], 價格[200]以內, google評價4星以上
+</pre>
+      </div>
+      <div class="prompt-block">
+        <span class="prompt-label">Step 2 — 生成菜單圖片（優化版提示詞）</span>
+        <pre>將建議菜單以圖片顯示,以類似google地圖的樣式，內容用繁體中文顯示。</pre>
       </div>
     </div>
 
