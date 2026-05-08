@@ -313,7 +313,18 @@
     border-radius: 14px; padding: 1.1rem 1.35rem;
     font-size: 0.95rem; color: rgba(255,255,255,0.75);
     line-height: 1.85; margin-top: 0.65rem;
+    position: relative;
   }
+  .copy-btn {
+    position: absolute; top: 0.65rem; right: 0.65rem;
+    background: rgba(6,182,212,0.12); border: 1px solid rgba(6,182,212,0.3);
+    color: #22D3EE; border-radius: 8px; padding: 0.28rem 0.65rem;
+    font-size: 0.75rem; font-weight: 700; letter-spacing: 0.04em;
+    cursor: pointer; transition: background 0.2s, color 0.2s, border-color 0.2s;
+    white-space: nowrap; font-family: 'Noto Sans TC', sans-serif;
+  }
+  .copy-btn:hover { background: rgba(6,182,212,0.25); border-color: rgba(6,182,212,0.6); }
+  .copy-btn.copied { background: rgba(34,197,94,0.15); border-color: rgba(34,197,94,0.4); color: #4ADE80; }
   .prompt-block .prompt-label {
     font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em;
     color: var(--accent); text-transform: uppercase; margin-bottom: 0.5rem;
@@ -1375,6 +1386,90 @@
     gsap.to(el, {
       scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' },
       y: 0, opacity: 1, duration: 0.8, ease: 'power3.out'
+    });
+  });
+</script>
+
+<!-- Copy Button Script -->
+<script>
+  document.querySelectorAll('.prompt-block').forEach(block=>{
+    const pre = block.querySelector('pre');
+    if(!pre) return;
+    const btn = document.createElement('button');
+    btn.className = 'copy-btn';
+    btn.textContent = '複製';
+    btn.addEventListener('click', async ()=>{
+      try {
+        await navigator.clipboard.writeText(pre.innerText);
+        btn.textContent = '✓ 已複製';
+        btn.classList.add('copied');
+        setTimeout(()=>{ btn.textContent='複製'; btn.classList.remove('copied'); }, 2000);
+      } catch(e) {
+        const ta = document.createElement('textarea');
+        ta.value = pre.innerText;
+        ta.style.cssText = 'position:fixed;opacity:0;';
+        document.body.appendChild(ta); ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        btn.textContent = '✓ 已複製';
+        btn.classList.add('copied');
+        setTimeout(()=>{ btn.textContent='複製'; btn.classList.remove('copied'); }, 2000);
+      }
+    });
+    block.appendChild(btn);
+  });
+</script>
+
+<!-- Limit Card Modal -->
+<div id="limitModal" onclick="if(event.target===this)closeLimitModal()" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.82);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);align-items:center;justify-content:center;padding:1.5rem;">
+  <div id="limitModalBox" style="position:relative;width:min(620px,94vw);max-height:85vh;overflow-y:auto;background:rgba(6,12,28,.97);border:1px solid rgba(6,182,212,.3);border-radius:28px;padding:2.5rem 2.5rem 2rem;box-shadow:0 0 60px rgba(0,0,0,.7);">
+    <button onclick="closeLimitModal()" style="position:absolute;top:1rem;right:1rem;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:#fff;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;">✕</button>
+    <div id="lmNum" style="font-family:'Space Grotesk',sans-serif;font-weight:900;font-size:3.5rem;color:rgba(6,182,212,.18);line-height:1;margin-bottom:.4rem;"></div>
+    <div id="lmTitle" style="font-family:'Space Grotesk',sans-serif;font-size:1.6rem;font-weight:800;color:#fff;line-height:1.2;margin-bottom:.5rem;"></div>
+    <div id="lmSub" style="font-size:1rem;color:#22D3EE;font-style:italic;margin-bottom:1.25rem;"></div>
+    <div style="width:100%;height:1px;background:rgba(6,182,212,.2);margin-bottom:1.5rem;"></div>
+    <div id="lmBody" style="font-size:1.05rem;color:rgba(255,255,255,.78);line-height:1.9;margin-bottom:1rem;"></div>
+    <div id="lmRisk" style="display:none;margin-bottom:.75rem;"></div>
+    <div id="lmTips"></div>
+  </div>
+</div>
+<script>
+  function closeLimitModal(){
+    document.getElementById('limitModal').style.display='none';
+    document.body.style.overflow='';
+  }
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeLimitModal(); });
+
+  document.querySelectorAll('.limit-card').forEach(card=>{
+    card.style.cursor='pointer';
+    card.addEventListener('click',()=>{
+      const num   = card.querySelector('.limit-num');
+      const title = card.querySelector('.limit-title');
+      const sub   = card.querySelector('.limit-sub');
+      const body  = card.querySelector('.limit-body');
+      const risk  = card.querySelector('.risk-badge');
+      const tips  = card.querySelectorAll('.limit-tip');
+
+      document.getElementById('lmNum').textContent   = num   ? num.textContent   : '';
+      document.getElementById('lmTitle').textContent = title ? title.textContent : '';
+      document.getElementById('lmSub').textContent   = sub   ? sub.textContent   : '';
+      document.getElementById('lmBody').innerHTML    = body  ? body.innerHTML    : '';
+
+      const riskEl = document.getElementById('lmRisk');
+      if(risk){ riskEl.innerHTML = risk.outerHTML; riskEl.style.display='block'; }
+      else    { riskEl.innerHTML=''; riskEl.style.display='none'; }
+
+      const tipsEl = document.getElementById('lmTips');
+      tipsEl.innerHTML = '';
+      tips.forEach(t=>{
+        const d = document.createElement('div');
+        d.innerHTML = t.innerHTML;
+        d.style.cssText = 'margin-top:.75rem;padding:.75rem 1rem;background:rgba(6,182,212,.08);border-left:3px solid #06B6D4;border-radius:0 10px 10px 0;font-size:1rem;color:rgba(255,255,255,.78);line-height:1.7;';
+        tipsEl.appendChild(d);
+      });
+
+      document.getElementById('limitModal').style.display='flex';
+      document.body.style.overflow='hidden';
     });
   });
 </script>
