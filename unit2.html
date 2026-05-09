@@ -50,6 +50,7 @@
     .tool-chip:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.15);}
     .checklist-item{display:flex;align-items:flex-start;gap:.75rem;padding:.75rem 0;border-bottom:1px solid rgba(255,255,255,.05);}
   </style>
+<link rel="stylesheet" href="theme.css">
 </head>
 <body>
   <svg class="noise-svg" xmlns="http://www.w3.org/2000/svg"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="4" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100%" height="100%" filter="url(#n)"/></svg>
@@ -391,5 +392,6 @@ cinematic horizon, hyper-realistic, 8k resolution, highly detailed texture</div>
     }
     document.addEventListener('keydown',e=>{if(e.key==='Escape')closeVideoModal({target:document.getElementById('videoModal')});});
   </script>
+<script src="theme.js"></script>
 </body>
 </html>
