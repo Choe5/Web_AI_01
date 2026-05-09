@@ -128,14 +128,41 @@ body.light-mode .two-col { color: #334155; }
 
 /* ---- unit4: tool/agent/auto cards ---- */
 body.light-mode .tool-desc, body.light-mode .auto-desc { color: #6B5337 !important; }
-body.light-mode .auto-feature { color: #4A3520 !important; }
+body.light-mode .tool-feature, body.light-mode .auto-feature { color: #4A3520 !important; }
 body.light-mode .tool-name, body.light-mode .auto-name { color: #2D1F0E !important; }
 body.light-mode .tool-chip {
   background: rgba(120,90,40,0.07) !important;
   border-color: rgba(120,90,40,0.12) !important; color: #6B5337 !important;
 }
-body.light-mode .agent-feature { color: #4A3520 !important; }
-body.light-mode .agent-desc { color: #6B5337 !important; }
+/* agent */
+body.light-mode .agent-feature, body.light-mode .agent-quote { color: #4A3520 !important; }
+body.light-mode .agent-desc, body.light-mode .agent-main-desc { color: #6B5337 !important; }
+/* capability cards */
+body.light-mode .cap-title { color: #2D1F0E !important; }
+body.light-mode .cap-desc { color: #6B5337 !important; }
+/* compare table */
+body.light-mode .compare-table th:nth-child(2) { color: #4A3520 !important; }
+body.light-mode .compare-table td { color: #6B5337 !important; border-color: rgba(120,90,40,0.07) !important; }
+body.light-mode .compare-table tr:hover td { background: rgba(120,90,40,0.04) !important; }
+/* architecture boxes */
+body.light-mode .arch-box { background: rgba(255,248,228,0.6) !important; border-color: rgba(120,90,40,0.1) !important; }
+body.light-mode .arch-box-title { color: #2D1F0E !important; }
+body.light-mode .arch-box-desc { color: #6B5337 !important; }
+body.light-mode .arch-row { border-color: rgba(120,90,40,0.12) !important; }
+/* chrome extension cards */
+body.light-mode .ext-name { color: #2D1F0E !important; }
+body.light-mode .ext-desc { color: #6B5337 !important; }
+/* checklist */
+body.light-mode .check-item {
+  background: rgba(255,248,228,0.7) !important; border-color: rgba(120,90,40,0.12) !important;
+  color: #4A3520 !important;
+}
+/* unit nav */
+body.light-mode .unit-nav-btn {
+  background: rgba(255,248,228,0.7) !important; border-color: rgba(120,90,40,0.12) !important;
+  color: #4A3520 !important;
+}
+/* misc */
 body.light-mode .music-desc { color: #6B5337 !important; }
 body.light-mode .vid-desc { color: #6B5337 !important; }
 body.light-mode .prod-desc { color: #6B5337 !important; }
