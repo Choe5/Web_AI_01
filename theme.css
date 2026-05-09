@@ -158,6 +158,30 @@ body.light-mode #limitModalBox, body.light-mode #termModalBox {
 body.light-mode #lmTitle, body.light-mode #tmTitle { color: #1E293B !important; }
 body.light-mode #lmBody, body.light-mode #tmDesc { color: #334155 !important; }
 
+/* ---- CSS-class white text overrides ---- */
+/* Section / hero titles that use color:#fff in stylesheet */
+body.light-mode .section-title,
+body.light-mode .hero h1,
+body.light-mode .hero-title { color: #1E293B !important; }
+
+/* Strong elements inside glass cards */
+body.light-mode .glass strong { color: #1E293B !important; }
+
+/* Hardcoded white in various class rules */
+body.light-mode .enterprise-dept,
+body.light-mode .scenario-title,
+body.light-mode .practice-text strong { color: #1E293B !important; }
+
+/* Nav logo text (unit3/4 inline style) */
+body.light-mode .nav-logo { color: #1E293B !important; }
+
+/* Hero desc and goal chips */
+body.light-mode .hero-desc { color: #475569 !important; }
+body.light-mode .hero-goal { color: #475569 !important; }
+
+/* General body text color catch-all (for pages using color:#e2e8f0 on body) */
+body.light-mode { color: #1E293B !important; }
+
 /* ---- Structural ---- */
 body.light-mode .num-deco { color: rgba(15,23,42,0.035) !important; }
 body.light-mode .guide-line, body.light-mode .vguide {

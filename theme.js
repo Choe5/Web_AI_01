@@ -7,20 +7,35 @@
   }
 
   /* ---- Inline color fixer ----
-     Regex-replaces rgba(255,255,255,alpha) text colors in inline style attrs
-     with dark-slate equivalents. Originals saved to data-dark-style attr. */
+     Replaces white / light inline text colors with dark-slate equivalents.
+     Handles: #fff, #ffffff, #e2e8f0, #f1f5f9, #cbd5e1, rgba(255,255,255,a).
+     Originals saved to data-dark-style attr for restoration. */
   function fixInlineColors() {
     document.querySelectorAll('[style]').forEach(function (el) {
       var orig = el.getAttribute('style');
-      var fixed = orig.replace(
-        /color\s*:\s*rgba\(\s*255\s*,\s*255\s*,\s*255\s*,\s*([\d.]+)\s*\)/gi,
-        function (_, a) {
-          var alpha = parseFloat(a);
-          if (alpha >= 0.75) return 'color:#1E293B';
-          if (alpha >= 0.45) return 'color:#334155';
-          return 'color:#475569';
-        }
-      );
+      var fixed = orig
+
+        /* rgba(255,255,255, alpha) → dark slate by alpha */
+        .replace(
+          /color\s*:\s*rgba\(\s*255\s*,\s*255\s*,\s*255\s*,\s*([\d.]+)\s*\)/gi,
+          function (_, a) {
+            var alpha = parseFloat(a);
+            if (alpha >= 0.75) return 'color:#1E293B';
+            if (alpha >= 0.45) return 'color:#334155';
+            return 'color:#475569';
+          }
+        )
+
+        /* #fff / #ffffff → near-black */
+        .replace(/color\s*:\s*#fff\b/gi, 'color:#1E293B')
+        .replace(/color\s*:\s*#ffffff\b/gi, 'color:#1E293B')
+
+        /* common light-text hex values → dark slate */
+        .replace(/color\s*:\s*#(?:e2e8f0|E2E8F0)/g, 'color:#1E293B')
+        .replace(/color\s*:\s*#(?:f1f5f9|F1F5F9)/g, 'color:#0F172A')
+        .replace(/color\s*:\s*#(?:cbd5e1|CBD5E1)/g, 'color:#334155')
+        .replace(/color\s*:\s*#(?:94a3b8|94A3B8)/g, 'color:#475569');
+
       if (fixed !== orig) {
         el.setAttribute('data-dark-style', orig);
         el.setAttribute('style', fixed);
