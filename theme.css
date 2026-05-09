@@ -1,5 +1,6 @@
 /* ================================================
    Light / Dark Theme Toggle — AI 課程
+   Palette: #FFF7ED bg · #F97316 orange · #FBBF24 amber · #431407 text
    ================================================ */
 
 /* ---- Toggle button (dark mode default) ---- */
@@ -18,50 +19,54 @@
   background: rgba(255,255,255,0.18); border-color: rgba(255,255,255,0.35);
 }
 body.light-mode #theme-toggle {
-  border-color: rgba(15,23,42,0.2); background: rgba(120,90,40,0.09); color: #334155;
+  border-color: rgba(249,115,22,0.35);
+  background: rgba(249,115,22,0.09);
+  color: #7C2D12;
 }
 body.light-mode #theme-toggle:hover {
-  background: rgba(15,23,42,0.13); border-color: rgba(15,23,42,0.32);
+  background: rgba(249,115,22,0.16);
+  border-color: rgba(249,115,22,0.55);
 }
 
 /* ---- Prevent FOUC ---- */
-html.pre-light, html.pre-light body { background: #F2EAD8 !important; }
+html.pre-light, html.pre-light body { background: #FFF7ED !important; }
 
 /* ================================================
    LIGHT MODE OVERRIDES
    ================================================ */
 
 body.light-mode {
-  --bg: #F2EAD8; --surface: #F7F0E2;
-  --glass: rgba(255,248,228,0.88); --glass-bg: rgba(255,248,228,0.88);
-  --border: rgba(120,90,40,0.12); --glass-border: rgba(120,90,40,0.12);
-  --text: #2D1F0E; --muted: #6B5337;
-  background: #F2EAD8 !important;
-  color: #2D1F0E !important;
+  --bg: #FFF7ED; --surface: #FFF3E0;
+  --primary: #F97316; --amber: #FBBF24; --blue: #3B82F6;
+  --glass: rgba(255,251,235,0.9); --glass-bg: rgba(255,251,235,0.9);
+  --border: rgba(249,115,22,0.15); --glass-border: rgba(249,115,22,0.15);
+  --text: #431407; --muted: #92400E;
+  background: #FFF7ED !important;
+  color: #431407 !important;
 }
 
 /* Noise / spotlight */
 body.light-mode .noise-svg,
 body.light-mode .noise-overlay { opacity: 0.012 !important; }
 body.light-mode #spotlight,
-body.light-mode .spotlight { opacity: 0.2 !important; }
+body.light-mode .spotlight { opacity: 0.18 !important; }
 
 /* Cursor */
-body.light-mode #cursorDot, body.light-mode .cursor-dot { background: #334155 !important; }
+body.light-mode #cursorDot, body.light-mode .cursor-dot { background: #7C2D12 !important; }
 body.light-mode #cursorRing, body.light-mode .cursor-ring {
-  border-color: rgba(30,41,59,0.22) !important;
+  border-color: rgba(249,115,22,0.3) !important;
 }
 
-/* ---- Glass cards (中層米黃) ---- */
+/* ---- Glass cards (中層) ---- */
 body.light-mode .glass, body.light-mode .glass-card {
-  background: rgba(255,248,228,0.88) !important;
-  border-color: rgba(120,90,40,0.13) !important;
-  box-shadow: 0 2px 20px rgba(100,70,20,0.08);
+  background: rgba(255,251,235,0.9) !important;
+  border-color: rgba(249,115,22,0.15) !important;
+  box-shadow: 0 2px 20px rgba(249,115,22,0.07);
 }
 body.light-mode .glass:hover, body.light-mode .glass-card:hover {
-  background: rgba(255,251,238,0.97) !important;
-  border-color: rgba(120,90,40,0.22) !important;
-  box-shadow: 0 8px 32px rgba(100,70,20,0.1);
+  background: rgba(255,253,244,0.98) !important;
+  border-color: rgba(249,115,22,0.28) !important;
+  box-shadow: 0 8px 32px rgba(249,115,22,0.1);
 }
 
 /* ---- Nav (all page variants) ---- */
@@ -69,162 +74,173 @@ body.light-mode .nav-bar,
 body.light-mode #nav,
 body.light-mode #nav.shrunk,
 body.light-mode .nav-glass {
-  background: rgba(242,234,216,0.97) !important;
-  border-color: rgba(120,90,40,0.12) !important;
-  border-bottom: 1px solid rgba(120,90,40,0.12) !important;
+  background: rgba(255,247,237,0.97) !important;
+  border-color: rgba(249,115,22,0.14) !important;
+  border-bottom: 1px solid rgba(249,115,22,0.14) !important;
 }
-body.light-mode .nav-links a { color: #6B5337 !important; }
+body.light-mode .nav-links a { color: #92400E !important; }
 body.light-mode .nav-links a:hover,
-body.light-mode .nav-links a.active { color: #2D1F0E !important; }
+body.light-mode .nav-links a.active { color: #431407 !important; }
 body.light-mode .nav-logo, body.light-mode .logo span,
-body.light-mode .nav-bar > span { color: #2D1F0E !important; }
+body.light-mode .nav-bar > span { color: #431407 !important; }
 body.light-mode .btn-ghost {
-  border-color: rgba(120,90,40,0.22) !important; color: #6B5337 !important;
+  border-color: rgba(249,115,22,0.28) !important; color: #92400E !important;
 }
 body.light-mode .btn-ghost:hover {
-  background: rgba(120,90,40,0.07) !important; color: #2D1F0E !important;
+  background: rgba(249,115,22,0.08) !important; color: #431407 !important;
 }
 body.light-mode .nav-pill {
-  background: rgba(120,90,40,0.08) !important;
-  border-color: rgba(120,90,40,0.2) !important; color: #4A3520 !important;
+  background: rgba(249,115,22,0.1) !important;
+  border-color: rgba(249,115,22,0.25) !important; color: #7C2D12 !important;
 }
 
 /* ---- Tables ---- */
 body.light-mode table th {
-  background: rgba(120,90,40,0.05) !important;
-  border-color: rgba(120,90,40,0.1) !important; color: #6B5337 !important;
+  background: rgba(249,115,22,0.06) !important;
+  border-color: rgba(249,115,22,0.12) !important; color: #92400E !important;
 }
 body.light-mode table td {
-  border-color: rgba(120,90,40,0.07) !important; color: #6B5337 !important;
+  border-color: rgba(249,115,22,0.08) !important; color: #92400E !important;
 }
-body.light-mode table td:first-child { color: #2D1F0E !important; }
+body.light-mode table td:first-child { color: #431407 !important; }
 
 /* ---- Code blocks ---- */
 body.light-mode .code-block {
-  background: rgba(120,90,40,0.07) !important;
-  border-color: rgba(120,90,40,0.12) !important; color: #4A3520 !important;
+  background: rgba(249,115,22,0.06) !important;
+  border-color: rgba(249,115,22,0.14) !important; color: #7C2D12 !important;
 }
 
 /* ---- unit3: scenarios, prompts, limit cards ---- */
 body.light-mode .prompt-block {
-  background: rgba(6,182,212,0.07) !important;
-  border-color: rgba(6,182,212,0.22) !important;
+  background: rgba(251,191,36,0.08) !important;
+  border-color: rgba(251,191,36,0.3) !important;
 }
-body.light-mode .prompt-block pre { color: #4A3520 !important; }
-body.light-mode .limit-title { color: #2D1F0E !important; }
+body.light-mode .prompt-block pre { color: #7C2D12 !important; }
+body.light-mode .limit-title { color: #431407 !important; }
 body.light-mode .limit-sub { color: var(--accent, #06B6D4) !important; }
-body.light-mode .limit-body { color: #6B5337 !important; }
+body.light-mode .limit-body { color: #92400E !important; }
 body.light-mode .limit-tip {
-  color: #4A3520 !important; background: rgba(6,182,212,0.07) !important;
+  color: #7C2D12 !important; background: rgba(251,191,36,0.08) !important;
+  border-left-color: #FBBF24 !important;
 }
 body.light-mode .app-chip {
-  background: rgba(120,90,40,0.07) !important;
-  border-color: rgba(120,90,40,0.12) !important; color: #6B5337 !important;
+  background: rgba(249,115,22,0.07) !important;
+  border-color: rgba(249,115,22,0.18) !important; color: #92400E !important;
 }
-body.light-mode .scenario-body { color: #4A3520 !important; }
-body.light-mode .scenario-heading { color: #2D1F0E !important; }
-body.light-mode .scenario-sub-heading { color: #6B5337 !important; }
-body.light-mode .two-col { color: #334155; }
+body.light-mode .scenario-body { color: #7C2D12 !important; }
+body.light-mode .scenario-heading { color: #431407 !important; }
+body.light-mode .scenario-sub-heading { color: #92400E !important; }
+body.light-mode .two-col { color: #7C2D12; }
 
 /* ---- unit4: tool/agent/auto cards ---- */
-body.light-mode .tool-desc, body.light-mode .auto-desc { color: #6B5337 !important; }
-body.light-mode .tool-feature, body.light-mode .auto-feature { color: #4A3520 !important; }
-body.light-mode .tool-name, body.light-mode .auto-name { color: #2D1F0E !important; }
+body.light-mode .tool-desc, body.light-mode .auto-desc { color: #92400E !important; }
+body.light-mode .tool-feature, body.light-mode .auto-feature { color: #7C2D12 !important; }
+body.light-mode .tool-name, body.light-mode .auto-name { color: #431407 !important; }
 body.light-mode .tool-chip {
-  background: rgba(120,90,40,0.07) !important;
-  border-color: rgba(120,90,40,0.12) !important; color: #6B5337 !important;
+  background: rgba(249,115,22,0.07) !important;
+  border-color: rgba(249,115,22,0.18) !important; color: #92400E !important;
 }
 /* agent */
-body.light-mode .agent-feature, body.light-mode .agent-quote { color: #4A3520 !important; }
-body.light-mode .agent-desc, body.light-mode .agent-main-desc { color: #6B5337 !important; }
+body.light-mode .agent-feature, body.light-mode .agent-quote { color: #7C2D12 !important; }
+body.light-mode .agent-desc, body.light-mode .agent-main-desc { color: #92400E !important; }
 /* capability cards */
-body.light-mode .cap-title { color: #2D1F0E !important; }
-body.light-mode .cap-desc { color: #6B5337 !important; }
+body.light-mode .cap-title { color: #431407 !important; }
+body.light-mode .cap-desc { color: #92400E !important; }
 /* compare table */
-body.light-mode .compare-table th:nth-child(2) { color: #4A3520 !important; }
-body.light-mode .compare-table td { color: #6B5337 !important; border-color: rgba(120,90,40,0.07) !important; }
-body.light-mode .compare-table tr:hover td { background: rgba(120,90,40,0.04) !important; }
+body.light-mode .compare-table th:nth-child(2) { color: #7C2D12 !important; }
+body.light-mode .compare-table td { color: #92400E !important; border-color: rgba(249,115,22,0.08) !important; }
+body.light-mode .compare-table tr:hover td { background: rgba(249,115,22,0.04) !important; }
 /* architecture boxes */
-body.light-mode .arch-box { background: rgba(255,248,228,0.6) !important; border-color: rgba(120,90,40,0.1) !important; }
-body.light-mode .arch-box-title { color: #2D1F0E !important; }
-body.light-mode .arch-box-desc { color: #6B5337 !important; }
-body.light-mode .arch-row { border-color: rgba(120,90,40,0.12) !important; }
+body.light-mode .arch-box { background: rgba(255,251,235,0.6) !important; border-color: rgba(249,115,22,0.12) !important; }
+body.light-mode .arch-box-title { color: #431407 !important; }
+body.light-mode .arch-box-desc { color: #92400E !important; }
+body.light-mode .arch-row { border-color: rgba(249,115,22,0.15) !important; }
 /* chrome extension cards */
-body.light-mode .ext-name { color: #2D1F0E !important; }
-body.light-mode .ext-desc { color: #6B5337 !important; }
+body.light-mode .ext-name { color: #431407 !important; }
+body.light-mode .ext-desc { color: #92400E !important; }
 /* checklist */
 body.light-mode .check-item {
-  background: rgba(255,248,228,0.7) !important; border-color: rgba(120,90,40,0.12) !important;
-  color: #4A3520 !important;
+  background: rgba(255,251,235,0.8) !important; border-color: rgba(249,115,22,0.15) !important;
+  color: #7C2D12 !important;
 }
 /* unit nav */
 body.light-mode .unit-nav-btn {
-  background: rgba(255,248,228,0.7) !important; border-color: rgba(120,90,40,0.12) !important;
-  color: #4A3520 !important;
+  background: rgba(255,251,235,0.8) !important; border-color: rgba(249,115,22,0.15) !important;
+  color: #7C2D12 !important;
 }
 /* misc */
-body.light-mode .music-desc { color: #6B5337 !important; }
-body.light-mode .vid-desc { color: #6B5337 !important; }
-body.light-mode .prod-desc { color: #6B5337 !important; }
-body.light-mode .section-subtitle { color: #6B5337 !important; }
+body.light-mode .music-desc { color: #92400E !important; }
+body.light-mode .vid-desc { color: #92400E !important; }
+body.light-mode .prod-desc { color: #92400E !important; }
+body.light-mode .section-subtitle { color: #92400E !important; }
 
 /* ---- unit6: term cards ---- */
 body.light-mode .term-card {
-  background: rgba(255,255,255,0.82) !important;
-  border-color: rgba(120,90,40,0.12) !important;
+  background: rgba(255,251,235,0.88) !important;
+  border-color: rgba(249,115,22,0.15) !important;
 }
-body.light-mode .term-card p { color: #6B5337 !important; }
+body.light-mode .term-card p { color: #92400E !important; }
 
 /* ---- Modals ---- */
 body.light-mode #limitModal, body.light-mode #termModal {
-  background: rgba(210,195,165,0.82) !important;
+  background: rgba(254,215,170,0.82) !important;
 }
 body.light-mode #limitModalBox, body.light-mode #termModalBox {
-  background: rgba(255,248,228,0.99) !important; color: #2D1F0E;
+  background: rgba(255,251,235,0.99) !important; color: #431407;
 }
-body.light-mode #lmTitle, body.light-mode #tmTitle { color: #2D1F0E !important; }
-body.light-mode #lmBody, body.light-mode #tmDesc { color: #4A3520 !important; }
+body.light-mode #lmTitle, body.light-mode #tmTitle { color: #431407 !important; }
+body.light-mode #lmBody, body.light-mode #tmDesc { color: #7C2D12 !important; }
 
 /* ---- CSS-class white text overrides ---- */
-/* Section / hero titles that use color:#fff in stylesheet */
 body.light-mode .section-title,
 body.light-mode .hero h1,
-body.light-mode .hero-title { color: #2D1F0E !important; }
+body.light-mode .hero-title { color: #431407 !important; }
 
-/* Strong elements inside glass cards */
-body.light-mode .glass strong { color: #2D1F0E !important; }
+body.light-mode .glass strong { color: #431407 !important; }
 
-/* Hardcoded white in various class rules */
 body.light-mode .enterprise-dept,
 body.light-mode .scenario-title,
-body.light-mode .practice-text strong { color: #2D1F0E !important; }
+body.light-mode .practice-text strong { color: #431407 !important; }
 
-/* Nav logo text (unit3/4 inline style) */
-body.light-mode .nav-logo { color: #2D1F0E !important; }
+body.light-mode .nav-logo { color: #431407 !important; }
 
-/* Hero desc and goal chips */
-body.light-mode .hero-desc { color: #6B5337 !important; }
-body.light-mode .hero-goal { color: #6B5337 !important; }
+body.light-mode .hero-desc { color: #92400E !important; }
+body.light-mode .hero-goal { color: #92400E !important; }
 
-/* General body text color catch-all (for pages using color:#e2e8f0 on body) */
-body.light-mode { color: #2D1F0E !important; }
+body.light-mode { color: #431407 !important; }
 
 /* ---- Structural ---- */
-body.light-mode .num-deco { color: rgba(15,23,42,0.035) !important; }
+body.light-mode .num-deco { color: rgba(67,20,7,0.04) !important; }
 body.light-mode .guide-line, body.light-mode .vguide {
-  background: rgba(120,90,40,0.05) !important;
+  background: rgba(249,115,22,0.06) !important;
 }
 body.light-mode .gradient-text {
-  background: linear-gradient(135deg, #1D4ED8, #6D28D9, #059669) !important;
+  background: linear-gradient(135deg, #F97316, #FBBF24, #3B82F6) !important;
   -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important;
   background-clip: text !important;
 }
-body.light-mode .checklist-item { border-color: rgba(120,90,40,0.09) !important; }
-body.light-mode .timeline-line { background: rgba(120,90,40,0.1) !important; }
+body.light-mode .checklist-item { border-color: rgba(249,115,22,0.1) !important; }
+body.light-mode .timeline-line { background: rgba(249,115,22,0.12) !important; }
 body.light-mode footer {
-  background: rgba(235,224,200,0.99) !important;
-  border-color: rgba(120,90,40,0.12) !important; color: #6B5337 !important;
+  background: rgba(255,237,213,0.99) !important;
+  border-color: rgba(249,115,22,0.15) !important; color: #92400E !important;
 }
-body.light-mode ::-webkit-scrollbar-track { background: #F2EAD8; }
-body.light-mode ::-webkit-scrollbar-thumb { background: rgba(120,90,40,0.18); }
+body.light-mode ::-webkit-scrollbar-track { background: #FFF7ED; }
+body.light-mode ::-webkit-scrollbar-thumb { background: rgba(249,115,22,0.25); }
 body.light-mode .sonar::after { border-color: currentColor; }
+
+/* Copy button in light mode */
+body.light-mode .copy-btn {
+  background: rgba(251,191,36,0.12) !important;
+  border-color: rgba(251,191,36,0.4) !important;
+  color: #7C2D12 !important;
+}
+body.light-mode .copy-btn:hover {
+  background: rgba(249,115,22,0.15) !important;
+  border-color: rgba(249,115,22,0.5) !important;
+}
+body.light-mode .copy-btn.copied {
+  background: rgba(34,197,94,0.12) !important;
+  border-color: rgba(34,197,94,0.35) !important;
+  color: #166534 !important;
+}
