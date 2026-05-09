@@ -20,21 +20,21 @@
           /color\s*:\s*rgba\(\s*255\s*,\s*255\s*,\s*255\s*,\s*([\d.]+)\s*\)/gi,
           function (_, a) {
             var alpha = parseFloat(a);
-            if (alpha >= 0.75) return 'color:#1E293B';
-            if (alpha >= 0.45) return 'color:#334155';
-            return 'color:#475569';
+            if (alpha >= 0.75) return 'color:#2D1F0E';
+            if (alpha >= 0.45) return 'color:#4A3520';
+            return 'color:#6B5337';
           }
         )
 
-        /* #fff / #ffffff → near-black */
-        .replace(/color\s*:\s*#fff\b/gi, 'color:#1E293B')
-        .replace(/color\s*:\s*#ffffff\b/gi, 'color:#1E293B')
+        /* #fff / #ffffff → warm dark brown */
+        .replace(/color\s*:\s*#fff\b/gi, 'color:#2D1F0E')
+        .replace(/color\s*:\s*#ffffff\b/gi, 'color:#2D1F0E')
 
-        /* common light-text hex values → dark slate */
-        .replace(/color\s*:\s*#(?:e2e8f0|E2E8F0)/g, 'color:#1E293B')
-        .replace(/color\s*:\s*#(?:f1f5f9|F1F5F9)/g, 'color:#0F172A')
-        .replace(/color\s*:\s*#(?:cbd5e1|CBD5E1)/g, 'color:#334155')
-        .replace(/color\s*:\s*#(?:94a3b8|94A3B8)/g, 'color:#475569');
+        /* common light-text hex values → warm brown tones */
+        .replace(/color\s*:\s*#(?:e2e8f0|E2E8F0)/g, 'color:#2D1F0E')
+        .replace(/color\s*:\s*#(?:f1f5f9|F1F5F9)/g, 'color:#1A0F00')
+        .replace(/color\s*:\s*#(?:cbd5e1|CBD5E1)/g, 'color:#4A3520')
+        .replace(/color\s*:\s*#(?:94a3b8|94A3B8)/g, 'color:#6B5337');
 
       if (fixed !== orig) {
         el.setAttribute('data-dark-style', orig);
