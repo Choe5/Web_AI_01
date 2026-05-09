@@ -182,7 +182,8 @@ html.light-mode .term-card {
 html.light-mode .term-card p { color: #92400E !important; }
 
 /* ---- Modals ---- */
-html.light-mode #limitModal, html.light-mode #termModal {
+html.light-mode #limitModal, html.light-mode #termModal,
+html.light-mode #promptCardModal {
   background: rgba(254,215,170,0.82) !important;
 }
 html.light-mode #limitModalBox, html.light-mode #termModalBox {
@@ -190,6 +191,20 @@ html.light-mode #limitModalBox, html.light-mode #termModalBox {
 }
 html.light-mode #lmTitle, html.light-mode #tmTitle { color: #431407 !important; }
 html.light-mode #lmBody, html.light-mode #tmDesc { color: #7C2D12 !important; }
+
+/* Prompt card modal (unit2) */
+html.light-mode #promptCardModal > div {
+  background: rgba(255,251,235,0.99) !important;
+  border-color: rgba(249,115,22,0.28) !important;
+  box-shadow: 0 0 60px rgba(249,115,22,0.12) !important;
+}
+html.light-mode #pcLabel { color: #92400E !important; }
+html.light-mode #pcBody { color: #431407 !important; }
+html.light-mode #promptCardModal button {
+  background: rgba(249,115,22,0.08) !important;
+  border-color: rgba(249,115,22,0.25) !important;
+  color: #7C2D12 !important;
+}
 
 /* ---- CSS-class white text overrides ---- */
 html.light-mode .section-title,

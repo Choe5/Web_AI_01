@@ -223,7 +223,7 @@
         </div>
 
         <h4 style="font-size:.85rem;font-weight:600;margin-bottom:.75rem;color:#C4B5FD;">範例提示詞：</h4>
-        <div class="code-block">請扮演一位專業社群經營專家，幫我撰寫一則適合 Instagram 的貼文，
+        <div class="code-block prompt-card-click" onclick="openPromptCard('結構化指令範例','請扮演一位專業社群經營專家，幫我撰寫一則適合 Instagram 的貼文，\n主題是新品上市的有機洗髮精。這款洗髮精含有茶樹精油，特別適合敏感髮質。\n請用口語化、幽默的語氣，不超過 200 字並搭配 Emoji。\n\n【角色】：專業社群經營專家\n【任務】：為新的有機洗髮精撰寫 Instagram 貼文\n【背景】：含茶樹精油的有機洗髮精，適合敏感髮質\n【限制】：口語化、幽默、不超過 200 字、使用 Emoji')" style="cursor:pointer;">請扮演一位專業社群經營專家，幫我撰寫一則適合 Instagram 的貼文，
 主題是新品上市的有機洗髮精。這款洗髮精含有茶樹精油，特別適合敏感髮質。
 請用口語化、幽默的語氣，不超過 200 字並搭配 Emoji。
 
@@ -245,17 +245,17 @@
         <div style="margin-top:1.5rem;display:flex;flex-direction:column;gap:.875rem;">
           <div style="font-size:.7rem;font-weight:700;color:#A78BFA;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.25rem;">範例提示詞</div>
 
-          <div style="background:rgba(167,139,250,.06);border:1px solid rgba(167,139,250,.2);border-radius:.875rem;padding:1rem 1.25rem;">
+          <div onclick="openPromptCard('角色扮演','你是一位擁有 20 年經驗的資深職涯顧問，擅長協助 40 歲以上的轉職人士。\n我目前是一名會計師，想轉往 AI 相關領域。\n請幫我分析我的優勢、潛在挑戰，以及建議的 3 個具體轉職路徑。')" style="background:rgba(167,139,250,.06);border:1px solid rgba(167,139,250,.2);border-radius:.875rem;padding:1rem 1.25rem;cursor:pointer;transition:border-color .2s;" onmouseover="this.style.borderColor='rgba(167,139,250,.5)'" onmouseout="this.style.borderColor='rgba(167,139,250,.2)'">
             <div style="font-size:.72rem;font-weight:700;color:#A78BFA;margin-bottom:.5rem;">角色扮演</div>
             <p style="font-size:.82rem;color:#E2E8F0;line-height:1.8;font-family:'Space Grotesk',sans-serif;">你是一位擁有 20 年經驗的資深職涯顧問，擅長協助 40 歲以上的轉職人士。<br>我目前是一名會計師，想轉往 AI 相關領域。<br>請幫我分析我的優勢、潛在挑戰，以及建議的 3 個具體轉職路徑。</p>
           </div>
 
-          <div style="background:rgba(167,139,250,.06);border:1px solid rgba(167,139,250,.2);border-radius:.875rem;padding:1rem 1.25rem;">
+          <div onclick="openPromptCard('多步驟任務','請幫我規劃一場社區 AI 講座，分三步驟進行：\n① 分析適合銀髮族的 AI 主題（列出 5 個）\n② 針對最受歡迎的主題撰寫 90 分鐘課程大綱\n③ 整理成可直接對外發布的活動說明文字')" style="background:rgba(167,139,250,.06);border:1px solid rgba(167,139,250,.2);border-radius:.875rem;padding:1rem 1.25rem;cursor:pointer;transition:border-color .2s;" onmouseover="this.style.borderColor='rgba(167,139,250,.5)'" onmouseout="this.style.borderColor='rgba(167,139,250,.2)'">
             <div style="font-size:.72rem;font-weight:700;color:#A78BFA;margin-bottom:.5rem;">多步驟任務</div>
             <p style="font-size:.82rem;color:#E2E8F0;line-height:1.8;font-family:'Space Grotesk',sans-serif;">請幫我規劃一場社區 AI 講座，分三步驟進行：<br>① 分析適合銀髮族的 AI 主題（列出 5 個）<br>② 針對最受歡迎的主題撰寫 90 分鐘課程大綱<br>③ 整理成可直接對外發布的活動說明文字</p>
           </div>
 
-          <div style="background:rgba(167,139,250,.06);border:1px solid rgba(167,139,250,.2);border-radius:.875rem;padding:1rem 1.25rem;">
+          <div onclick="openPromptCard('AI 腦力激盪','我想開一家結合 AI 工具的線上教學平台，目標客群是 50 歲以上的學習者。\n在你開始提供建議之前，請先列出你需要了解的 5 個關鍵問題，幫助我把想法描述得更清楚。')" style="background:rgba(167,139,250,.06);border:1px solid rgba(167,139,250,.2);border-radius:.875rem;padding:1rem 1.25rem;cursor:pointer;transition:border-color .2s;" onmouseover="this.style.borderColor='rgba(167,139,250,.5)'" onmouseout="this.style.borderColor='rgba(167,139,250,.2)'">
             <div style="font-size:.72rem;font-weight:700;color:#A78BFA;margin-bottom:.5rem;">AI 腦力激盪</div>
             <p style="font-size:.82rem;color:#E2E8F0;line-height:1.8;font-family:'Space Grotesk',sans-serif;">我想開一家結合 AI 工具的線上教學平台，目標客群是 50 歲以上的學習者。<br>在你開始提供建議之前，請先列出你需要了解的 5 個關鍵問題，幫助我把想法描述得更清楚。</p>
           </div>
@@ -394,6 +394,32 @@ cinematic horizon, hyper-realistic, 8k resolution, highly detailed texture</div>
     document.addEventListener('keydown',e=>{if(e.key==='Escape')closeVideoModal({target:document.getElementById('videoModal')});});
   </script>
 <script src="theme.js"></script>
+
+<!-- Prompt card modal -->
+<div id="promptCardModal" onclick="if(event.target===this)closePromptCard()" style="display:none;position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,0.82);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);align-items:center;justify-content:center;padding:1.5rem;">
+  <div style="position:relative;width:min(640px,94vw);background:rgba(14,8,30,0.97);border:1px solid rgba(167,139,250,0.3);border-radius:24px;padding:2.5rem 2.5rem 2rem;box-shadow:0 0 60px rgba(139,92,246,0.15);">
+    <button onclick="closePromptCard()" style="position:absolute;top:1rem;right:1rem;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:#fff;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;">✕</button>
+    <div id="pcLabel" style="font-size:.72rem;font-weight:700;color:#A78BFA;letter-spacing:.12em;text-transform:uppercase;margin-bottom:1rem;"></div>
+    <div style="width:100%;height:1px;background:rgba(167,139,250,0.2);margin-bottom:1.5rem;"></div>
+    <pre id="pcBody" style="font-family:'Noto Sans TC',sans-serif;font-size:1.05rem;color:#E2E8F0;line-height:2;white-space:pre-wrap;word-break:break-word;margin:0;"></pre>
+  </div>
+</div>
+<script>
+  function openPromptCard(label, text) {
+    document.getElementById('pcLabel').textContent = label;
+    document.getElementById('pcBody').textContent = text;
+    var m = document.getElementById('promptCardModal');
+    m.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+  function closePromptCard() {
+    document.getElementById('promptCardModal').style.display = 'none';
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') { closePromptCard(); }
+  });
+</script>
 
 <!-- prompt.png lightbox -->
 <div id="promptImgModal" onclick="if(event.target===this)closePromptImg()" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.85);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);align-items:center;justify-content:center;padding:1.5rem;">
