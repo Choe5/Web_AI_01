@@ -194,7 +194,7 @@
           <div>
             <h3 style="font-size:.95rem;font-weight:700;margin-bottom:.4rem;">起源與奠基 — 夢想的開始</h3>
             <ul style="color:#CBD5E1;font-size:.82rem;line-height:1.8;list-style:none;padding:0;">
-              <li style="display:flex;gap:.5rem;margin-bottom:.2rem;"><span style="color:#3B82F6;">→</span> 1950 年 圖靈測試：艾倫·圖靈提出「機器會思考嗎？」</li>
+              <li style="display:flex;gap:.5rem;margin-bottom:.2rem;"><span style="color:#3B82F6;">→</span> 1950 年 <span onclick="openGameImg()" style="color:#60A5FA;cursor:pointer;text-decoration:underline;text-underline-offset:3px;">圖靈測試</span>：艾倫·圖靈提出「機器會思考嗎？」</li>
               <li style="display:flex;gap:.5rem;margin-bottom:.2rem;"><span style="color:#3B82F6;">→</span> 1956 年 達特茅斯會議：正式確立「人工智慧」研究領域</li>
               <li style="display:flex;gap:.5rem;"><span style="color:#3B82F6;">→</span> 早期成果：邏輯理論家、第一個聊天機器人 ELIZA</li>
             </ul>
@@ -552,5 +552,25 @@
     });
   </script>
 <script src="theme.js"></script>
+
+<!-- 圖靈測試 image lightbox -->
+<div id="gameImgModal" onclick="if(event.target===this)closeGameImg()" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.85);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);align-items:center;justify-content:center;padding:1.5rem;">
+  <div style="position:relative;max-width:min(820px,94vw);max-height:90vh;">
+    <button onclick="closeGameImg()" style="position:absolute;top:-2.2rem;right:0;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:#fff;border-radius:50%;width:32px;height:32px;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;">✕</button>
+    <img src="game.jpg" alt="圖靈測試" style="width:100%;max-height:88vh;object-fit:contain;border-radius:16px;box-shadow:0 24px 64px rgba(0,0,0,0.6);">
+  </div>
+</div>
+<script>
+  function openGameImg(){
+    var m=document.getElementById('gameImgModal');
+    m.style.display='flex';
+    document.body.style.overflow='hidden';
+  }
+  function closeGameImg(){
+    document.getElementById('gameImgModal').style.display='none';
+    document.body.style.overflow='';
+  }
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeGameImg(); });
+</script>
 </body>
 </html>
