@@ -191,6 +191,8 @@ html.light-mode #limitModalBox, html.light-mode #termModalBox {
 }
 html.light-mode #lmTitle, html.light-mode #tmTitle { color: #431407 !important; }
 html.light-mode #lmBody, html.light-mode #tmDesc { color: #7C2D12 !important; }
+html.light-mode #lmTips div { color: #7C2D12 !important; background: rgba(249,115,22,0.08) !important; border-left-color: #F97316 !important; }
+html.light-mode #lmRisk { color: #7C2D12 !important; }
 
 /* Prompt card modal (unit2) */
 html.light-mode #promptCardModal > div {
