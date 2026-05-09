@@ -18,24 +18,24 @@
 #theme-toggle:hover {
   background: rgba(255,255,255,0.18); border-color: rgba(255,255,255,0.35);
 }
-body.light-mode #theme-toggle {
+html.light-mode #theme-toggle {
   border-color: rgba(249,115,22,0.35);
   background: rgba(249,115,22,0.09);
   color: #7C2D12;
 }
-body.light-mode #theme-toggle:hover {
+html.light-mode #theme-toggle:hover {
   background: rgba(249,115,22,0.16);
   border-color: rgba(249,115,22,0.55);
 }
 
-/* ---- Prevent FOUC ---- */
-html.pre-light, html.pre-light body { background: #FFF7ED !important; }
+/* ---- FOUC prevention: <html> gets class before <body> renders ---- */
+html.light-mode, html.light-mode body { background: #FFF7ED !important; }
 
 /* ================================================
    LIGHT MODE OVERRIDES
    ================================================ */
 
-body.light-mode {
+html.light-mode {
   --bg: #FFF7ED; --surface: #FFF3E0;
   --primary: #F97316; --amber: #FBBF24; --blue: #3B82F6;
   --glass: rgba(255,251,235,0.9); --glass-bg: rgba(255,251,235,0.9);
@@ -46,200 +46,200 @@ body.light-mode {
 }
 
 /* Noise / spotlight */
-body.light-mode .noise-svg,
-body.light-mode .noise-overlay { opacity: 0.012 !important; }
-body.light-mode #spotlight,
-body.light-mode .spotlight { opacity: 0.18 !important; }
+html.light-mode .noise-svg,
+html.light-mode .noise-overlay { opacity: 0.012 !important; }
+html.light-mode #spotlight,
+html.light-mode .spotlight { opacity: 0.18 !important; }
 
 /* Cursor */
-body.light-mode #cursorDot, body.light-mode .cursor-dot { background: #7C2D12 !important; }
-body.light-mode #cursorRing, body.light-mode .cursor-ring {
+html.light-mode #cursorDot, html.light-mode .cursor-dot { background: #7C2D12 !important; }
+html.light-mode #cursorRing, html.light-mode .cursor-ring {
   border-color: rgba(249,115,22,0.3) !important;
 }
 
 /* ---- Glass cards (中層) ---- */
-body.light-mode .glass, body.light-mode .glass-card {
+html.light-mode .glass, html.light-mode .glass-card {
   background: rgba(255,251,235,0.9) !important;
   border-color: rgba(249,115,22,0.15) !important;
   box-shadow: 0 2px 20px rgba(249,115,22,0.07);
 }
-body.light-mode .glass:hover, body.light-mode .glass-card:hover {
+html.light-mode .glass:hover, html.light-mode .glass-card:hover {
   background: rgba(255,253,244,0.98) !important;
   border-color: rgba(249,115,22,0.28) !important;
   box-shadow: 0 8px 32px rgba(249,115,22,0.1);
 }
 
 /* ---- Nav (all page variants) ---- */
-body.light-mode .nav-bar,
-body.light-mode #nav,
-body.light-mode #nav.shrunk,
-body.light-mode .nav-glass {
+html.light-mode .nav-bar,
+html.light-mode #nav,
+html.light-mode #nav.shrunk,
+html.light-mode .nav-glass {
   background: rgba(255,247,237,0.97) !important;
   border-color: rgba(249,115,22,0.14) !important;
   border-bottom: 1px solid rgba(249,115,22,0.14) !important;
 }
-body.light-mode .nav-links a { color: #92400E !important; }
-body.light-mode .nav-links a:hover,
-body.light-mode .nav-links a.active { color: #431407 !important; }
-body.light-mode .nav-logo, body.light-mode .logo span,
-body.light-mode .nav-bar > span { color: #431407 !important; }
-body.light-mode .btn-ghost {
+html.light-mode .nav-links a { color: #92400E !important; }
+html.light-mode .nav-links a:hover,
+html.light-mode .nav-links a.active { color: #431407 !important; }
+html.light-mode .nav-logo, html.light-mode .logo span,
+html.light-mode .nav-bar > span { color: #431407 !important; }
+html.light-mode .btn-ghost {
   border-color: rgba(249,115,22,0.28) !important; color: #92400E !important;
 }
-body.light-mode .btn-ghost:hover {
+html.light-mode .btn-ghost:hover {
   background: rgba(249,115,22,0.08) !important; color: #431407 !important;
 }
-body.light-mode .nav-pill {
+html.light-mode .nav-pill {
   background: rgba(249,115,22,0.1) !important;
   border-color: rgba(249,115,22,0.25) !important; color: #7C2D12 !important;
 }
 
 /* ---- Tables ---- */
-body.light-mode table th {
+html.light-mode table th {
   background: rgba(249,115,22,0.06) !important;
   border-color: rgba(249,115,22,0.12) !important; color: #92400E !important;
 }
-body.light-mode table td {
+html.light-mode table td {
   border-color: rgba(249,115,22,0.08) !important; color: #92400E !important;
 }
-body.light-mode table td:first-child { color: #431407 !important; }
+html.light-mode table td:first-child { color: #431407 !important; }
 
 /* ---- Code blocks ---- */
-body.light-mode .code-block {
+html.light-mode .code-block {
   background: rgba(249,115,22,0.06) !important;
   border-color: rgba(249,115,22,0.14) !important; color: #7C2D12 !important;
 }
 
 /* ---- unit3: scenarios, prompts, limit cards ---- */
-body.light-mode .prompt-block {
+html.light-mode .prompt-block {
   background: rgba(251,191,36,0.08) !important;
   border-color: rgba(251,191,36,0.3) !important;
 }
-body.light-mode .prompt-block pre { color: #7C2D12 !important; }
-body.light-mode .limit-title { color: #431407 !important; }
-body.light-mode .limit-sub { color: var(--accent, #06B6D4) !important; }
-body.light-mode .limit-body { color: #92400E !important; }
-body.light-mode .limit-tip {
+html.light-mode .prompt-block pre { color: #7C2D12 !important; }
+html.light-mode .limit-title { color: #431407 !important; }
+html.light-mode .limit-sub { color: var(--accent, #06B6D4) !important; }
+html.light-mode .limit-body { color: #92400E !important; }
+html.light-mode .limit-tip {
   color: #7C2D12 !important; background: rgba(251,191,36,0.08) !important;
   border-left-color: #FBBF24 !important;
 }
-body.light-mode .app-chip {
+html.light-mode .app-chip {
   background: rgba(249,115,22,0.07) !important;
   border-color: rgba(249,115,22,0.18) !important; color: #92400E !important;
 }
-body.light-mode .scenario-body { color: #7C2D12 !important; }
-body.light-mode .scenario-heading { color: #431407 !important; }
-body.light-mode .scenario-sub-heading { color: #92400E !important; }
-body.light-mode .two-col { color: #7C2D12; }
+html.light-mode .scenario-body { color: #7C2D12 !important; }
+html.light-mode .scenario-heading { color: #431407 !important; }
+html.light-mode .scenario-sub-heading { color: #92400E !important; }
+html.light-mode .two-col { color: #7C2D12; }
 
 /* ---- unit4: tool/agent/auto cards ---- */
-body.light-mode .tool-desc, body.light-mode .auto-desc { color: #92400E !important; }
-body.light-mode .tool-feature, body.light-mode .auto-feature { color: #7C2D12 !important; }
-body.light-mode .tool-name, body.light-mode .auto-name { color: #431407 !important; }
-body.light-mode .tool-chip {
+html.light-mode .tool-desc, html.light-mode .auto-desc { color: #92400E !important; }
+html.light-mode .tool-feature, html.light-mode .auto-feature { color: #7C2D12 !important; }
+html.light-mode .tool-name, html.light-mode .auto-name { color: #431407 !important; }
+html.light-mode .tool-chip {
   background: rgba(249,115,22,0.07) !important;
   border-color: rgba(249,115,22,0.18) !important; color: #92400E !important;
 }
 /* agent */
-body.light-mode .agent-feature, body.light-mode .agent-quote { color: #7C2D12 !important; }
-body.light-mode .agent-desc, body.light-mode .agent-main-desc { color: #92400E !important; }
+html.light-mode .agent-feature, html.light-mode .agent-quote { color: #7C2D12 !important; }
+html.light-mode .agent-desc, html.light-mode .agent-main-desc { color: #92400E !important; }
 /* capability cards */
-body.light-mode .cap-title { color: #431407 !important; }
-body.light-mode .cap-desc { color: #92400E !important; }
+html.light-mode .cap-title { color: #431407 !important; }
+html.light-mode .cap-desc { color: #92400E !important; }
 /* compare table */
-body.light-mode .compare-table th:nth-child(2) { color: #7C2D12 !important; }
-body.light-mode .compare-table td { color: #92400E !important; border-color: rgba(249,115,22,0.08) !important; }
-body.light-mode .compare-table tr:hover td { background: rgba(249,115,22,0.04) !important; }
+html.light-mode .compare-table th:nth-child(2) { color: #7C2D12 !important; }
+html.light-mode .compare-table td { color: #92400E !important; border-color: rgba(249,115,22,0.08) !important; }
+html.light-mode .compare-table tr:hover td { background: rgba(249,115,22,0.04) !important; }
 /* architecture boxes */
-body.light-mode .arch-box { background: rgba(255,251,235,0.6) !important; border-color: rgba(249,115,22,0.12) !important; }
-body.light-mode .arch-box-title { color: #431407 !important; }
-body.light-mode .arch-box-desc { color: #92400E !important; }
-body.light-mode .arch-row { border-color: rgba(249,115,22,0.15) !important; }
+html.light-mode .arch-box { background: rgba(255,251,235,0.6) !important; border-color: rgba(249,115,22,0.12) !important; }
+html.light-mode .arch-box-title { color: #431407 !important; }
+html.light-mode .arch-box-desc { color: #92400E !important; }
+html.light-mode .arch-row { border-color: rgba(249,115,22,0.15) !important; }
 /* chrome extension cards */
-body.light-mode .ext-name { color: #431407 !important; }
-body.light-mode .ext-desc { color: #92400E !important; }
+html.light-mode .ext-name { color: #431407 !important; }
+html.light-mode .ext-desc { color: #92400E !important; }
 /* checklist */
-body.light-mode .check-item {
+html.light-mode .check-item {
   background: rgba(255,251,235,0.8) !important; border-color: rgba(249,115,22,0.15) !important;
   color: #7C2D12 !important;
 }
 /* unit nav */
-body.light-mode .unit-nav-btn {
+html.light-mode .unit-nav-btn {
   background: rgba(255,251,235,0.8) !important; border-color: rgba(249,115,22,0.15) !important;
   color: #7C2D12 !important;
 }
 /* misc */
-body.light-mode .music-desc { color: #92400E !important; }
-body.light-mode .vid-desc { color: #92400E !important; }
-body.light-mode .prod-desc { color: #92400E !important; }
-body.light-mode .section-subtitle { color: #92400E !important; }
+html.light-mode .music-desc { color: #92400E !important; }
+html.light-mode .vid-desc { color: #92400E !important; }
+html.light-mode .prod-desc { color: #92400E !important; }
+html.light-mode .section-subtitle { color: #92400E !important; }
 
 /* ---- unit6: term cards ---- */
-body.light-mode .term-card {
+html.light-mode .term-card {
   background: rgba(255,251,235,0.88) !important;
   border-color: rgba(249,115,22,0.15) !important;
 }
-body.light-mode .term-card p { color: #92400E !important; }
+html.light-mode .term-card p { color: #92400E !important; }
 
 /* ---- Modals ---- */
-body.light-mode #limitModal, body.light-mode #termModal {
+html.light-mode #limitModal, html.light-mode #termModal {
   background: rgba(254,215,170,0.82) !important;
 }
-body.light-mode #limitModalBox, body.light-mode #termModalBox {
+html.light-mode #limitModalBox, html.light-mode #termModalBox {
   background: rgba(255,251,235,0.99) !important; color: #431407;
 }
-body.light-mode #lmTitle, body.light-mode #tmTitle { color: #431407 !important; }
-body.light-mode #lmBody, body.light-mode #tmDesc { color: #7C2D12 !important; }
+html.light-mode #lmTitle, html.light-mode #tmTitle { color: #431407 !important; }
+html.light-mode #lmBody, html.light-mode #tmDesc { color: #7C2D12 !important; }
 
 /* ---- CSS-class white text overrides ---- */
-body.light-mode .section-title,
-body.light-mode .hero h1,
-body.light-mode .hero-title { color: #431407 !important; }
+html.light-mode .section-title,
+html.light-mode .hero h1,
+html.light-mode .hero-title { color: #431407 !important; }
 
-body.light-mode .glass strong { color: #431407 !important; }
+html.light-mode .glass strong { color: #431407 !important; }
 
-body.light-mode .enterprise-dept,
-body.light-mode .scenario-title,
-body.light-mode .practice-text strong { color: #431407 !important; }
+html.light-mode .enterprise-dept,
+html.light-mode .scenario-title,
+html.light-mode .practice-text strong { color: #431407 !important; }
 
-body.light-mode .nav-logo { color: #431407 !important; }
+html.light-mode .nav-logo { color: #431407 !important; }
 
-body.light-mode .hero-desc { color: #92400E !important; }
-body.light-mode .hero-goal { color: #92400E !important; }
+html.light-mode .hero-desc { color: #92400E !important; }
+html.light-mode .hero-goal { color: #92400E !important; }
 
-body.light-mode { color: #431407 !important; }
+html.light-mode { color: #431407 !important; }
 
 /* ---- Structural ---- */
-body.light-mode .num-deco { color: rgba(67,20,7,0.04) !important; }
-body.light-mode .guide-line, body.light-mode .vguide {
+html.light-mode .num-deco { color: rgba(67,20,7,0.04) !important; }
+html.light-mode .guide-line, html.light-mode .vguide {
   background: rgba(249,115,22,0.06) !important;
 }
-body.light-mode .gradient-text {
+html.light-mode .gradient-text {
   background: linear-gradient(135deg, #F97316, #FBBF24, #3B82F6) !important;
   -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important;
   background-clip: text !important;
 }
-body.light-mode .checklist-item { border-color: rgba(249,115,22,0.1) !important; }
-body.light-mode .timeline-line { background: rgba(249,115,22,0.12) !important; }
-body.light-mode footer {
+html.light-mode .checklist-item { border-color: rgba(249,115,22,0.1) !important; }
+html.light-mode .timeline-line { background: rgba(249,115,22,0.12) !important; }
+html.light-mode footer {
   background: rgba(255,237,213,0.99) !important;
   border-color: rgba(249,115,22,0.15) !important; color: #92400E !important;
 }
-body.light-mode ::-webkit-scrollbar-track { background: #FFF7ED; }
-body.light-mode ::-webkit-scrollbar-thumb { background: rgba(249,115,22,0.25); }
-body.light-mode .sonar::after { border-color: currentColor; }
+html.light-mode ::-webkit-scrollbar-track { background: #FFF7ED; }
+html.light-mode ::-webkit-scrollbar-thumb { background: rgba(249,115,22,0.25); }
+html.light-mode .sonar::after { border-color: currentColor; }
 
 /* Copy button in light mode */
-body.light-mode .copy-btn {
+html.light-mode .copy-btn {
   background: rgba(251,191,36,0.12) !important;
   border-color: rgba(251,191,36,0.4) !important;
   color: #7C2D12 !important;
 }
-body.light-mode .copy-btn:hover {
+html.light-mode .copy-btn:hover {
   background: rgba(249,115,22,0.15) !important;
   border-color: rgba(249,115,22,0.5) !important;
 }
-body.light-mode .copy-btn.copied {
+html.light-mode .copy-btn.copied {
   background: rgba(34,197,94,0.12) !important;
   border-color: rgba(34,197,94,0.35) !important;
   color: #166534 !important;

@@ -1,21 +1,12 @@
 (function () {
   var KEY = 'ai-course-theme';
+  var ROOT = document.documentElement; /* <html> — exists before <body> */
 
-  /* ---- Prevent flash: apply class on <html> immediately ---- */
-  if (localStorage.getItem(KEY) === 'light') {
-    document.documentElement.classList.add('pre-light');
-  }
-
-  /* ---- Inline color fixer ----
-     Replaces white / light inline text colors with dark-slate equivalents.
-     Handles: #fff, #ffffff, #e2e8f0, #f1f5f9, #cbd5e1, rgba(255,255,255,a).
-     Originals saved to data-dark-style attr for restoration. */
+  /* ---- Inline color fixer ---- */
   function fixInlineColors() {
     document.querySelectorAll('[style]').forEach(function (el) {
       var orig = el.getAttribute('style');
       var fixed = orig
-
-        /* rgba(255,255,255, alpha) → dark slate by alpha */
         .replace(
           /color\s*:\s*rgba\(\s*255\s*,\s*255\s*,\s*255\s*,\s*([\d.]+)\s*\)/gi,
           function (_, a) {
@@ -25,17 +16,12 @@
             return 'color:#92400E';
           }
         )
-
-        /* #fff / #ffffff → deep caramel */
-        .replace(/color\s*:\s*#fff\b/gi, 'color:#431407')
-        .replace(/color\s*:\s*#ffffff\b/gi, 'color:#431407')
-
-        /* common light-text hex values → warm rust/amber tones */
-        .replace(/color\s*:\s*#(?:e2e8f0|E2E8F0)/g, 'color:#431407')
-        .replace(/color\s*:\s*#(?:f1f5f9|F1F5F9)/g, 'color:#431407')
-        .replace(/color\s*:\s*#(?:cbd5e1|CBD5E1)/g, 'color:#7C2D12')
-        .replace(/color\s*:\s*#(?:94a3b8|94A3B8)/g, 'color:#92400E');
-
+        .replace(/color\s*:\s*#fff\b/gi,            'color:#431407')
+        .replace(/color\s*:\s*#ffffff\b/gi,         'color:#431407')
+        .replace(/color\s*:\s*#(?:e2e8f0|E2E8F0)/g,'color:#431407')
+        .replace(/color\s*:\s*#(?:f1f5f9|F1F5F9)/g,'color:#431407')
+        .replace(/color\s*:\s*#(?:cbd5e1|CBD5E1)/g,'color:#7C2D12')
+        .replace(/color\s*:\s*#(?:94a3b8|94A3B8)/g,'color:#92400E');
       if (fixed !== orig) {
         el.setAttribute('data-dark-style', orig);
         el.setAttribute('style', fixed);
@@ -69,25 +55,24 @@
 
   /* ---- Apply / remove theme ---- */
   function applyTheme(light, animate) {
-    if (animate) {
+    if (animate && document.body) {
       document.body.style.transition = 'background 0.35s, color 0.3s';
     }
     if (light) {
-      document.body.classList.add('light-mode');
+      ROOT.classList.add('light-mode');
       fixInlineColors();
     } else {
       restoreInlineColors();
-      document.body.classList.remove('light-mode');
+      ROOT.classList.remove('light-mode');
     }
-    if (animate) {
+    if (animate && document.body) {
       setTimeout(function () { document.body.style.transition = ''; }, 400);
     }
-    document.documentElement.classList.remove('pre-light');
     updateBtn(light);
   }
 
   function toggleTheme() {
-    var isLight = !document.body.classList.contains('light-mode');
+    var isLight = !ROOT.classList.contains('light-mode');
     localStorage.setItem(KEY, isLight ? 'light' : 'dark');
     applyTheme(isLight, true);
   }
@@ -95,7 +80,11 @@
   /* ---- Init on DOM ready ---- */
   document.addEventListener('DOMContentLoaded', function () {
     injectToggle();
-    var isLight = localStorage.getItem(KEY) === 'light';
-    applyTheme(isLight, false);
+    /* Class already set by inline <head> script if needed;
+       just run the inline color fixer if we're in light mode. */
+    if (ROOT.classList.contains('light-mode')) {
+      fixInlineColors();
+    }
+    updateBtn(ROOT.classList.contains('light-mode'));
   });
 })();
