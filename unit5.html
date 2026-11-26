@@ -94,6 +94,7 @@
       <div style="display:flex;flex-direction:column;gap:.5rem;">
         <div style="display:flex;align-items:center;gap:.75rem;"><iconify-icon icon="mdi:check-circle" width="18" style="color:#F43F5E;flex-shrink:0;"></iconify-icon><span style="font-size:.875rem;color:#94A3B8;">認識 AI 的主要爭議議題</span></div>
         <div style="display:flex;align-items:center;gap:.75rem;"><iconify-icon icon="mdi:check-circle" width="18" style="color:#F43F5E;flex-shrink:0;"></iconify-icon><span style="font-size:.875rem;color:#94A3B8;">了解 AI 偏見與隱私權風險</span></div>
+        <div style="display:flex;align-items:center;gap:.75rem;"><iconify-icon icon="mdi:check-circle" width="18" style="color:#F43F5E;flex-shrink:0;"></iconify-icon><span style="font-size:.875rem;color:#94A3B8;">學會防範 AI 詐騙，並設定好 AI 工具的隱私</span></div>
         <div style="display:flex;align-items:center;gap:.75rem;"><iconify-icon icon="mdi:check-circle" width="18" style="color:#F43F5E;flex-shrink:0;"></iconify-icon><span style="font-size:.875rem;color:#94A3B8;">掌握全球 AI 治理趨勢</span></div>
         <div style="display:flex;align-items:center;gap:.75rem;"><iconify-icon icon="mdi:check-circle" width="18" style="color:#F43F5E;flex-shrink:0;"></iconify-icon><span style="font-size:.875rem;color:#94A3B8;">建立面對 AI 未來的核心思維</span></div>
       </div>
@@ -105,7 +106,12 @@
       <h2 style="font-size:clamp(1.4rem,3vw,2rem);font-weight:800;margin-bottom:1.5rem;">主要爭議議題</h2>
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.25rem;">
 
-        <div class="glass rev" style="padding:1.75rem;border-top:2px solid #F43F5E;">
+        <div class="glass rev" data-detail data-detail-title="深度偽造（Deepfake）是什麼？" data-detail-color="#F43F5E" style="padding:1.75rem;border-top:2px solid #F43F5E;">
+          <template class="detail-tpl">
+            <p class="dm-plain">「深度偽造」是用 AI 把一個人的臉或聲音，換到另一段影片或錄音上，做出他根本沒說過、沒做過的畫面。現在只要幾張照片、幾秒鐘錄音就做得出來。</p>
+            <div class="dm-example">網路上常見「知名醫師推薦保健食品」「名人教你投資致富」的影片廣告，很多就是用深度偽造做的，真人根本沒有拍過。</div>
+            <div class="dm-you">看到名人、家人在影片或電話裡要你買東西、投資、匯款，<strong>先假設可能是假的</strong>，用其他管道查證。下一節「AI 詐騙防護」有完整的防範方法。</div>
+          </template>
           <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:1rem;">
             <div style="width:2.5rem;height:2.5rem;border-radius:.75rem;background:rgba(244,63,94,.12);border:1px solid rgba(244,63,94,.25);display:flex;align-items:center;justify-content:center;"><iconify-icon icon="mdi:video-box" width="20" style="color:#F43F5E;"></iconify-icon></div>
             <h3 style="font-size:1rem;font-weight:700;">深度偽造</h3>
@@ -118,7 +124,12 @@
           </ul>
         </div>
 
-        <div class="glass rev" style="padding:1.75rem;border-top:2px solid #F59E0B;">
+        <div class="glass rev" data-detail data-detail-title="AI 會搶走工作嗎？" data-detail-color="#F59E0B" style="padding:1.75rem;border-top:2px solid #F59E0B;">
+          <template class="detail-tpl">
+            <p class="dm-plain">AI 最先影響的是「重複、有固定規則」的工作，例如資料輸入、基本客服、簡單翻譯。但多數工作不會整個消失，而是<strong>工作內容改變</strong>：把繁瑣的部分交給 AI，人負責判斷、溝通和照顧。</p>
+            <div class="dm-analogy">就像當年計算機普及，會計師沒有消失，反而不用再一筆一筆手算，可以把時間花在更重要的分析上。</div>
+            <div class="dm-you">對退休族來說，AI 是很好的「學習夥伴」和「生活幫手」；對還在工作的子女，學會用 AI 的人會比不會用的人更有競爭力。</div>
+          </template>
           <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:1rem;">
             <div style="width:2.5rem;height:2.5rem;border-radius:.75rem;background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.25);display:flex;align-items:center;justify-content:center;"><iconify-icon icon="mdi:briefcase-outline" width="20" style="color:#F59E0B;"></iconify-icon></div>
             <h3 style="font-size:1rem;font-weight:700;">就業影響</h3>
@@ -126,12 +137,17 @@
           <p style="font-size:.68rem;color:#F59E0B;font-family:'Space Grotesk',sans-serif;margin-bottom:.75rem;">Employment Impact</p>
           <ul style="color:#CBD5E1;font-size:.82rem;line-height:1.8;list-style:none;padding:0;">
             <li style="display:flex;gap:.5rem;margin-bottom:.3rem;"><span style="color:#F59E0B;">→</span> AI 自動化可能取代部分重複性工作</li>
-            <li style="display:flex;gap:.5rem;margin-bottom:.3rem;"><span style="color:#F59E0B;">→</span> 同時也創造新工作：AI 訓練師、提示詞工程師</li>
+            <li style="display:flex;gap:.5rem;margin-bottom:.3rem;"><span style="color:#F59E0B;">→</span> 同時也創造新角色：AI 應用規劃、AI 內容審核等，懂得運用 AI 的人更吃香</li>
             <li style="display:flex;gap:.5rem;"><span style="color:#F59E0B;">→</span> 建議持續學習與技能升級</li>
           </ul>
         </div>
 
-        <div class="glass rev" style="padding:1.75rem;border-top:2px solid #8B5CF6;">
+        <div class="glass rev" data-detail data-detail-title="為什麼 AI 的決定可能不公平？" data-detail-color="#8B5CF6" style="padding:1.75rem;border-top:2px solid #8B5CF6;">
+          <template class="detail-tpl">
+            <p class="dm-plain">AI 是從過去的資料學習的。如果過去的資料本身就有偏差，AI 會把這個偏差學起來，甚至放大。</p>
+            <div class="dm-example">如果一家公司過去錄取的工程師大多是男性，用這些資料訓練的招募 AI，可能就會自動把女性的履歷排在後面——即使沒有人叫它這樣做。</div>
+            <div class="dm-you">當銀行貸款、保險理賠、求職被「系統」拒絕時，你有權利詢問原因、要求由真人重新審查。</div>
+          </template>
           <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:1rem;">
             <div style="width:2.5rem;height:2.5rem;border-radius:.75rem;background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.25);display:flex;align-items:center;justify-content:center;"><iconify-icon icon="mdi:scale-balance" width="20" style="color:#8B5CF6;"></iconify-icon></div>
             <h3 style="font-size:1rem;font-weight:700;">決策公平性</h3>
@@ -146,9 +162,96 @@
       </div>
     </section>
 
-    <!-- 5.2 Bias -->
+
+    <!-- 5.2 AI scam protection -->
     <section class="rev" style="margin-bottom:3.5rem;">
       <div class="section-label"><span>5.2</span></div>
+      <h2 style="font-size:clamp(1.4rem,3vw,2rem);font-weight:800;margin-bottom:.75rem;">AI 詐騙防護</h2>
+      <p style="font-size:.9rem;color:#CBD5E1;line-height:1.8;margin-bottom:1.5rem;max-width:720px;">AI 讓詐騙集團能模仿家人的聲音、做出名人的假影片。認識常見手法，再記住幾個簡單的防護習慣，就能擋下大部分騙局。</p>
+
+      <h3 style="font-size:1rem;font-weight:700;margin-bottom:1rem;color:#FB7185;">🎭 常見手法</h3>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1rem;margin-bottom:2rem;">
+        <div class="glass rev" data-detail data-detail-title="AI 聲音複製：「猜猜我是誰」升級版" data-detail-color="#F43F5E" style="padding:1.35rem;">
+          <div style="font-size:1.6rem;margin-bottom:.4rem;">📞</div>
+          <h3 style="font-size:.95rem;font-weight:700;margin-bottom:.4rem;">家人的聲音打來要錢</h3>
+          <p style="font-size:.8rem;color:#CBD5E1;line-height:1.7;">用 AI 複製孫子、子女的聲音，說出車禍、被抓、急需用錢。</p>
+          <template class="detail-tpl">
+            <p class="dm-plain">詐騙集團只要從網路影片、社群貼文，甚至一通打錯的電話錄下幾秒鐘的聲音，就能用 AI 做出幾乎一模一樣的嗓音，再打電話給長輩。</p>
+            <div class="dm-example">「阿嬤，是我啦！我開車撞到人，對方說不給錢就要告我，你先不要跟爸媽講……」聲音、語氣都很像，還會哭。</div>
+            <div class="dm-you"><strong>先掛斷，再用你手機裡原本存的號碼回撥</strong>給本人或其他家人確認。真的家人不會因為你回撥而生氣。也可以事先和家人約好一個「家庭暗號」。</div>
+          </template>
+        </div>
+        <div class="glass rev" data-detail data-detail-title="深偽視訊電話" data-detail-color="#F43F5E" style="padding:1.35rem;">
+          <div style="font-size:1.6rem;margin-bottom:.4rem;">📹</div>
+          <h3 style="font-size:.95rem;font-weight:700;margin-bottom:.4rem;">視訊裡的臉也可能是假的</h3>
+          <p style="font-size:.8rem;color:#CBD5E1;line-height:1.7;">即時換臉技術，讓詐騙者在視訊中變成你認識的人。</p>
+          <template class="detail-tpl">
+            <p class="dm-plain">過去大家說「有看到臉就不會被騙」，現在已經不適用。AI 可以在視訊通話中即時把詐騙者的臉換成別人的臉，香港曾有公司職員在「全是假人」的視訊會議中被騙走約 2 億港元。</p>
+            <div class="dm-example">畫面常常「剛好」很模糊、網路很卡，對方說「鏡頭壞了，不能開太久」，然後急著要你匯款或提供驗證碼。</div>
+            <div class="dm-you">請對方做一些即時動作（例如把手在臉前揮一揮、轉頭側面），或問一個只有你們知道答案的問題。最保險的方法還是：掛斷後自己回撥。</div>
+          </template>
+        </div>
+        <div class="glass rev" data-detail data-detail-title="假名人投資廣告" data-detail-color="#F43F5E" style="padding:1.35rem;">
+          <div style="font-size:1.6rem;margin-bottom:.4rem;">📈</div>
+          <h3 style="font-size:.95rem;font-weight:700;margin-bottom:.4rem;">名人「推薦」投資或保健品</h3>
+          <p style="font-size:.8rem;color:#CBD5E1;line-height:1.7;">用 AI 做出知名企業家、醫師、財經專家的假影片。</p>
+          <template class="detail-tpl">
+            <p class="dm-plain">臉書、YouTube 上常見知名人物「親口推薦」某支股票、某個保健食品，點進去後被拉進 LINE 群組。這些影片和照片多半是 AI 合成的，本人從來沒有拍過。</p>
+            <div class="dm-you">真正的名人不會在廣告裡叫你加 LINE 投資。看到這類廣告，可以直接按「檢舉廣告」。台灣《詐欺犯罪危害防制條例》要求網路平台處理詐騙廣告。</div>
+          </template>
+        </div>
+        <div class="glass rev" data-detail data-detail-title="LINE 投資群組" data-detail-color="#F43F5E" style="padding:1.35rem;">
+          <div style="font-size:1.6rem;margin-bottom:.4rem;">💬</div>
+          <h3 style="font-size:.95rem;font-weight:700;margin-bottom:.4rem;">群組裡大家都說賺到錢</h3>
+          <p style="font-size:.8rem;color:#CBD5E1;line-height:1.7;">群組裡的「老師」和「學員」可能都是假帳號或 AI。</p>
+          <template class="detail-tpl">
+            <p class="dm-plain">投資詐騙群組裡，看起來熱鬧討論、曬獲利截圖的成員，很多是詐騙集團的假帳號，現在還會用 AI 大量產生對話，讓你以為大家都賺到錢。</p>
+            <div class="dm-example">先讓你小額投資、真的出金一兩次，等你投入大筆金錢後，就說要繳「保證金」「稅金」才能領出，最後整個平台消失。</div>
+            <div class="dm-you">「保證獲利」「穩賺不賠」「老師帶單」都是詐騙關鍵字。要投資，只透過合法券商與銀行。</div>
+          </template>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.25rem;">
+        <div class="glass rev" style="padding:1.75rem;border-color:rgba(16,185,129,.3);">
+          <h3 style="font-size:1rem;font-weight:700;margin-bottom:1rem;color:#34D399;">🛡️ 四個防護習慣</h3>
+          <ol style="color:#CBD5E1;font-size:.88rem;line-height:1.9;padding-left:1.25rem;">
+            <li><strong style="color:#F1F5F9;">設定家庭暗號</strong>：和家人約好一句只有你們知道的話，接到可疑電話就問。</li>
+            <li><strong style="color:#F1F5F9;">先掛斷、再回撥</strong>：用手機原本存的號碼打給本人確認。</li>
+            <li><strong style="color:#F1F5F9;">不因一通電話就轉帳</strong>：不論對方多急、多可憐，先停下來問家人。</li>
+            <li><strong style="color:#F1F5F9;">驗證碼、密碼絕不給人</strong>：銀行和政府機關不會在電話中要這些。</li>
+          </ol>
+          <div style="margin-top:1rem;padding:.9rem 1rem;border-radius:.75rem;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.25);">
+            <p style="font-size:.88rem;color:#F1F5F9;font-weight:700;">📣 165 口訣：不點、不給、先查證、165 專線記起來</p>
+            <p style="font-size:.8rem;color:#CBD5E1;line-height:1.7;margin-top:.3rem;">有疑問就撥打 <strong style="color:#F1F5F9;">165 反詐騙諮詢專線</strong>，或上「165 全民防騙網」查詢最新詐騙手法。</p>
+          </div>
+        </div>
+        <div class="glass rev" data-detail data-detail-title="怎麼看出是不是 AI 做的？" data-detail-color="#06B6D4" style="padding:1.75rem;border-color:rgba(6,182,212,.3);">
+          <h3 style="font-size:1rem;font-weight:700;margin-bottom:1rem;color:#22D3EE;">🔍 辨識 AI 內容</h3>
+          <ul style="color:#CBD5E1;font-size:.88rem;line-height:1.9;list-style:none;padding:0;">
+            <li>→ 看平台的「AI 生成」標示</li>
+            <li>→ 用 Gemini 檢查是否為 Google AI 生成</li>
+            <li>→ 用 Google 智慧鏡頭「以圖搜圖」找原始出處</li>
+            <li>→ 轉傳訊息先問 Cofacts 真的假的</li>
+          </ul>
+          <template class="detail-tpl">
+            <p class="dm-plain">AI 做的圖片、影片已經很難用肉眼分辨。與其自己猜，不如用工具和查證管道幫忙。</p>
+            <ul class="dm-facts">
+              <li><b>平台標示</b>Facebook、Instagram、YouTube 會在部分 AI 生成的內容加上「AI 資訊」或「合成內容」之類的標示。</li>
+              <li><b>內容憑證（Content Credentials）</b>有些圖片帶有「CR」標記，點開可以看到它是用什麼工具做的、有沒有被修改過。</li>
+              <li><b>Gemini 檢查</b>把圖片或影片上傳到 Gemini App，問「這是 AI 做的嗎？」，它可以檢查是否帶有 Google AI 的隱形浮水印（SynthID）。</li>
+              <li><b>以圖搜圖</b>用 Google 智慧鏡頭搜尋這張圖，看看最早出現在哪裡、是不是被移花接木。</li>
+              <li><b>在地查證</b>LINE 加入「Cofacts 真的假的」機器人，把可疑訊息轉傳給它；也可以查 MyGoPen、台灣事實查核中心。</li>
+            </ul>
+            <div class="dm-caution">檢查不出 AI 浮水印，<strong>不代表內容是真的</strong>——其他公司的 AI 工具不一定有加浮水印。涉及金錢的事，一律用電話回撥等方式再確認。</div>
+          </template>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5.3 Bias -->
+    <section class="rev" style="margin-bottom:3.5rem;">
+      <div class="section-label"><span>5.3</span></div>
       <h2 style="font-size:clamp(1.4rem,3vw,2rem);font-weight:800;margin-bottom:1.5rem;">偏見問題</h2>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;">
         <div class="glass rev" style="padding:1.5rem;">
@@ -170,9 +273,9 @@
       </div>
     </section>
 
-    <!-- 5.2 Privacy -->
+    <!-- 5.4 Privacy -->
     <section class="rev" style="margin-bottom:3.5rem;">
-      <div class="section-label"><span>隱私</span></div>
+      <div class="section-label"><span>5.4</span></div>
       <h2 style="font-size:clamp(1.4rem,3vw,2rem);font-weight:800;margin-bottom:1.5rem;">隱私權風險</h2>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;">
         <div class="glass rev" style="padding:1.5rem;border-color:rgba(244,63,94,.2);">
@@ -192,38 +295,65 @@
           </div>
         </div>
       </div>
+      <div class="glass rev" style="padding:1.75rem;margin-top:1.25rem;border-color:rgba(59,130,246,.25);">
+        <h3 style="font-size:1rem;font-weight:700;margin-bottom:.5rem;color:#60A5FA;">⚙️ 動手設定：不讓 AI 拿你的對話去訓練</h3>
+        <p style="font-size:.82rem;color:#CBD5E1;line-height:1.7;margin-bottom:1rem;">多數 AI 工具預設會用你的對話來改進模型。花一分鐘關掉它，隱私就多一層保障（選單名稱可能隨版本略有不同）。</p>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.875rem;">
+          <div style="padding:1rem;border-radius:.75rem;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);">
+            <div style="font-weight:700;font-size:.9rem;margin-bottom:.4rem;color:#34D399;">ChatGPT</div>
+            <p style="font-size:.8rem;color:#CBD5E1;line-height:1.7;">設定 → 資料控制 → 關閉「為所有人改善模型」。<br>不想留下紀錄的問題，可以用「臨時對話」。</p>
+          </div>
+          <div style="padding:1rem;border-radius:.75rem;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);">
+            <div style="font-weight:700;font-size:.9rem;margin-bottom:.4rem;color:#60A5FA;">Gemini</div>
+            <p style="font-size:.8rem;color:#CBD5E1;line-height:1.7;">點選單中的「活動」設定（Gemini 應用程式活動），將它關閉；也可以在這裡刪除過去的對話紀錄。</p>
+          </div>
+          <div style="padding:1rem;border-radius:.75rem;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);">
+            <div style="font-weight:700;font-size:.9rem;margin-bottom:.4rem;color:#FBBF24;">Claude</div>
+            <p style="font-size:.8rem;color:#CBD5E1;line-height:1.7;">設定 → 隱私 → 關閉「協助改善 Claude」。</p>
+          </div>
+        </div>
+        <p style="font-size:.8rem;color:#94A3B8;line-height:1.7;margin-top:1rem;">🔒 不論設定如何：身分證字號、銀行帳號、密碼、病歷等資料，都不要輸入任何 AI。</p>
+      </div>
     </section>
 
-    <!-- 5.3 Future -->
+    <!-- 5.5 Future -->
     <section class="rev" style="margin-bottom:3.5rem;">
-      <div class="section-label"><span>5.3</span></div>
+      <div class="section-label"><span>5.5</span></div>
       <h2 style="font-size:clamp(1.4rem,3vw,2rem);font-weight:800;margin-bottom:1.5rem;">AI 發展展望</h2>
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.25rem;">
-        <div class="glass rev" style="padding:1.5rem;position:relative;overflow:hidden;"><div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#3B82F6,transparent);"></div><div style="width:2.25rem;height:2.25rem;border-radius:.75rem;background:rgba(59,130,246,.12);border:1px solid rgba(59,130,246,.25);display:flex;align-items:center;justify-content:center;margin-bottom:.875rem;"><iconify-icon icon="mdi:layers-outline" width="18" style="color:#3B82F6;"></iconify-icon></div><h3 style="font-size:.95rem;font-weight:700;margin-bottom:.5rem;">多模態模型</h3><p style="font-size:.8rem;color:#CBD5E1;line-height:1.7;">整合文字、影像、音訊、影片等多種模態，例如 GPT-4o、Claude 3.5，提供更全面的人機互動體驗。</p></div>
-        <div class="glass rev" style="padding:1.5rem;position:relative;overflow:hidden;"><div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#10B981,transparent);"></div><div style="width:2.25rem;height:2.25rem;border-radius:.75rem;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.25);display:flex;align-items:center;justify-content:center;margin-bottom:.875rem;"><iconify-icon icon="mdi:chip" width="18" style="color:#10B981;"></iconify-icon></div><h3 style="font-size:.95rem;font-weight:700;margin-bottom:.5rem;">邊緣計算</h3><p style="font-size:.8rem;color:#CBD5E1;line-height:1.7;">AI 模型直接在端側裝置運行，減少延遲與網路依賴，同時提升隱私與安全性。</p></div>
+        <div class="glass rev" style="padding:1.5rem;position:relative;overflow:hidden;"><div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#3B82F6,transparent);"></div><div style="width:2.25rem;height:2.25rem;border-radius:.75rem;background:rgba(59,130,246,.12);border:1px solid rgba(59,130,246,.25);display:flex;align-items:center;justify-content:center;margin-bottom:.875rem;"><iconify-icon icon="mdi:layers-outline" width="18" style="color:#3B82F6;"></iconify-icon></div><h3 style="font-size:.95rem;font-weight:700;margin-bottom:.5rem;">多模態模型</h3><p style="font-size:.8rem;color:#CBD5E1;line-height:1.7;">已經普及：ChatGPT、Gemini、Claude 都能同時看圖、聽聲音、說話。接下來會更深入日常，例如開著鏡頭邊看邊問、即時口譯。</p></div>
+        <div class="glass rev" style="padding:1.5rem;position:relative;overflow:hidden;"><div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#10B981,transparent);"></div><div style="width:2.25rem;height:2.25rem;border-radius:.75rem;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.25);display:flex;align-items:center;justify-content:center;margin-bottom:.875rem;"><iconify-icon icon="mdi:chip" width="18" style="color:#10B981;"></iconify-icon></div><h3 style="font-size:.95rem;font-weight:700;margin-bottom:.5rem;">手機裡的 AI（邊緣運算）</h3><p style="font-size:.8rem;color:#CBD5E1;line-height:1.7;">已開始普及：新款手機內建 AI，可以即時翻譯、修圖、整理錄音，部分功能不用連網，資料留在手機裡更有隱私。</p></div>
         <div class="glass rev" style="padding:1.5rem;position:relative;overflow:hidden;"><div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#8B5CF6,transparent);"></div><div style="width:2.25rem;height:2.25rem;border-radius:.75rem;background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.25);display:flex;align-items:center;justify-content:center;margin-bottom:.875rem;"><iconify-icon icon="mdi:flask-outline" width="18" style="color:#8B5CF6;"></iconify-icon></div><h3 style="font-size:.95rem;font-weight:700;margin-bottom:.5rem;">科學研究應用</h3><p style="font-size:.8rem;color:#CBD5E1;line-height:1.7;">AI 協助藥物研發、氣候變化模擬、天體物理研究，加速人類科學突破。</p></div>
       </div>
     </section>
 
-    <!-- 5.4 Global governance -->
+    <!-- 5.6 Global governance -->
     <section class="rev" style="margin-bottom:3.5rem;">
-      <div class="section-label"><span>5.4</span></div>
+      <div class="section-label"><span>5.6</span></div>
       <h2 style="font-size:clamp(1.4rem,3vw,2rem);font-weight:800;margin-bottom:1.5rem;">全球 AI 治理</h2>
       <div class="glass rev" style="padding:1.5rem;overflow-x:auto;">
         <table>
           <thead><tr><th>地區 / 政策</th><th>重點說明</th></tr></thead>
           <tbody>
-            <tr><td>🇪🇺 歐盟 AI Act</td><td>分級規範 AI 系統風險，禁止高風險應用，是全球最嚴格的 AI 立法框架</td></tr>
-            <tr><td>🇺🇸 美國 AI 執行令</td><td>投資 AI 基礎建設，推動 AI 研究與倫理框架，強調技術領導地位</td></tr>
-            <tr><td>🇹🇼 台灣政策</td><td>發展 AI 產業，建立倫理準則與治理機制，推動產業數位轉型</td></tr>
+            <tr><td>🇪🇺 歐盟 AI Act</td><td>依風險分級管理：禁止「不可接受風險」的用途（如社會評分、操控弱勢族群），高風險用途須符合嚴格義務。2024 年生效、分階段實施，部分高風險規範已提案延後；是全球最完整的 AI 立法</td></tr>
+            <tr><td>🇺🇸 美國 AI 政策</td><td>2025 年起轉向「鬆綁法規、強化基礎建設」路線，以《贏得 AI 競賽：美國 AI 行動計畫》推動創新、算力與技術領導</td></tr>
+            <tr><td>🇹🇼 台灣政策</td><td>2025 年 12 月立法院三讀通過《人工智慧基本法》（框架法，國科會為主管機關），訂定 AI 發展的基本原則；另有《詐欺犯罪危害防制條例》要求網路平台處理詐騙廣告</td></tr>
           </tbody>
         </table>
       </div>
+      <div class="glass rev" data-detail data-detail-title="「分級管理」是什麼意思？" data-detail-color="#8B5CF6" style="padding:1.25rem 1.5rem;margin-top:1rem;">
+        <p style="font-size:.9rem;font-weight:700;">💊 白話解釋：為什麼 AI 要「分級管理」？</p>
+        <template class="detail-tpl">
+          <p class="dm-plain">分級管理就是「風險越高，管得越嚴」。不是所有 AI 都一樣危險，所以法律依照用途分成幾個等級。</p>
+          <div class="dm-analogy">就像藥品分成<strong>成藥</strong>和<strong>處方藥</strong>：感冒糖漿在藥局就能買；作用強的藥要醫師開處方；而毒品則是完全禁止。AI 也一樣：聊天機器人只要標明「這是 AI」；用來審核貸款、篩選求職者的 AI 要通過嚴格檢查；用來操控人心、給人民打「社會分數」的 AI 則直接禁止。</div>
+          <div class="dm-you">這些法律保護的是你的權益：例如被 AI 系統拒絕時有權知道原因、和 AI 客服對話時有權知道對方是 AI。台灣的《人工智慧基本法》是「框架法」，先訂原則和方向，細節規範會由各主管機關陸續制定。</div>
+        </template>
+      </div>
     </section>
 
-    <!-- 5.5 Message for learners -->
+    <!-- 5.7 Message for learners -->
     <section class="rev" style="margin-bottom:3.5rem;">
-      <div class="section-label"><span>5.5</span></div>
+      <div class="section-label"><span>5.7</span></div>
       <h2 style="font-size:clamp(1.4rem,3vw,2rem);font-weight:800;margin-bottom:1.5rem;">給學習者的訊息</h2>
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.25rem;margin-bottom:1.5rem;">
         <div class="glass rev" style="padding:1.5rem;text-align:center;"><iconify-icon icon="mdi:book-open-outline" width="32" style="color:#3B82F6;margin-bottom:.75rem;display:block;"></iconify-icon><h3 style="font-size:.95rem;font-weight:700;margin-bottom:.5rem;">保持學習</h3><p style="font-size:.8rem;color:#CBD5E1;line-height:1.7;">AI 技術快速演進，持續學習新工具與概念是唯一不落伍的方法。</p></div>
@@ -246,7 +376,9 @@
       <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:1.5rem;"><iconify-icon icon="mdi:clipboard-check-outline" width="20" style="color:#F43F5E;"></iconify-icon><h2 style="font-size:1rem;font-weight:700;">學習檢定</h2></div>
       <div>
         <div class="checklist-item"><div style="width:1.25rem;height:1.25rem;border-radius:.35rem;border:1.5px solid #F43F5E;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><iconify-icon icon="mdi:check" width="12" style="color:#F43F5E;"></iconify-icon></div><span style="font-size:.875rem;color:#94A3B8;">能說明 AI 的主要爭議議題（Deepfake、就業影響、決策公平性）</span></div>
+        <div class="checklist-item"><div style="width:1.25rem;height:1.25rem;border-radius:.35rem;border:1.5px solid #F43F5E;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><iconify-icon icon="mdi:check" width="12" style="color:#F43F5E;"></iconify-icon></div><span style="font-size:.875rem;color:#94A3B8;">認識 AI 聲音複製、深偽視訊等詐騙手法，並和家人約好「家庭暗號」</span></div>
         <div class="checklist-item"><div style="width:1.25rem;height:1.25rem;border-radius:.35rem;border:1.5px solid #F43F5E;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><iconify-icon icon="mdi:check" width="12" style="color:#F43F5E;"></iconify-icon></div><span style="font-size:.875rem;color:#94A3B8;">了解 AI 偏見的來源與實際案例</span></div>
+        <div class="checklist-item"><div style="width:1.25rem;height:1.25rem;border-radius:.35rem;border:1.5px solid #F43F5E;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><iconify-icon icon="mdi:check" width="12" style="color:#F43F5E;"></iconify-icon></div><span style="font-size:.875rem;color:#94A3B8;">已關閉常用 AI 工具「用對話訓練模型」的設定</span></div>
         <div class="checklist-item"><div style="width:1.25rem;height:1.25rem;border-radius:.35rem;border:1.5px solid #F43F5E;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><iconify-icon icon="mdi:check" width="12" style="color:#F43F5E;"></iconify-icon></div><span style="font-size:.875rem;color:#94A3B8;">認識全球 AI 治理趨勢（歐盟 AI Act、美國、台灣）</span></div>
         <div class="checklist-item" style="border:none;"><div style="width:1.25rem;height:1.25rem;border-radius:.35rem;border:1.5px solid #F43F5E;display:flex;align-items:center;justify-content:center;flex-shrink:0;"><iconify-icon icon="mdi:check" width="12" style="color:#F43F5E;"></iconify-icon></div><span style="font-size:.875rem;color:#94A3B8;">掌握面對 AI 未來的核心思維與行動建議</span></div>
       </div>

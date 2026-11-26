@@ -261,3 +261,196 @@ html.light-mode .copy-btn.copied {
   border-color: rgba(34,197,94,0.35) !important;
   color: #166534 !important;
 }
+
+/* ================================================
+   無障礙強化（深色與亮色皆適用）
+   Accessibility: keyboard focus · reduced-motion · 手機表格
+   ================================================ */
+
+/* 1) 鍵盤焦點可見外框 —— 鍵盤使用者看得到目前焦點在哪 */
+a:focus-visible,
+button:focus-visible,
+[role="button"]:focus-visible,
+[tabindex]:focus-visible,
+[onclick]:focus-visible {
+  outline: 3px solid #60A5FA !important;
+  outline-offset: 3px !important;
+  border-radius: 6px;
+}
+html.light-mode a:focus-visible,
+html.light-mode button:focus-visible,
+html.light-mode [role="button"]:focus-visible,
+html.light-mode [tabindex]:focus-visible,
+html.light-mode [onclick]:focus-visible {
+  outline-color: #EA580C !important;
+}
+
+/* 2) 尊重「減少動態效果」系統設定：回到原生游標、關閉大量動畫 */
+@media (prefers-reduced-motion: reduce) {
+  body { cursor: auto !important; }
+  .cursor-dot, .cursor-ring, #cursorDot, #cursorRing { display: none !important; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ================================================
+   詳解彈窗 Detail modal（theme.js initDetailCards）
+   卡片加 data-detail + <template class="detail-tpl">
+   字級用 px：unit3/4 根字級 16px、其他頁 18px，用 rem 會大小不一
+   ================================================ */
+.has-detail { cursor: pointer; }
+.detail-hint {
+  display: flex; width: fit-content; align-items: center; gap: .3rem;
+  margin-top: 12px; padding: 4px 12px;
+  font-size: 13px; font-weight: 600; letter-spacing: .02em; line-height: 1.5;
+  font-style: normal; text-transform: none;
+  color: #93C5FD; background: rgba(59,130,246,.10);
+  border: 1px solid rgba(59,130,246,.30); border-radius: 999px;
+  transition: background .2s, border-color .2s;
+}
+.has-detail:hover .detail-hint, .limit-card:hover .detail-hint,
+.has-detail:focus-visible .detail-hint {
+  background: rgba(59,130,246,.22); border-color: rgba(96,165,250,.6);
+}
+
+#detailModal {
+  position: fixed; inset: 0; z-index: 9997;
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+  background: rgba(0,0,0,.78);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+}
+#detailModal[hidden] { display: none; }
+#detailModal .dm-box {
+  position: relative; width: min(640px, 94vw); max-height: 85vh; overflow-y: auto;
+  overscroll-behavior: contain; -webkit-overflow-scrolling: touch;
+  background: rgba(8,10,22,.97); border: 1px solid rgba(255,255,255,.14);
+  border-radius: 24px; padding: 36px 32px 30px;
+  box-shadow: 0 0 60px rgba(0,0,0,.6);
+  font-family: 'Noto Sans TC', sans-serif; color: #CBD5E1; text-align: left;
+}
+#detailModal .dm-bar {
+  position: absolute; top: 0; left: 28px; right: 28px; height: 3px;
+  border-radius: 0 0 3px 3px;
+  background: linear-gradient(90deg, #3B82F6, #8B5CF6, #10B981);
+}
+#detailModal .dm-close {
+  position: absolute; top: 14px; right: 14px; width: 42px; height: 42px;
+  border-radius: 50%; background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.18); color: #fff; font-size: 18px;
+  display: flex; align-items: center; justify-content: center; cursor: pointer;
+}
+#detailModal .dm-close:hover { background: rgba(255,255,255,.18); }
+#detailModal .dm-title {
+  font-size: 26px; font-weight: 800; line-height: 1.35; color: #F8FAFC;
+  margin: 0 48px 18px 0;
+}
+.dm-body, #lmMore { font-size: 18px; line-height: 1.9; color: #CBD5E1; }
+.dm-body > * + *, #lmMore > * + * { margin-top: 14px; }
+.dm-body strong, #lmMore strong { color: #F1F5F9; }
+.dm-body ul, .dm-body ol, #lmMore ul, #lmMore ol { padding-left: 1.3em; margin: 6px 0 0; }
+.dm-body ul, #lmMore ul { list-style: disc; }
+.dm-body ol, #lmMore ol { list-style: decimal; }
+.dm-body li + li, #lmMore li + li { margin-top: 4px; }
+#lmMore { margin-top: 18px; }
+
+.dm-analogy, .dm-example, .dm-you, .dm-caution {
+  padding: 14px 18px; border-left: 3px solid; border-radius: 0 12px 12px 0;
+}
+.dm-analogy::before, .dm-example::before, .dm-you::before, .dm-caution::before {
+  display: block; font-size: 15px; font-weight: 700; letter-spacing: .03em;
+  margin-bottom: 4px;
+}
+.dm-analogy { background: rgba(245,158,11,.08); border-color: #F59E0B; }
+.dm-analogy::before { content: "💡 生活化比喻"; color: #FBBF24; }
+.dm-example { background: rgba(6,182,212,.07); border-color: #06B6D4; }
+.dm-example::before { content: "📌 實際例子"; color: #22D3EE; }
+.dm-example.dm-ask::before { content: "💬 你可以這樣問"; }
+.dm-you { background: rgba(16,185,129,.08); border-color: #10B981; }
+.dm-you::before { content: "🙋 對你的意義"; color: #34D399; }
+.dm-caution { background: rgba(244,63,94,.08); border-color: #F43F5E; }
+.dm-caution::before { content: "⚠️ 注意"; color: #FB7185; }
+.dm-prompt {
+  display: block; white-space: pre-wrap; margin-top: 8px;
+  padding: 10px 14px; border-radius: 10px; font-size: 16px; line-height: 1.75;
+  background: rgba(255,255,255,.05); border: 1px dashed rgba(255,255,255,.2);
+  color: #E2E8F0;
+}
+
+/* 重點清單：適合誰／免費嗎／第一步… */
+.dm-body ul.dm-facts, #lmMore ul.dm-facts { list-style: none; padding-left: 0; }
+.dm-facts li {
+  padding: 10px 14px; border-radius: 10px;
+  background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.06);
+}
+.dm-facts li + li { margin-top: 8px; }
+.dm-facts b { display: block; font-size: 15px; color: #93C5FD; font-weight: 700; }
+html.light-mode .dm-facts li { background: rgba(249,115,22,.05); border-color: rgba(249,115,22,.14); }
+html.light-mode .dm-facts b { color: #9A3412; }
+
+@media (max-width: 480px) {
+  #detailModal { padding: 10px; }
+  #detailModal .dm-box { padding: 30px 20px 24px; border-radius: 18px; max-height: 88vh; }
+  #detailModal .dm-title { font-size: 22px; }
+  .dm-body, #lmMore { font-size: 17px; }
+}
+
+/* 亮色模式 */
+html.light-mode .detail-hint {
+  color: #9A3412; background: rgba(249,115,22,.10); border-color: rgba(249,115,22,.35);
+}
+html.light-mode .has-detail:hover .detail-hint,
+html.light-mode .limit-card:hover .detail-hint {
+  background: rgba(249,115,22,.18); border-color: rgba(234,88,12,.6);
+}
+html.light-mode #detailModal { background: rgba(254,215,170,.82); }
+html.light-mode #detailModal .dm-box {
+  background: rgba(255,251,235,.99); border-color: rgba(249,115,22,.28);
+  box-shadow: 0 0 60px rgba(249,115,22,.12); color: #7C2D12;
+}
+html.light-mode #detailModal .dm-close {
+  background: rgba(249,115,22,.08); border-color: rgba(249,115,22,.28); color: #7C2D12;
+}
+html.light-mode #detailModal .dm-title { color: #431407; }
+html.light-mode .dm-body, html.light-mode #lmMore { color: #7C2D12; }
+html.light-mode .dm-body strong, html.light-mode #lmMore strong { color: #431407; }
+html.light-mode .dm-analogy { background: rgba(245,158,11,.10); }
+html.light-mode .dm-analogy::before { color: #B45309; }
+html.light-mode .dm-example { background: rgba(6,182,212,.08); }
+html.light-mode .dm-example::before { color: #0E7490; }
+html.light-mode .dm-you { background: rgba(16,185,129,.09); }
+html.light-mode .dm-you::before { color: #047857; }
+html.light-mode .dm-caution { background: rgba(244,63,94,.07); }
+html.light-mode .dm-caution::before { color: #BE123C; }
+html.light-mode .dm-prompt {
+  background: rgba(249,115,22,.06); border-color: rgba(249,115,22,.3); color: #431407;
+}
+
+/* 既有彈窗：長內容可捲動，不再溢出畫面 */
+#termModalBox, #promptCardModal > div { max-height: 85vh; overflow-y: auto; }
+
+/* 手機：unit3／unit4 頂部導覽列避免文字被擠成直排 */
+@media (max-width: 600px) {
+  #nav { padding: .75rem 1rem; gap: .5rem; }
+  #nav .nav-logo, #nav .nav-links a { white-space: nowrap; }
+  #nav .nav-logo { font-size: .9rem; }
+  #nav .nav-links { gap: .5rem; }
+  #nav .nav-links a { font-size: .75rem; }
+  #nav .nav-links a[href="index.html"] { display: none; } /* Logo 已可回首頁 */
+  #nav .nav-pill { padding: .3rem .6rem; }
+  #nav #theme-toggle { margin-left: .4rem; padding: .3rem .55rem; }
+}
+
+/* 3) 手機：過寬的表格改為可水平捲動，避免內容被擠出畫面 */
+@media (max-width: 768px) {
+  table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}

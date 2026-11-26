@@ -105,7 +105,8 @@
     <!-- Tools section -->
     <section class="rev" style="margin-bottom:3.5rem;">
       <div class="section-label"><span>主流工具</span></div>
-      <h2 style="font-size:clamp(1.4rem,3vw,2rem);font-weight:800;margin-bottom:1.75rem;">2026 AI 工具生態</h2>
+      <h2 style="font-size:clamp(1.4rem,3vw,2rem);font-weight:800;margin-bottom:.75rem;">2026 AI 工具生態</h2>
+      <p style="font-size:.9rem;color:#CBD5E1;line-height:1.8;margin-bottom:1.75rem;max-width:680px;">第一次接觸 AI？<strong style="color:#F1F5F9;">先從 ChatGPT 或 Gemini 其中一個開始就好</strong>，其他工具等有需要時再認識。每張卡片點開「📖 看詳解」，可以看到適合誰、免費能不能用、怎麼開始。</p>
 
       <!-- Category 1: LLM -->
       <div style="margin-bottom:2rem;">
@@ -115,12 +116,75 @@
           <span style="font-size:.7rem;color:#3B82F6;font-family:'Space Grotesk',sans-serif;">LLM</span>
         </div>
         <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:.875rem;">
-          <div class="glass" style="padding:1.1rem;border-radius:1rem;display:flex;gap:.75rem;align-items:flex-start;"><iconify-icon icon="simple-icons:openai" width="20" style="color:#10B981;flex-shrink:0;margin-top:.1rem;"></iconify-icon><div><div style="font-weight:600;font-size:.85rem;margin-bottom:.2rem;">ChatGPT <span style="font-size:.7rem;color:#CBD5E1;font-weight:400;">OpenAI</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.6;">多模態對話創作，功能全面，生態系統最完整</p></div></div>
-          <div class="glass" style="padding:1.1rem;border-radius:1rem;display:flex;gap:.75rem;align-items:flex-start;"><iconify-icon icon="simple-icons:anthropic" width="20" style="color:#D97706;flex-shrink:0;margin-top:.1rem;"></iconify-icon><div><div style="font-weight:600;font-size:.85rem;margin-bottom:.2rem;">Claude <span style="font-size:.7rem;color:#CBD5E1;font-weight:400;">Anthropic</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.6;">長文理解佳，擅長複雜寫作與分析</p></div></div>
-          <div class="glass" style="padding:1.1rem;border-radius:1rem;display:flex;gap:.75rem;align-items:flex-start;"><iconify-icon icon="simple-icons:google" width="20" style="color:#4285F4;flex-shrink:0;margin-top:.1rem;"></iconify-icon><div><div style="font-weight:600;font-size:.85rem;margin-bottom:.2rem;">Gemini <span style="font-size:.7rem;color:#CBD5E1;font-weight:400;">Google</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.6;">擅長 Google 生態整合應用，Gmail/Docs 串接</p></div></div>
-          <div class="glass" style="padding:1.1rem;border-radius:1rem;display:flex;gap:.75rem;align-items:flex-start;"><iconify-icon icon="simple-icons:microsoft" width="20" style="color:#0078D4;flex-shrink:0;margin-top:.1rem;"></iconify-icon><div><div style="font-weight:600;font-size:.85rem;margin-bottom:.2rem;">Microsoft Copilot</div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.6;">微軟整合式 AI 協作助理，Office 生態系</p></div></div>
-          <div class="glass" style="padding:1.1rem;border-radius:1rem;display:flex;gap:.75rem;align-items:flex-start;"><iconify-icon icon="mdi:robot-outline" width="20" style="color:#60A5FA;flex-shrink:0;margin-top:.1rem;"></iconify-icon><div><div style="font-weight:600;font-size:.85rem;margin-bottom:.2rem;">DeepSeek</div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.6;">強大程式生成能力，回應快速</p></div></div>
-          <div class="glass" style="padding:1.1rem;border-radius:1rem;display:flex;gap:.75rem;align-items:flex-start;"><iconify-icon icon="mdi:robot-excited-outline" width="20" style="color:#A78BFA;flex-shrink:0;margin-top:.1rem;"></iconify-icon><div><div style="font-weight:600;font-size:.85rem;margin-bottom:.2rem;">Manus</div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.6;">協作與文件自動化利器，全能秘書型 AI</p></div></div>
+          <div class="glass" data-detail data-detail-title="ChatGPT（OpenAI）" data-detail-color="#10B981" style="padding:1.1rem;border-radius:1rem;display:flex;gap:.75rem;align-items:flex-start;"><iconify-icon icon="simple-icons:openai" width="20" style="color:#10B981;flex-shrink:0;margin-top:.1rem;"></iconify-icon><div><div style="font-weight:600;font-size:.85rem;margin-bottom:.2rem;">ChatGPT <span style="font-size:.7rem;color:#CBD5E1;font-weight:400;">OpenAI</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.6;">多模態對話創作，功能全面，生態系統最完整</p></div>
+            <template class="detail-tpl">
+              <p class="dm-plain">最多人使用的 AI 聊天助理。你用平常說話的方式打字或講話問它，它就會回答、幫你寫文章、翻譯、整理重點，也能看照片、畫圖。</p>
+              <ul class="dm-facts">
+                <li><b>適合誰</b>第一次接觸 AI 的人；想找一個「什麼都能問」的萬用助理。</li>
+                <li><b>免費能用嗎</b>有免費版，可以聊天、上網搜尋、語音對話；畫圖和上傳檔案有次數限制。付費方案（如 Go、Plus）次數更多、功能更強。</li>
+                <li><b>中文</b>介面與對話都支援繁體中文，回答自然。</li>
+                <li><b>第一步</b>到 chatgpt.com，或在手機商店搜尋「ChatGPT」，認明開發者是 <strong>OpenAI</strong> 再下載；用 Google 帳號或 Email 註冊即可。</li>
+              </ul>
+              <div class="dm-caution">App 商店裡有很多名字很像的山寨 App，會要你付費訂閱。只下載開發者為 OpenAI 的官方版本。</div>
+            </template>
+          </div>
+          <div class="glass" data-detail data-detail-title="Claude（Anthropic）" data-detail-color="#D97706" style="padding:1.1rem;border-radius:1rem;display:flex;gap:.75rem;align-items:flex-start;"><iconify-icon icon="simple-icons:anthropic" width="20" style="color:#D97706;flex-shrink:0;margin-top:.1rem;"></iconify-icon><div><div style="font-weight:600;font-size:.85rem;margin-bottom:.2rem;">Claude <span style="font-size:.7rem;color:#CBD5E1;font-weight:400;">Anthropic</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.6;">長文理解佳，擅長複雜寫作與分析</p></div>
+            <template class="detail-tpl">
+              <p class="dm-plain">由 Anthropic 公司開發的 AI 助理，以「讀得懂長文件」和「文筆自然」見長，回答風格比較謹慎、有條理。</p>
+              <ul class="dm-facts">
+                <li><b>適合誰</b>需要讀合約、說明書、長篇報告，或想請 AI 幫忙潤飾文章、寫信的人。</li>
+                <li><b>免費能用嗎</b>有免費版，每段時間可用的次數有限；付費方案可用更多。</li>
+                <li><b>中文</b>支援繁體中文。</li>
+                <li><b>第一步</b>到 claude.ai 用 Email 或 Google 帳號註冊，也有官方手機 App。</li>
+              </ul>
+              <div class="dm-example">上傳一份看不懂的保險條款 PDF，問它：「請用國中生聽得懂的話，告訴我哪些情況<strong>不理賠</strong>。」</div>
+            </template>
+          </div>
+          <div class="glass" data-detail data-detail-title="Gemini（Google）" data-detail-color="#4285F4" style="padding:1.1rem;border-radius:1rem;display:flex;gap:.75rem;align-items:flex-start;"><iconify-icon icon="simple-icons:google" width="20" style="color:#4285F4;flex-shrink:0;margin-top:.1rem;"></iconify-icon><div><div style="font-weight:600;font-size:.85rem;margin-bottom:.2rem;">Gemini <span style="font-size:.7rem;color:#CBD5E1;font-weight:400;">Google</span></div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.6;">擅長 Google 生態整合應用，Gmail/Docs 串接</p></div>
+            <template class="detail-tpl">
+              <p class="dm-plain">Google 的 AI 助理。最大的好處是跟你已經在用的 Google 服務接在一起：Gmail、Google 地圖、YouTube、雲端硬碟、相簿。</p>
+              <ul class="dm-facts">
+                <li><b>適合誰</b>用 Android 手機、習慣用 Gmail 和 Google 地圖的人。</li>
+                <li><b>免費能用嗎</b>有 Google 帳號就能免費使用；付費方案（Google AI Plus／Pro）可用更強的模型和更多次數。</li>
+                <li><b>中文</b>支援繁體中文，也能用說的。</li>
+                <li><b>第一步</b>到 gemini.google.com，或下載官方「Google Gemini」App；許多 Android 手機已經內建，長按電源鍵或說「Hey Google」就能叫出來。</li>
+              </ul>
+              <div class="dm-example dm-ask">「幫我從 Gmail 找出上個月的水電費帳單，列出金額和繳費期限。」（第一次使用時，它會詢問你是否同意連結 Gmail）</div>
+            </template>
+          </div>
+          <div class="glass" data-detail data-detail-title="Microsoft Copilot" data-detail-color="#0078D4" style="padding:1.1rem;border-radius:1rem;display:flex;gap:.75rem;align-items:flex-start;"><iconify-icon icon="simple-icons:microsoft" width="20" style="color:#0078D4;flex-shrink:0;margin-top:.1rem;"></iconify-icon><div><div style="font-weight:600;font-size:.85rem;margin-bottom:.2rem;">Microsoft Copilot</div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.6;">微軟的 AI 助理，已內建在 Windows 與 Office（Word、Excel、PowerPoint）</p></div>
+            <template class="detail-tpl">
+              <p class="dm-plain">微軟的 AI 助理。單獨使用時就像 ChatGPT；它特別的地方是<strong>直接住在 Office 裡</strong>，在你熟悉的 Word、Excel 裡面就能叫它幫忙。</p>
+              <ul class="dm-facts">
+                <li><b>在 Office 裡能做什麼</b>Word：幫你起草一封信、把長文縮短。Excel：用一句話說「幫我算出每個月的總支出」。PowerPoint：從一份文件自動做出簡報。Outlook：摘要一長串來往信件。</li>
+                <li><b>免費能用嗎</b>Copilot App 與網頁版可免費使用。Microsoft 365 個人版／家用版的訂閱已經內含 Copilot，每月有一定的 AI 使用額度。</li>
+                <li><b>中文</b>支援繁體中文。</li>
+                <li><b>第一步</b>Windows 電腦工作列上通常已經有 Copilot 圖示；或到 copilot.microsoft.com。家裡有訂 Microsoft 365 的話，打開 Word 找右上角的 Copilot 按鈕。</li>
+              </ul>
+            </template>
+          </div>
+          <div class="glass" data-detail data-detail-title="DeepSeek（深度求索）" data-detail-color="#60A5FA" style="padding:1.1rem;border-radius:1rem;display:flex;gap:.75rem;align-items:flex-start;"><iconify-icon icon="mdi:robot-outline" width="20" style="color:#60A5FA;flex-shrink:0;margin-top:.1rem;"></iconify-icon><div><div style="font-weight:600;font-size:.85rem;margin-bottom:.2rem;">DeepSeek</div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.6;">中國開發，推理與程式能力強、可免費使用；⚠️ 資料存放於中國伺服器</p></div>
+            <template class="detail-tpl">
+              <p class="dm-plain">中國公司「深度求索」開發的 AI。2025 年初推出推理模型後一炮而紅，因為能力接近國際大廠、又能免費使用，還把模型公開讓大家下載。</p>
+              <ul class="dm-facts">
+                <li><b>適合誰</b>想比較不同 AI 的人、程式開發者；一般人日常使用，ChatGPT、Gemini 等工具就足夠。</li>
+                <li><b>免費能用嗎</b>網頁與 App 可免費使用。</li>
+                <li><b>中文</b>支援，但預設偏向簡體中文用語。</li>
+              </ul>
+              <div class="dm-caution">依其隱私政策，你輸入的內容會存放在中國的伺服器。台灣行政院自 2025 年 2 月起禁止公務機關使用。若要使用，<strong>不要輸入個人資料、公司機密</strong>；涉及政治、歷史的回答也可能受到審查。</div>
+            </template>
+          </div>
+          <div class="glass" data-detail data-detail-title="Manus：會自己動手做事的 AI" data-detail-color="#A78BFA" style="padding:1.1rem;border-radius:1rem;display:flex;gap:.75rem;align-items:flex-start;"><iconify-icon icon="mdi:robot-excited-outline" width="20" style="color:#A78BFA;flex-shrink:0;margin-top:.1rem;"></iconify-icon><div><div style="font-weight:600;font-size:.85rem;margin-bottom:.2rem;">Manus</div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.6;">會自己上網查資料、做成報告的 AI 代理（Agent），2025 年底被 Meta 收購</p></div>
+            <template class="detail-tpl">
+              <p class="dm-plain">一般聊天 AI 是「你問一句、它答一句」；Manus 這類 <strong>AI Agent（代理）</strong>則是你交代一件事，它會自己拆步驟、上網找資料、整理成報告或簡報交給你。2025 年 12 月 Meta（Facebook 母公司）宣布收購 Manus，目前仍以原本的服務運作。</p>
+              <div class="dm-analogy">聊天 AI 像「顧問」，你問它才回答；Agent 像「秘書」，交代「幫我比較三家旅行社的北海道行程」，它就自己去跑腿、整理好再回報。</div>
+              <ul class="dm-facts">
+                <li><b>免費能用嗎</b>有免費額度；任務越複雜，消耗的點數越多。</li>
+                <li><b>第一步</b>到 manus.im 註冊，先交代一件簡單的查資料任務試試看。</li>
+              </ul>
+              <div class="dm-caution">不要讓 Agent 幫你輸入密碼、信用卡或進行付款。它做的報告也要自己檢查一遍。單元四有更多 Agent 介紹。</div>
+            </template>
+          </div>
         </div>
       </div>
 
@@ -132,9 +196,41 @@
           <span style="font-size:.7rem;color:#06B6D4;font-family:'Space Grotesk',sans-serif;">Research</span>
         </div>
         <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:.875rem;">
-          <div class="glass" style="padding:1.1rem;border-radius:1rem;"><div style="font-weight:600;font-size:.85rem;margin-bottom:.3rem;color:#22D3EE;">Perplexity AI</div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.6;">主打「AI ＋ 即時網頁搜尋」，解答複雜問題並註明資料來源</p></div>
-          <div class="glass" style="padding:1.1rem;border-radius:1rem;"><div style="font-weight:600;font-size:.85rem;margin-bottom:.3rem;color:#22D3EE;">SciSpace</div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.6;">專為學術研究設計，快速摘要 PDF 文獻，科研人員首選</p></div>
-          <div class="glass" style="padding:1.1rem;border-radius:1rem;"><div style="font-weight:600;font-size:.85rem;margin-bottom:.3rem;color:#22D3EE;">NotebookLM</div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.6;">上傳個人文件建立專屬知識庫，進行智能問答與總結</p></div>
+          <div class="glass" data-detail data-detail-title="Perplexity：會附上來源的 AI 搜尋" data-detail-color="#22D3EE" style="padding:1.1rem;border-radius:1rem;"><div style="font-weight:600;font-size:.85rem;margin-bottom:.3rem;color:#22D3EE;">Perplexity AI</div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.6;">主打「AI ＋ 即時網頁搜尋」，解答複雜問題並註明資料來源</p>
+            <template class="detail-tpl">
+              <p class="dm-plain">像是「會幫你讀完搜尋結果的 Google」。你問一個問題，它會上網找資料、整理成一段答案，並在每句話旁邊標上<strong>來源編號</strong>，點下去就能看原始網頁。</p>
+              <ul class="dm-facts">
+                <li><b>適合誰</b>想查最新消息、比較商品、又希望知道「這是哪裡說的」的人。</li>
+                <li><b>免費能用嗎</b>基本搜尋免費；進階的深度研究有次數限制。</li>
+                <li><b>中文</b>可以用中文問，也能用中文回答。</li>
+                <li><b>第一步</b>到 perplexity.ai，不註冊也能先試著問。</li>
+              </ul>
+              <div class="dm-you">有附來源不代表一定正確。重要的事（健康、法律、金錢），請點開來源看看是不是政府機關、醫院等可信單位。</div>
+            </template>
+          </div>
+          <div class="glass" data-detail data-detail-title="SciSpace：讀論文的助手" data-detail-color="#22D3EE" style="padding:1.1rem;border-radius:1rem;"><div style="font-weight:600;font-size:.85rem;margin-bottom:.3rem;color:#22D3EE;">SciSpace</div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.6;">專為學術研究設計，快速摘要 PDF 文獻，科研人員首選</p>
+            <template class="detail-tpl">
+              <p class="dm-plain">專門用來找學術論文、讀懂論文的 AI。上傳一篇英文論文，它可以用中文解釋重點、回答你對內容的問題。</p>
+              <ul class="dm-facts">
+                <li><b>適合誰</b>學生、研究人員；或想看懂某項醫學研究原文的人。一般日常使用不需要它。</li>
+                <li><b>免費能用嗎</b>有免費版，部分功能需付費。</li>
+                <li><b>中文</b>介面以英文為主，但可以用中文提問。</li>
+              </ul>
+            </template>
+          </div>
+          <div class="glass" data-detail data-detail-title="NotebookLM：只根據你的資料回答" data-detail-color="#22D3EE" style="padding:1.1rem;border-radius:1rem;"><div style="font-weight:600;font-size:.85rem;margin-bottom:.3rem;color:#22D3EE;">NotebookLM</div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.6;">上傳個人文件建立專屬知識庫，進行智能問答與總結</p>
+            <template class="detail-tpl">
+              <p class="dm-plain">Google 推出的筆記型 AI。和一般聊天 AI 最大的不同：它<strong>只根據你放進去的資料</strong>回答，還會標出答案出自哪一段，所以比較不會憑空亂編。</p>
+              <div class="dm-analogy">像請一位只讀過你那疊文件的助理。你問的問題，他只能翻那疊文件回答，不會拿外面聽來的說法亂湊。</div>
+              <ul class="dm-facts">
+                <li><b>可以放什麼</b>PDF、Google 文件、網頁連結、YouTube 影片。例如：家電說明書、旅遊行程資料、社區大學講義。</li>
+                <li><b>特色功能</b>把資料變成像廣播節目的「語音摘要」、影片摘要、心智圖、學習卡和小測驗。</li>
+                <li><b>免費能用嗎</b>用 Google 帳號即可免費使用，也有官方手機 App。</li>
+                <li><b>第一步</b>到 notebooklm.google.com，按「新增筆記本」，放入一份資料，問它「這份資料的三個重點是什麼？」</li>
+              </ul>
+              <div class="dm-caution">身分證、病歷、存摺等敏感文件，不建議上傳到任何 AI 工具。</div>
+            </template>
+          </div>
         </div>
       </div>
 
@@ -146,9 +242,38 @@
           <span style="font-size:.7rem;color:#EC4899;font-family:'Space Grotesk',sans-serif;">Image Generation</span>
         </div>
         <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:.875rem;">
-          <div class="glass" style="padding:1.1rem;border-radius:1rem;"><div style="font-weight:600;font-size:.85rem;margin-bottom:.3rem;color:#F472B6;">Midjourney</div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.6;">高品質藝術創作，繪圖細節和藝術感最頂尖，在 Discord 上運作</p></div>
-          <div class="glass" style="padding:1.1rem;border-radius:1rem;"><div style="font-weight:600;font-size:.85rem;margin-bottom:.3rem;color:#F472B6;">MyEdit</div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.6;">適合初學者的手機/網頁 AI 繪圖，文字生成圖片、AI 動漫</p></div>
-          <div class="glass" style="padding:1.1rem;border-radius:1rem;"><div style="font-weight:600;font-size:.85rem;margin-bottom:.3rem;color:#F472B6;">Runway ML</div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.6;">專業影像生成工具，支援文字→影片、圖片→影片的創作</p></div>
+          <div class="glass" data-detail data-detail-title="最簡單的入門：在聊天 AI 裡直接畫" data-detail-color="#F472B6" style="padding:1.1rem;border-radius:1rem;"><div style="font-weight:600;font-size:.85rem;margin-bottom:.3rem;color:#F472B6;">ChatGPT／Gemini 內建繪圖</div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.6;">不用另外裝軟體，在對話中說「幫我畫…」就能生成或修改圖片（Gemini 的繪圖功能又稱 Nano Banana）</p>
+            <template class="detail-tpl">
+              <p class="dm-plain">現在最主流的 AI 繪圖，其實就藏在你已經在用的 ChatGPT 和 Gemini 裡。用說的就能畫圖，也能上傳照片請它修改，例如換背景、改成卡通風格。圖片裡的中文字也比以前清楚很多。</p>
+              <ul class="dm-facts">
+                <li><b>適合誰</b>想做生日卡、長輩圖、社團活動海報的初學者。</li>
+                <li><b>免費能用嗎</b>免費版每天可以畫幾張，付費方案次數較多。</li>
+                <li><b>第一步</b>打開 ChatGPT 或 Gemini，輸入「幫我畫一張賀卡：一隻戴紅圍巾的柴犬，上面寫『生日快樂』，溫暖水彩風格」。</li>
+              </ul>
+              <div class="dm-caution">用 AI 修改別人的照片（尤其是名人、陌生人）可能涉及肖像權與詐騙，只修改自己或已同意者的照片。</div>
+            </template>
+          </div>
+          <div class="glass" data-detail data-detail-title="Midjourney：藝術感最強的繪圖 AI" data-detail-color="#F472B6" style="padding:1.1rem;border-radius:1rem;"><div style="font-weight:600;font-size:.85rem;margin-bottom:.3rem;color:#F472B6;">Midjourney</div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.6;">高品質藝術創作，繪圖細節和藝術感最頂尖，可透過網頁版或 Discord 使用</p>
+            <template class="detail-tpl">
+              <p class="dm-plain">專業設計師和插畫愛好者愛用的繪圖 AI，畫出來的圖特別有「藝術感」，光影和質感很細緻。</p>
+              <ul class="dm-facts">
+                <li><b>適合誰</b>對畫面美感要求高、願意花時間研究的進階使用者。</li>
+                <li><b>免費能用嗎</b>目前主要需付費訂閱才能生成圖片，不適合「先免費試試看」。</li>
+                <li><b>中文</b>介面是英文，用英文描述畫面效果較好（可先請 ChatGPT 幫你翻譯成英文提示詞）。</li>
+                <li><b>第一步</b>到 midjourney.com，先逛「Explore」看別人的作品和他們用的描述。</li>
+              </ul>
+            </template>
+          </div>
+          <div class="glass" data-detail data-detail-title="MyEdit：台灣做的線上修圖 AI" data-detail-color="#F472B6" style="padding:1.1rem;border-radius:1rem;"><div style="font-weight:600;font-size:.85rem;margin-bottom:.3rem;color:#F472B6;">MyEdit</div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.6;">適合初學者的手機/網頁 AI 繪圖，文字生成圖片、AI 動漫</p>
+            <template class="detail-tpl">
+              <p class="dm-plain">台灣訊連科技（CyberLink）推出的線上 AI 修圖與繪圖工具，按鈕清楚、全中文介面，很適合初學者。</p>
+              <ul class="dm-facts">
+                <li><b>可以做什麼</b>去背、消除照片裡的路人、老照片修復、把照片變成動漫風格、用文字生成圖片。</li>
+                <li><b>免費能用嗎</b>有免費額度，進階功能需付費。</li>
+                <li><b>第一步</b>搜尋「MyEdit」進入官網，挑一個功能（例如「AI 去背」），上傳一張照片試試。</li>
+              </ul>
+            </template>
+          </div>
         </div>
       </div>
 
@@ -160,11 +285,67 @@
           <span style="font-size:.7rem;color:#10B981;font-family:'Space Grotesk',sans-serif;">Video & Audio</span>
         </div>
         <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:.875rem;">
-          <div class="glass" style="padding:1.1rem;border-radius:1rem;"><div style="font-weight:600;font-size:.85rem;margin-bottom:.3rem;color:#34D399;">Suno AI</div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.6;">領先音樂生成平台，輸入文字即可創作完整人聲、樂器曲式</p></div>
-          <div class="glass" style="padding:1.1rem;border-radius:1rem;"><div style="font-weight:600;font-size:.85rem;margin-bottom:.3rem;color:#34D399;">ElevenLabs</div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.6;">全球知名、極擬真的 AI 語音配音服務</p></div>
-          <div class="glass" style="padding:1.1rem;border-radius:1rem;"><div style="font-weight:600;font-size:.85rem;margin-bottom:.3rem;color:#34D399;">Kling AI (可靈)</div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.6;">先進影片生成 AI，高品質、多場景影像創作</p></div>
-          <div class="glass" style="padding:1.1rem;border-radius:1rem;"><div style="font-weight:600;font-size:.85rem;margin-bottom:.3rem;color:#34D399;">Google Veo 3</div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.6;">以文字生成 1080p 高畫質影片的 Google 旗艦 AI 工具</p></div>
-          <div class="glass" style="padding:1.1rem;border-radius:1rem;"><div style="font-weight:600;font-size:.85rem;margin-bottom:.3rem;color:#34D399;">既夢 AI</div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.6;">AI 驅動音樂與聲音創作，細緻編曲與風格混合</p></div>
+          <div class="glass" data-detail data-detail-title="Suno：用文字寫出一首歌" data-detail-color="#34D399" style="padding:1.1rem;border-radius:1rem;"><div style="font-weight:600;font-size:.85rem;margin-bottom:.3rem;color:#34D399;">Suno AI</div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.6;">領先音樂生成平台，輸入文字即可創作完整人聲、樂器曲式</p>
+            <template class="detail-tpl">
+              <p class="dm-plain">告訴它想要什麼樣的歌（主題、心情、曲風），它會連歌詞、旋律、人聲、伴奏一起做出一首完整的歌，大約一兩分鐘就完成。</p>
+              <ul class="dm-facts">
+                <li><b>適合誰</b>想為家人生日、結婚紀念日、社團活動做一首專屬歌曲的人。</li>
+                <li><b>免費能用嗎</b>免費版每天可以做幾首，但<strong>免費版的歌不能拿來商業使用</strong>（例如店家廣告、收費影片）。</li>
+                <li><b>中文</b>可以用中文歌詞創作。</li>
+                <li><b>第一步</b>到 suno.com 註冊，輸入「一首溫馨的台灣民謠風歌曲，祝福媽媽八十歲生日快樂」。</li>
+              </ul>
+              <div class="dm-you">單元四有 Suno 的詳細操作教學。</div>
+            </template>
+          </div>
+          <div class="glass" data-detail data-detail-title="ElevenLabs：極像真人的 AI 配音" data-detail-color="#34D399" style="padding:1.1rem;border-radius:1rem;"><div style="font-weight:600;font-size:.85rem;margin-bottom:.3rem;color:#34D399;">ElevenLabs</div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.6;">全球知名、極擬真的 AI 語音配音服務</p>
+            <template class="detail-tpl">
+              <p class="dm-plain">把文字唸成聲音的 AI，聲音自然到很難分辨是不是真人，常用在影片旁白、有聲書、外語配音。</p>
+              <ul class="dm-facts">
+                <li><b>免費能用嗎</b>有免費額度，每月可轉換的字數有限。</li>
+                <li><b>中文</b>支援中文朗讀。</li>
+              </ul>
+              <div class="dm-caution">這類工具只要幾秒鐘的錄音，就能「複製」一個人的聲音。這正是「猜猜我是誰」AI 詐騙電話的手法：接到家人來電要錢，<strong>先掛斷，再用你原本存的號碼回撥確認</strong>。自己使用時，只能複製自己或已同意者的聲音。</div>
+            </template>
+          </div>
+          <div class="glass" data-detail data-detail-title="Kling（可靈）：照片變影片" data-detail-color="#34D399" style="padding:1.1rem;border-radius:1rem;"><div style="font-weight:600;font-size:.85rem;margin-bottom:.3rem;color:#34D399;">Kling AI (可靈)</div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.6;">先進影片生成 AI，高品質、多場景影像創作</p>
+            <template class="detail-tpl">
+              <p class="dm-plain">中國快手公司開發的影片生成 AI。可以輸入一段文字描述生成影片，或上傳一張照片讓畫面「動起來」，例如讓老照片裡的人微笑、揮手。</p>
+              <ul class="dm-facts">
+                <li><b>免費能用嗎</b>每天有免費點數，生成高畫質或較長的影片需付費。</li>
+                <li><b>第一步</b>到國際版 klingai.com 註冊，選「圖片生成影片」，上傳一張風景照試試。</li>
+              </ul>
+              <div class="dm-caution">上傳的照片會傳到中國公司的伺服器，避免上傳家人清楚的正臉照或私密照片。</div>
+            </template>
+          </div>
+          <div class="glass" data-detail data-detail-title="Google Veo：連聲音一起做的影片 AI" data-detail-color="#34D399" style="padding:1.1rem;border-radius:1rem;"><div style="font-weight:600;font-size:.85rem;margin-bottom:.3rem;color:#34D399;">Google Veo</div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.6;">以文字生成高畫質影片（含同步音效）的 Google 旗艦 AI 工具</p>
+            <template class="detail-tpl">
+              <p class="dm-plain">Google 的影片生成 AI。和多數工具不同，它做出的影片<strong>連聲音都有</strong>：海浪聲、鳥叫聲，甚至人物說話的對白。</p>
+              <ul class="dm-facts">
+                <li><b>在哪裡用</b>在 Gemini App 裡選擇「影片」功能，或使用 Google 的影片創作工具 Flow。</li>
+                <li><b>免費能用嗎</b>主要開放給 Google AI 付費方案用戶，可用次數依方案而定。</li>
+              </ul>
+              <div class="dm-you">AI 影片已經真假難辨。網路上看到驚人的影片，先想想「這可能是 AI 做的嗎？」。Gemini App 可以幫你檢查影片是否由 Google AI 生成（但沒有檢查出來，不代表一定是真的）。</div>
+            </template>
+          </div>
+          <div class="glass" data-detail data-detail-title="Runway：專業的 AI 影片工具" data-detail-color="#34D399" style="padding:1.1rem;border-radius:1rem;"><div style="font-weight:600;font-size:.85rem;margin-bottom:.3rem;color:#34D399;">Runway</div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.6;">專業 AI 影片生成與剪輯工具，支援文字→影片、圖片→影片</p>
+            <template class="detail-tpl">
+              <p class="dm-plain">影視和廣告業常用的 AI 影片工具。輸入一段文字或上傳一張照片，就能生成幾秒鐘的短影片，也能幫影片去背、延長畫面。</p>
+              <ul class="dm-facts">
+                <li><b>適合誰</b>想做短影音、對影片創作有興趣的進階使用者。</li>
+                <li><b>免費能用嗎</b>註冊後有少量試用點數，之後需付費。</li>
+                <li><b>中文</b>介面以英文為主。</li>
+              </ul>
+            </template>
+          </div>
+          <div class="glass" data-detail data-detail-title="Dreamina（即夢）" data-detail-color="#34D399" style="padding:1.1rem;border-radius:1rem;"><div style="font-weight:600;font-size:.85rem;margin-bottom:.3rem;color:#34D399;">Dreamina（即夢）</div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.6;">CapCut（剪映）旗下的 AI 圖片與影片生成工具</p>
+            <template class="detail-tpl">
+              <p class="dm-plain">字節跳動（TikTok 母公司）旗下、和剪輯 App CapCut 同一家的 AI 創作工具，可以用文字生成圖片，也能把照片變成會動的短影片。中國版叫「即夢」，國際版叫 Dreamina。</p>
+              <ul class="dm-facts">
+                <li><b>免費能用嗎</b>每天有免費點數可以使用。</li>
+                <li><b>第一步</b>使用國際版網址 dreamina.capcut.com，可用 CapCut 或 Google 帳號登入。</li>
+              </ul>
+            </template>
+          </div>
           <div onclick="openVideoModal()" class="glass" style="padding:1.1rem;border-radius:1rem;cursor:pointer;border-color:rgba(52,211,153,0.3);background:rgba(52,211,153,0.06);transition:transform .2s,border-color .2s;" onmouseover="this.style.transform='translateY(-3px)';this.style.borderColor='rgba(52,211,153,.6)'" onmouseout="this.style.transform='';this.style.borderColor='rgba(52,211,153,.3)'">
             <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.45rem;">
               <div style="width:28px;height:28px;border-radius:50%;background:rgba(52,211,153,.2);border:1px solid rgba(52,211,153,.4);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
@@ -185,10 +366,49 @@
           <span style="font-size:.7rem;color:#F59E0B;font-family:'Space Grotesk',sans-serif;">Productivity</span>
         </div>
         <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:.875rem;">
-          <div class="glass" style="padding:1.1rem;border-radius:1rem;"><div style="font-weight:600;font-size:.85rem;margin-bottom:.3rem;color:#FCD34D;">Gamma</div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.6;">輸入主題自動生成精美 AI 簡報 (PPT)、網頁或文檔</p></div>
-          <div class="glass" style="padding:1.1rem;border-radius:1rem;"><div style="font-weight:600;font-size:.85rem;margin-bottom:.3rem;color:#FCD34D;">Zapier</div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.6;">AI 自動化工作流，連接數千種軟體，自動執行多步驟任務</p></div>
-          <div class="glass" style="padding:1.1rem;border-radius:1rem;"><div style="font-weight:600;font-size:.85rem;margin-bottom:.3rem;color:#FCD34D;">Notion AI</div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.6;">Notion 筆記內的 AI 功能，重點整理、續寫、翻譯</p></div>
-          <div class="glass" style="padding:1.1rem;border-radius:1rem;"><div style="font-weight:600;font-size:.85rem;margin-bottom:.3rem;color:#FCD34D;">n8n / Make</div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.6;">無程式碼自動化工具，將多款 SaaS 平台 API 串接</p></div>
+          <div class="glass" data-detail data-detail-title="Gamma：一句話做出簡報" data-detail-color="#F59E0B" style="padding:1.1rem;border-radius:1rem;"><div style="font-weight:600;font-size:.85rem;margin-bottom:.3rem;color:#FCD34D;">Gamma</div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.6;">輸入主題自動生成精美 AI 簡報 (PPT)、網頁或文檔</p>
+            <template class="detail-tpl">
+              <p class="dm-plain">輸入一個主題，它會自動排好版面、配好圖片，做出一整份簡報。做好後還能一頁一頁修改文字。</p>
+              <ul class="dm-facts">
+                <li><b>適合誰</b>要在社區、社團、讀書會上台分享，卻不熟 PowerPoint 的人。</li>
+                <li><b>免費能用嗎</b>註冊後有免費點數可做幾份簡報。</li>
+                <li><b>中文</b>支援繁體中文。</li>
+                <li><b>第一步</b>到 gamma.app，輸入「做一份 8 頁簡報：退休後如何安排健康的一天，給社區長輩看，字要大」。</li>
+              </ul>
+            </template>
+          </div>
+          <div class="glass" data-detail data-detail-title="Zapier：讓不同軟體自動接力" data-detail-color="#F59E0B" style="padding:1.1rem;border-radius:1rem;"><div style="font-weight:600;font-size:.85rem;margin-bottom:.3rem;color:#FCD34D;">Zapier</div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.6;">AI 自動化工作流，連接數千種軟體，自動執行多步驟任務</p>
+            <template class="detail-tpl">
+              <p class="dm-plain">把「每次都要手動做的重複工作」交給電腦自動做。你設定好「當 A 發生，就自動做 B」，它就會一直幫你執行。</p>
+              <div class="dm-example">「每次有人填寫報名表單，就自動把名字加進試算表，並寄一封確認信給對方。」</div>
+              <ul class="dm-facts">
+                <li><b>適合誰</b>經營小店、社團或工作室，需要處理大量重複事務的人。一般日常使用不需要。</li>
+                <li><b>免費能用嗎</b>免費方案可設定簡單的自動化，次數有限。</li>
+                <li><b>中文</b>介面以英文為主。</li>
+              </ul>
+            </template>
+          </div>
+          <div class="glass" data-detail data-detail-title="Notion AI：筆記本裡的 AI" data-detail-color="#F59E0B" style="padding:1.1rem;border-radius:1rem;"><div style="font-weight:600;font-size:.85rem;margin-bottom:.3rem;color:#FCD34D;">Notion AI</div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.6;">Notion 筆記內的 AI 功能，重點整理、續寫、翻譯</p>
+            <template class="detail-tpl">
+              <p class="dm-plain">Notion 是一個線上筆記與資料整理軟體，Notion AI 是內建在裡面的 AI 助理：可以幫你整理會議筆記重點、把條列擴寫成文章、翻譯成其他語言。</p>
+              <ul class="dm-facts">
+                <li><b>適合誰</b>已經在用 Notion 記筆記、管理資料的人。</li>
+                <li><b>免費能用嗎</b>Notion 本身可免費使用；完整的 AI 功能需要付費方案。</li>
+                <li><b>中文</b>支援繁體中文介面。</li>
+              </ul>
+            </template>
+          </div>
+          <div class="glass" data-detail data-detail-title="n8n／Make：視覺化的自動化流程" data-detail-color="#F59E0B" style="padding:1.1rem;border-radius:1rem;"><div style="font-weight:600;font-size:.85rem;margin-bottom:.3rem;color:#FCD34D;">n8n / Make</div><p style="font-size:.78rem;color:#CBD5E1;line-height:1.6;">無程式碼自動化工具，把不同網路服務（如 Gmail、試算表、LINE）串在一起自動運作</p>
+            <template class="detail-tpl">
+              <p class="dm-plain">和 Zapier 一樣是自動化工具，但用「拖拉方塊、拉線連接」的方式畫出流程圖，可以做更複雜的流程。不用寫程式，所以叫「無程式碼」。</p>
+              <div class="dm-analogy">像排一條生產線：第一站「收到新郵件」→ 第二站「請 AI 摘要」→ 第三站「傳到 LINE」。每一站是一個方塊（稱為「節點」），用線連起來就會自動接力。</div>
+              <ul class="dm-facts">
+                <li><b>名詞白話</b>SaaS＝放在網路上、登入就能用的軟體（如 Gmail、Google 試算表）；API＝軟體之間互相傳資料的「插座」。這類工具就是幫你把插座接起來。</li>
+                <li><b>免費能用嗎</b>Make 有免費方案；n8n 可免費安裝在自己的電腦（需要一些技術），雲端版需付費。</li>
+              </ul>
+              <div class="dm-you">屬於進階工具，單元四有詳細介紹。初學者先熟悉聊天 AI 即可。</div>
+            </template>
+          </div>
         </div>
       </div>
     </section>
@@ -295,7 +515,16 @@ cinematic horizon, hyper-realistic, 8k resolution, highly detailed texture</div>
       <div class="section-label"><span>部署比較</span></div>
       <h2 style="font-size:clamp(1.4rem,3vw,2rem);font-weight:800;margin-bottom:1.5rem;">本地部署 vs 雲端使用</h2>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;">
-        <div class="glass rev" style="padding:1.5rem;border-top:2px solid #3B82F6;">
+        <div class="glass rev" data-detail data-detail-title="本地部署：AI 裝在自己的電腦裡" data-detail-color="#3B82F6" style="padding:1.5rem;border-top:2px solid #3B82F6;">
+          <template class="detail-tpl">
+            <p class="dm-plain">「本地部署」是把 AI 模型下載下來，裝在自己的電腦上跑，不用連網路、資料也不會傳出去。</p>
+            <div class="dm-analogy">本地部署像<strong>自己買一台車</strong>：想去哪就去哪、車上的東西別人看不到，但要先花一大筆錢買車，還要自己保養；而且家用小車再好，也跑不贏專業賽車（雲端的大型模型）。</div>
+            <ul class="dm-facts">
+              <li><b>VRAM（顯示卡記憶體）是什麼</b>顯示卡上專門用來運算的記憶體。AI 模型越大、越聰明，需要的 VRAM 越多；一般文書電腦通常不夠跑好用的模型。</li>
+              <li><b>誰會這樣做</b>醫院、律師事務所、企業等有大量機密資料的單位，或喜歡研究電腦的玩家。</li>
+            </ul>
+            <div class="dm-you">對一般使用者來說，<strong>不需要本地部署</strong>。只要記得不要把身分證字號、密碼、病歷等敏感資料打進雲端 AI，就能兼顧方便與安全。</div>
+          </template>
           <h3 style="font-size:.95rem;font-weight:700;margin-bottom:1rem;color:#60A5FA;">🖥 本地部署</h3>
           <div style="font-size:.8rem;color:#34D399;font-weight:600;margin-bottom:.5rem;">✓ 優點</div>
           <ul style="font-size:.78rem;color:#CBD5E1;line-height:1.8;list-style:none;padding:0;margin-bottom:1rem;">
@@ -306,21 +535,30 @@ cinematic horizon, hyper-realistic, 8k resolution, highly detailed texture</div>
           <div style="font-size:.8rem;color:#F43F5E;font-weight:600;margin-bottom:.5rem;">✗ 限制</div>
           <ul style="font-size:.78rem;color:#CBD5E1;line-height:1.8;list-style:none;padding:0;">
             <li>→ 極度依賴 GPU 顯存（VRAM）</li>
-            <li>→ 難以跑大型模型（如 GPT-4 等級）</li>
+            <li>→ 難以跑旗艦雲端模型等級的大型模型</li>
           </ul>
         </div>
-        <div class="glass rev" style="padding:1.5rem;border-top:2px solid #8B5CF6;">
+        <div class="glass rev" data-detail data-detail-title="雲端使用：打開網頁或 App 就能用" data-detail-color="#8B5CF6" style="padding:1.5rem;border-top:2px solid #8B5CF6;">
+          <template class="detail-tpl">
+            <p class="dm-plain">「雲端」就是 AI 放在廠商的大型電腦機房裡，你透過網頁或手機 App 連過去使用。ChatGPT、Gemini、Claude 都是雲端服務。</p>
+            <div class="dm-analogy">雲端像<strong>搭計程車</strong>：不用買車、不用保養，隨叫隨到，而且永遠是最新款的車；代價是司機（廠商）知道你去了哪裡，常搭的話也要付車資。</div>
+            <ul class="dm-facts">
+              <li><b>Token 是什麼</b>AI 計算文字量的單位，大約一個中文字算一到兩個 Token。一般人用網頁或 App 不需要管它，只有程式開發者按用量付費時才會遇到。</li>
+              <li><b>要付費嗎</b>多數工具都有免費版，日常使用已經足夠；需要更強的模型或更多次數時，再考慮付費方案。</li>
+            </ul>
+            <div class="dm-you"><strong>初學者直接用雲端就好。</strong>想保護隱私，可以到設定中關閉「用你的對話訓練模型」，單元五有教學。</div>
+          </template>
           <h3 style="font-size:.95rem;font-weight:700;margin-bottom:1rem;color:#A78BFA;">☁ 雲端使用</h3>
           <div style="font-size:.8rem;color:#34D399;font-weight:600;margin-bottom:.5rem;">✓ 優點</div>
           <ul style="font-size:.78rem;color:#CBD5E1;line-height:1.8;list-style:none;padding:0;margin-bottom:1rem;">
-            <li>→ 可用最強大的模型（GPT-4o、Claude）</li>
+            <li>→ 可用各廠商最新旗艦模型（如 ChatGPT、Claude、Gemini）</li>
             <li>→ 即插即用，手機也能流暢使用</li>
             <li>→ 廠商隨時更新，永遠用最新功能</li>
           </ul>
           <div style="font-size:.8rem;color:#F43F5E;font-weight:600;margin-bottom:.5rem;">✗ 限制</div>
           <ul style="font-size:.78rem;color:#CBD5E1;line-height:1.8;list-style:none;padding:0;">
             <li>→ 資料傳輸到廠商伺服器，隱私風險</li>
-            <li>→ 需持續付費（月租或按 Token 計費）</li>
+            <li>→ 進階功能需付費（多數工具都有免費版）</li>
           </ul>
         </div>
       </div>

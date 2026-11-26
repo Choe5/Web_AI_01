@@ -235,6 +235,7 @@
             <h3 style="font-size:.95rem;font-weight:700;margin-bottom:.4rem;">深度學習與巨量模型 — AI 的突破</h3>
             <ul style="color:#CBD5E1;font-size:.82rem;line-height:1.8;list-style:none;padding:0;">
               <li style="display:flex;gap:.5rem;margin-bottom:.2rem;"><span style="color:#10B981;">→</span> 2016 年 AlphaGo 擊敗圍棋世界冠軍李世乭</li>
+              <li style="display:flex;gap:.5rem;margin-bottom:.2rem;"><span style="color:#10B981;">→</span> 2017 年 Google 提出 Transformer 架構，成為日後 ChatGPT 等聊天 AI 的技術基礎</li>
               <li style="display:flex;gap:.5rem;"><span style="color:#10B981;">→</span> 2020 年 GPT-3 展現驚人的文本生成能力</li>
             </ul>
           </div>
@@ -247,9 +248,10 @@
           <div>
             <h3 style="font-size:.95rem;font-weight:700;margin-bottom:.4rem;">生成式 AI — 從實驗室走向大眾</h3>
             <ul style="color:#CBD5E1;font-size:.82rem;line-height:1.8;list-style:none;padding:0;">
-              <li style="display:flex;gap:.5rem;margin-bottom:.2rem;"><span style="color:#F43F5E;">→</span> 2021 DALL-E、Midjourney、Stable Diffusion 視覺創作革命</li>
-              <li style="display:flex;gap:.5rem;margin-bottom:.2rem;"><span style="color:#F43F5E;">→</span> 2022 ChatGPT 引發「生成式 AI 革命」，LUI 語言介面崛起</li>
-              <li style="display:flex;gap:.5rem;"><span style="color:#F43F5E;">→</span> 2024+ Sora/Runway 影片生成，AI Agent 代理人趨勢</li>
+              <li style="display:flex;gap:.5rem;margin-bottom:.2rem;"><span style="color:#F43F5E;">→</span> 2021 DALL-E 讓「打字就能畫圖」成真；2022 Midjourney、Stable Diffusion 掀起視覺創作革命</li>
+              <li style="display:flex;gap:.5rem;margin-bottom:.2rem;"><span style="color:#F43F5E;">→</span> 2022 年底 ChatGPT 引發「生成式 AI 革命」，大家開始用「說話」的方式操作電腦（稱為 LUI 語言介面）</li>
+              <li style="display:flex;gap:.5rem;margin-bottom:.2rem;"><span style="color:#F43F5E;">→</span> 2023–2024 AI 能同時看圖、聽聲音、即時語音對話；文字生成影片（Sora、Runway、Veo 等）出現</li>
+              <li style="display:flex;gap:.5rem;"><span style="color:#F43F5E;">→</span> 2025–2026「推理模型」學會先思考再回答，AI Agent 能代你操作電腦完成任務；台灣與各國開始立法規範 AI</li>
             </ul>
           </div>
         </div>
@@ -263,7 +265,7 @@
       <h2 style="font-size:clamp(1.4rem,3vw,2rem);font-weight:800;margin-bottom:1.5rem;">三大核心技術</h2>
 
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.25rem;">
-        <div class="glass rev" style="padding:1.75rem;position:relative;overflow:hidden;">
+        <div class="glass rev" data-detail data-detail-title="機器學習：讓電腦自己找規律" data-detail-color="#3B82F6" style="padding:1.75rem;position:relative;overflow:hidden;">
           <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#3B82F6,transparent);"></div>
           <div style="width:2.5rem;height:2.5rem;border-radius:.75rem;background:rgba(59,130,246,.12);border:1px solid rgba(59,130,246,.25);display:flex;align-items:center;justify-content:center;margin-bottom:1rem;">
             <iconify-icon icon="mdi:chart-line" width="20" style="color:#3B82F6;"></iconify-icon>
@@ -274,9 +276,15 @@
           <div style="border-top:1px solid rgba(255,255,255,.06);padding-top:.75rem;">
             <p style="font-size:.72rem;color:#94A3B8;"><span style="color:#3B82F6;font-weight:500;">應用：</span> 金融風險預測、電商推薦系統、異常檢測</p>
           </div>
+          <template class="detail-tpl">
+            <p class="dm-plain">以前要讓電腦做事，得由工程師把每一條規則寫好，例如「信裡出現『中獎』就是垃圾信」。機器學習反過來：給電腦看大量<strong>例子</strong>，讓它自己歸納出規律。卡片上說的「演算法」，就是電腦整理資料、找出規律的一套步驟，神經網路和決策樹是其中兩種做法。</p>
+            <div class="dm-analogy">就像小孩學認貓。沒有人教他「貓有尖耳朵、鬍鬚、會喵喵叫」這些規則，他只是看過很多次貓，自然就認得了；看得越多，認得越準。</div>
+            <div class="dm-example">Email 自動擋掉垃圾信、YouTube 和購物網站的「猜你喜歡」、信用卡疑似被盜刷時銀行馬上傳簡訊提醒你，背後都是機器學習。</div>
+            <div class="dm-you">你每按一次「不感興趣」或「標為垃圾信」，都是在幫系統學習。也因為它是從資料中「猜」出規律，<strong>偶爾會猜錯</strong>——這就是後面課程一直提醒你要查證 AI 答案的原因。</div>
+          </template>
         </div>
 
-        <div class="glass rev" style="padding:1.75rem;position:relative;overflow:hidden;">
+        <div class="glass rev" data-detail data-detail-title="電腦視覺：讓機器看懂影像" data-detail-color="#8B5CF6" style="padding:1.75rem;position:relative;overflow:hidden;">
           <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#8B5CF6,transparent);"></div>
           <div style="width:2.5rem;height:2.5rem;border-radius:.75rem;background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.25);display:flex;align-items:center;justify-content:center;margin-bottom:1rem;">
             <iconify-icon icon="mdi:eye-outline" width="20" style="color:#8B5CF6;"></iconify-icon>
@@ -287,9 +295,16 @@
           <div style="border-top:1px solid rgba(255,255,255,.06);padding-top:.75rem;">
             <p style="font-size:.72rem;color:#94A3B8;"><span style="color:#8B5CF6;font-weight:500;">應用：</span> 臉部辨識、自動駕駛、醫療影像診斷</p>
           </div>
+          <template class="detail-tpl">
+            <p class="dm-plain">電腦視覺讓機器「看懂」照片和影片。對電腦來說，一張照片原本只是幾百萬個色點的數字；電腦視覺要做的，是從這些數字裡認出「這是一張臉」「那是紅燈」。</p>
+            <div class="dm-analogy">卡片上的「卷積神經網路（CNN）」，可以想成一層一層的放大鏡：先找出線條和邊角，再把它們組合成眼睛、鼻子，最後認出「這是一個人的臉」。</div>
+            <div class="dm-example">手機刷臉解鎖、相簿自動把同一個人的照片歸在一起、用 Google 相機翻譯外文菜單、停車場自動辨識車牌，都是電腦視覺。</div>
+            <div class="dm-you">現在你可以直接把照片丟給 ChatGPT 或 Gemini 問問題，例如拍下看不懂的告示請它解釋、拍下植物問名字。這就是電腦視覺加上語言能力的應用。</div>
+            <div class="dm-caution">拍藥袋、病歷問 AI 可以幫助理解，但用藥與健康決定一定要以醫師、藥師的說明為準。</div>
+          </template>
         </div>
 
-        <div class="glass rev" style="padding:1.75rem;position:relative;overflow:hidden;">
+        <div class="glass rev" data-detail data-detail-title="自然語言處理：讓電腦聽懂人話" data-detail-color="#06B6D4" style="padding:1.75rem;position:relative;overflow:hidden;">
           <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#06B6D4,transparent);"></div>
           <div style="width:2.5rem;height:2.5rem;border-radius:.75rem;background:rgba(6,182,212,.12);border:1px solid rgba(6,182,212,.25);display:flex;align-items:center;justify-content:center;margin-bottom:1rem;">
             <iconify-icon icon="mdi:message-text-outline" width="20" style="color:#06B6D4;"></iconify-icon>
@@ -300,6 +315,12 @@
           <div style="border-top:1px solid rgba(255,255,255,.06);padding-top:.75rem;">
             <p style="font-size:.72rem;color:#94A3B8;"><span style="color:#06B6D4;font-weight:500;">應用：</span> 智慧客服 (ChatGPT/Siri)、翻譯、自動摘要</p>
           </div>
+          <template class="detail-tpl">
+            <p class="dm-plain">自然語言處理讓電腦聽得懂、看得懂我們平常說的話，也能用人話回答。「自然語言」指的就是中文、台語、英文這些人類語言，相對於工程師寫的程式語言。</p>
+            <div class="dm-analogy">早期的電腦像只會查字典的翻譯員，一個字一個字翻，常常翻得很怪；現在的 AI 像讀過大量書籍的人，會看前後文，理解你真正想說的意思。</div>
+            <div class="dm-example">對手機說「明天早上七點叫我起床」、LINE 訊息的自動翻譯、請 ChatGPT 把一篇長文章濃縮成三句重點，都是自然語言處理。</div>
+            <div class="dm-you">這是你使用 ChatGPT、Gemini 時最直接用到的技術：你不需要學任何指令，<strong>用平常說話的方式</strong>描述需求就可以了。</div>
+          </template>
         </div>
       </div>
 
@@ -494,7 +515,12 @@
 
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.25rem;margin-bottom:2rem;">
 
-        <div class="glass rev" style="padding:1.5rem;position:relative;overflow:hidden;">
+        <div class="glass rev" data-detail data-detail-title="問題定義：先想清楚要解決什麼" data-detail-color="#3B82F6" style="padding:1.5rem;position:relative;overflow:hidden;">
+          <template class="detail-tpl">
+<p class="dm-plain">做 AI 之前，要先把模糊的想法變成「電腦能回答的問題」，並決定怎樣才算成功。卡片上說的「分類、預測、生成」就是三種常見的問題類型：判斷是哪一種（垃圾信或正常信）、猜一個數字（明天的營業額）、創造新內容（寫一篇文章）。</p>
+<div class="dm-analogy">就像去看醫生，「我不舒服」很難診斷；「我這三天早上起床膝蓋腫痛」，醫生才知道從哪裡查起。</div>
+<div class="dm-you">你用 ChatGPT 時也一樣：問「幫我規劃旅遊」得到的答案很普通；問「幫我規劃兩天一夜、不開車、適合 70 歲長輩的台南行程」，答案就精準多了。</div>
+          </template>
           <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#3B82F6,transparent);"></div>
           <div style="font-size:.68rem;font-weight:600;color:#60A5FA;letter-spacing:.1em;margin-bottom:.5rem;">STEP 01</div>
           <h3 style="font-size:.95rem;font-weight:700;margin-bottom:.4rem;">問題定義</h3>
@@ -502,7 +528,13 @@
           <p style="font-size:.8rem;color:#CBD5E1;line-height:1.7;">將模糊現實問題轉化為明確 ML 任務。是分類、預測還是生成問題？定義「成功」的量化指標。</p>
         </div>
 
-        <div class="glass rev" style="padding:1.5rem;position:relative;overflow:hidden;">
+        <div class="glass rev" data-detail data-detail-title="資料收集：餵什麼，就學到什麼" data-detail-color="#8B5CF6" style="padding:1.5rem;position:relative;overflow:hidden;">
+          <template class="detail-tpl">
+<p class="dm-plain">AI 是從資料中學習的，資料的品質決定了 AI 的能力。「GIGO」是 Garbage In, Garbage Out 的縮寫：餵進垃圾資料，就只會產出垃圾結果。卡片上的「Edge Cases（邊緣案例）」指的是少見但重要的特殊情況。</p>
+<div class="dm-analogy">像學做菜：只看過電鍋料理的人，第一次碰到炒鍋就不知道怎麼辦。資料裡沒有出現過的情況，AI 就容易出錯。</div>
+<div class="dm-example">如果訓練「辨識皮膚病」的照片大多是淺膚色的人，AI 遇到深膚色的病人就可能看錯——這就是資料缺少邊緣案例。</div>
+<div class="dm-you">你給 AI 的資料越清楚、越完整（例如上傳清晰的照片、說明背景），它的回答就越準確。</div>
+          </template>
           <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#8B5CF6,transparent);"></div>
           <div style="font-size:.68rem;font-weight:600;color:#A78BFA;letter-spacing:.1em;margin-bottom:.5rem;">STEP 02</div>
           <h3 style="font-size:.95rem;font-weight:700;margin-bottom:.4rem;">資料收集</h3>
@@ -510,7 +542,12 @@
           <p style="font-size:.8rem;color:#CBD5E1;line-height:1.7;">AI 能力上限由資料決定。資料需具代表性，覆蓋所有 Edge Cases，質量比數量更重要。</p>
         </div>
 
-        <div class="glass rev" style="padding:1.5rem;position:relative;overflow:hidden;">
+        <div class="glass rev" data-detail data-detail-title="模式識別：在大量資料裡找規律" data-detail-color="#06B6D4" style="padding:1.5rem;position:relative;overflow:hidden;">
+          <template class="detail-tpl">
+<p class="dm-plain">AI 很擅長在大量資料中，找出人眼看不出來的規律。卡片上的「高維度關係」意思是同時考慮很多因素；「特徵工程」則是挑出哪些資料最重要，例如判斷房價時，坪數和地段比門牌號碼重要得多。</p>
+<div class="dm-analogy">就像有經驗的菜市場老闆，看天氣、日子、節慶，就知道今天要多進哪些菜。AI 做的是同樣的事，只是能同時看幾千個因素。</div>
+<div class="dm-example">信用卡公司的 AI 發現：「凌晨在國外網站、連續小額刷卡」常常是盜刷，就會自動發簡訊通知你確認。</div>
+          </template>
           <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#06B6D4,transparent);"></div>
           <div style="font-size:.68rem;font-weight:600;color:#22D3EE;letter-spacing:.1em;margin-bottom:.5rem;">STEP 03</div>
           <h3 style="font-size:.95rem;font-weight:700;margin-bottom:.4rem;">模式識別</h3>
@@ -518,7 +555,17 @@
           <p style="font-size:.8rem;color:#CBD5E1;line-height:1.7;">AI 擅長發現人類難以察覺的高維度關係。特徵工程、演算法選擇、數據可視化初步觀察。</p>
         </div>
 
-        <div class="glass rev" style="padding:1.5rem;position:relative;overflow:hidden;">
+        <div class="glass rev" data-detail data-detail-title="決策優化：一次次調整到最好" data-detail-color="#10B981" style="padding:1.5rem;position:relative;overflow:hidden;">
+          <template class="detail-tpl">
+<p class="dm-plain">AI 模型很少第一次就做好，需要反覆測試、調整。卡片上有幾個專有名詞：</p>
+<ul>
+<li><strong>過擬合</strong>：死背考古題，題目一換就不會。</li>
+<li><strong>欠擬合</strong>：書沒讀熟，連考古題都不會。</li>
+<li><strong>超參數</strong>：訓練前要先設定好的「旋鈕」，例如要學幾遍、一次看多少資料。</li>
+<li><strong>驗證集</strong>：特別留下來、AI 沒看過的「模擬考題」，用來測試真正的實力。</li>
+</ul>
+<div class="dm-you">你和 AI 對話也是同樣的道理：第一次的答案不滿意很正常，告訴它「太長了」「語氣再親切一點」，一來一回就會越來越好。</div>
+          </template>
           <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#10B981,transparent);"></div>
           <div style="font-size:.68rem;font-weight:600;color:#34D399;letter-spacing:.1em;margin-bottom:.5rem;">STEP 04</div>
           <h3 style="font-size:.95rem;font-weight:700;margin-bottom:.4rem;">決策優化</h3>
@@ -526,7 +573,13 @@
           <p style="font-size:.8rem;color:#CBD5E1;line-height:1.7;">模型很少一次做到最好。平衡過擬合與欠擬合，調整超參數，使用驗證集測試真實能力。</p>
         </div>
 
-        <div class="glass rev" style="padding:1.5rem;position:relative;overflow:hidden;">
+        <div class="glass rev" data-detail data-detail-title="反饋學習：上線後還要持續進步" data-detail-color="#F43F5E" style="padding:1.5rem;position:relative;overflow:hidden;">
+          <template class="detail-tpl">
+<p class="dm-plain">世界一直在變，AI 也要跟著更新。卡片上的「概念漂移」意思是：過去學到的規律，隨著時間慢慢不適用了。</p>
+<div class="dm-example">疫情期間大家突然大量網購口罩和酒精，原本預測銷量的 AI 完全失準，必須用新資料重新學習。</div>
+<div class="dm-analogy">像開車的導航：新路開通、舊路封閉，地圖不更新就會帶你繞遠路。</div>
+<div class="dm-you">你按下 AI 回答旁邊的「👍／👎」，就是在給它反饋。「人機協作」則是說：AI 沒把握的地方，最後由人來把關。</div>
+          </template>
           <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#F43F5E,transparent);"></div>
           <div style="font-size:.68rem;font-weight:600;color:#FB7185;letter-spacing:.1em;margin-bottom:.5rem;">STEP 05</div>
           <h3 style="font-size:.95rem;font-weight:700;margin-bottom:.4rem;">反饋學習</h3>
