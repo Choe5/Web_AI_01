@@ -78,7 +78,7 @@ Course units are sequential and build on each other: Theory (Unit 1) → Applica
 - **Frontend:** HTML5 + Tailwind CSS (CDN) + inline/embedded CSS; Iconify icons; Google Fonts (Noto Sans TC + Space Grotesk); GSAP + ScrollTrigger for animation
 - **Theming:** dark default via per-page `:root` variables; light mode via `theme.css` overrides + `theme.js` runtime inline-color fixer; preference stored in `localStorage` (`ai-course-theme`)
 - **No backend, no database, no build toolchain**
-- Deployed as static site (GitHub Pages at branch `gh-pages`)
+- Deployed as static site via GitHub Pages from the `main` branch (root `/`) — pushing to `main` publishes to https://choe5.github.io/Web_AI_01/
 
 ## Cursor AI Integration
 
