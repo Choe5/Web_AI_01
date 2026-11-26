@@ -112,7 +112,7 @@
 * **企業代理**：客服代理人、資料分析代理人、自動化業務流程。
 
 ### 🌟 熱門趨勢與實例
-* **實務案例**：如 **Manus**，具備強大執行能力的 AI Agent，能自主操作瀏覽器處理複雜任務；2025 年底被 Meta 收購。
+* **實務案例**：如 **Manus**，具備強大執行能力的 AI Agent，能自主操作瀏覽器處理複雜任務；2025 年底 Meta 曾宣布收購，2026 年遭中國監管機關擋下，Manus 已恢復獨立營運。
 * **前瞻技術**：OpenAI 的 **ChatGPT Agent**（整合了早期的 Operator，可自動操作瀏覽器）與 **Deep Research**（自動化深度研究），展示了 Agent 自主操作的趨勢。
 
 ### 🛡️ 使用 Agent 的安全守則
@@ -139,9 +139,9 @@
 * **應用**：寫實風格短片、老照片動態化、短影音素材。
 * **連結**：[https://klingai.com/](https://klingai.com/)
 
-### 🎥 Google Veo
-* **簡介**：Google 的影片生成模型，最大特色是畫面和聲音（環境音、對白）一起生成。
-* **使用方式**：在 Gemini App 或 Google 的影片工具 Flow 中使用；主要開放給 Google AI 付費方案用戶。
+### 🎥 Google Gemini Omni（原 Veo）
+* **簡介**：Google 的影片生成 AI，最大特色是畫面和聲音（環境音、對白）一起生成，還能像聊天一樣用說的修改影片。Gemini App 的影片功能已從 Veo 換成 Gemini Omni。
+* **使用方式**：在 Gemini App、Google 的影片工具 Flow 中使用，YouTube Shorts、Google Vids 也有內建；Gemini App 裡主要開放給 Google AI 付費方案用戶，Google Vids、YouTube Shorts 有免費試用管道（次數有限）。
 * **提醒**：AI 影片已真假難辨，看到驚人畫面先查證再轉傳。
 
 ---

@@ -59,6 +59,12 @@
     .sonar::after{content:'';position:absolute;inset:-2px;border-radius:inherit;border:1px solid currentColor;opacity:0;animation:sonar 2.5s ease-out infinite;}
     @keyframes sonar{0%{transform:scale(1);opacity:.5}100%{transform:scale(1.6);opacity:0}}
     .checklist-item{display:flex;align-items:flex-start;gap:.75rem;padding:.75rem 0;border-bottom:1px solid rgba(255,255,255,.05);}
+    .prompt-block{position:relative;background:rgba(139,92,246,.05);border:1px solid rgba(139,92,246,.2);border-radius:14px;padding:1rem 1.25rem;margin-top:.65rem;}
+    .prompt-block .prompt-label{display:block;font-size:.72rem;font-weight:700;letter-spacing:.08em;color:#A78BFA;margin-bottom:.4rem;padding-right:4.5rem;}
+    .prompt-block pre{white-space:pre-wrap;word-break:break-word;font-family:'Noto Sans TC',sans-serif;font-size:.85rem;line-height:1.8;color:rgba(255,255,255,.78);margin:0;}
+    .copy-btn{position:absolute;top:.6rem;right:.6rem;background:rgba(139,92,246,.14);border:1px solid rgba(139,92,246,.35);color:#C4B5FD;border-radius:8px;padding:.25rem .6rem;font-size:.72rem;font-weight:700;cursor:pointer;font-family:'Noto Sans TC',sans-serif;}
+    .copy-btn:hover{background:rgba(139,92,246,.28);}
+    .copy-btn.copied{background:rgba(34,197,94,.15);border-color:rgba(34,197,94,.4);color:#4ADE80;}
     .check-icon{width:1.25rem;height:1.25rem;border-radius:.35rem;border:1.5px solid var(--accent);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.05rem;}
   </style>
 <link rel="stylesheet" href="theme.css">
@@ -111,7 +117,7 @@
       <h1 style="font-size:clamp(2.2rem,6vw,4rem);font-weight:900;letter-spacing:-.02em;line-height:1.1;margin-bottom:1.25rem;">
         AI <span class="gradient-text">基礎知識</span>
       </h1>
-      <p style="color:#CBD5E1;font-size:1rem;line-height:1.8;max-width:560px;margin-bottom:2rem;">了解 AI 的基本概念與發展歷程，掌握機器學習、電腦視覺、自然語言處理三大核心技術，培養 AI 思維框架。</p>
+      <p style="color:#CBD5E1;font-size:1rem;line-height:1.8;max-width:560px;margin-bottom:2rem;">了解 AI 的基本概念與發展歷程，弄懂常見名詞之間的關係、AI 怎麼學習又怎麼算出答案，最後親手玩一玩。</p>
       <div style="display:flex;gap:.75rem;flex-wrap:wrap;">
         <span class="tag" style="color:#3B82F6;border-color:var(--accent-border);background:var(--accent-dim);">機器學習</span>
         <span class="tag" style="color:#3B82F6;border-color:var(--accent-border);background:var(--accent-dim);">深度學習</span>
@@ -134,8 +140,10 @@
       <div style="display:flex;flex-direction:column;gap:.5rem;">
         <div style="display:flex;align-items:center;gap:.75rem;"><iconify-icon icon="mdi:check-circle" width="18" style="color:#3B82F6;flex-shrink:0;"></iconify-icon><span style="font-size:.875rem;color:#94A3B8;">認識 AI 的定義與核心能力</span></div>
         <div style="display:flex;align-items:center;gap:.75rem;"><iconify-icon icon="mdi:check-circle" width="18" style="color:#3B82F6;flex-shrink:0;"></iconify-icon><span style="font-size:.875rem;color:#94A3B8;">了解 AI 發展五個重要時期</span></div>
+        <div style="display:flex;align-items:center;gap:.75rem;"><iconify-icon icon="mdi:check-circle" width="18" style="color:#3B82F6;flex-shrink:0;"></iconify-icon><span style="font-size:.875rem;color:#94A3B8;">分清楚 AI、機器學習、深度學習的關係，以及四種學習方式</span></div>
         <div style="display:flex;align-items:center;gap:.75rem;"><iconify-icon icon="mdi:check-circle" width="18" style="color:#3B82F6;flex-shrink:0;"></iconify-icon><span style="font-size:.875rem;color:#94A3B8;">掌握機器學習、電腦視覺、自然語言處理三大技術</span></div>
-        <div style="display:flex;align-items:center;gap:.75rem;"><iconify-icon icon="mdi:check-circle" width="18" style="color:#3B82F6;flex-shrink:0;"></iconify-icon><span style="font-size:.875rem;color:#94A3B8;">培養 AI 思維框架</span></div>
+        <div style="display:flex;align-items:center;gap:.75rem;"><iconify-icon icon="mdi:check-circle" width="18" style="color:#3B82F6;flex-shrink:0;"></iconify-icon><span style="font-size:.875rem;color:#94A3B8;">了解 AI 是怎麼算出答案的，以及生成式 AI 和傳統 AI 的差別</span></div>
+        <div style="display:flex;align-items:center;gap:.75rem;"><iconify-icon icon="mdi:check-circle" width="18" style="color:#3B82F6;flex-shrink:0;"></iconify-icon><span style="font-size:.875rem;color:#94A3B8;">培養 AI 思維框架，並動手體驗第一個 AI 工具</span></div>
       </div>
     </div>
 
@@ -161,14 +169,14 @@
             <iconify-icon icon="mdi:lightbulb-outline" width="18" style="color:#8B5CF6;"></iconify-icon>
             <span style="font-weight:600;font-size:.875rem;">推理與判斷</span>
           </div>
-          <p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">分析資訊並給出建議，例如導航根據車流量判斷最快路線。</p>
+          <p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">用學到的規律處理<strong style="color:#E2E8F0;">眼前的新情況</strong>，例如導航依照現在的即時路況，選出這一趟最快的路線。</p>
         </div>
         <div class="glass" style="padding:1.25rem;border-top:2px solid #06B6D4;">
           <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.6rem;">
             <iconify-icon icon="mdi:refresh" width="18" style="color:#06B6D4;"></iconify-icon>
             <span style="font-weight:600;font-size:.875rem;">自我修正</span>
           </div>
-          <p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">根據執行結果反饋調整模型，讓下一次的表現更準確。</p>
+          <p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">做完看結果再調整，讓下一次更準確。例如預估的到達時間太樂觀，下次就修正估算。</p>
         </div>
         <div class="glass" style="padding:1.25rem;border-top:2px solid #10B981;">
           <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.6rem;">
@@ -177,6 +185,15 @@
           </div>
           <p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">生成式 AI——能看懂文字、聽懂語言，甚至創作原本不存在的圖畫或文章。</p>
         </div>
+      </div>
+
+      <div class="glass" style="padding:1.25rem 1.5rem;margin-top:1rem;border-color:rgba(59,130,246,.25);">
+        <p style="font-size:.9rem;font-weight:700;margin-bottom:.5rem;">🧭 「學習」和「推理」差在哪？一句話分清楚</p>
+        <ul style="font-size:.82rem;color:#CBD5E1;line-height:1.8;list-style:none;padding:0;">
+          <li>📚 <strong style="color:#E2E8F0;">學習＝考前練功</strong>：事先從大量過去的資料找出規律。導航分析了好幾年的車流，學到「週五傍晚這條路會塞」。</li>
+          <li>📝 <strong style="color:#E2E8F0;">推理與判斷＝上考場</strong>：用練好的功夫處理眼前的新題目。你現在要出門，它根據即時路況和學到的規律，替你選出最快的路。</li>
+          <li>🔁 <strong style="color:#E2E8F0;">自我修正＝考完檢討</strong>：這次預估錯了，就調整下一次的做法。</li>
+        </ul>
       </div>
     </section>
 
@@ -227,7 +244,15 @@
           </div>
         </div>
 
-        <div class="glass rev" style="padding:1.5rem;display:flex;gap:1.25rem;align-items:flex-start;">
+        <div class="glass rev" data-detail data-detail-title="2010s–2020：Transformer 和 GPT-3 為什麼重要？" data-detail-color="#10B981" style="padding:1.5rem;display:flex;gap:1.25rem;align-items:flex-start;">
+          <template class="detail-tpl">
+            <p class="dm-plain">這個時期有兩個名詞特別重要，因為它們直接造就了今天的 ChatGPT。</p>
+            <ul class="dm-facts">
+              <li><b>Transformer 解決了什麼問題？</b>以前的 AI 讀句子像用手指一個字一個字往下指，句子一長，讀到後面就忘了前面。Transformer 改成「一眼看完整句話」，同時判斷每個字和其他字的關係，例如知道「他把蘋果給了妹妹，因為<strong>她</strong>餓了」裡的「她」指的是妹妹。</li>
+              <li><b>GPT-3 為什麼是里程碑？</b>OpenAI 把 Transformer 做得非常大、讀了非常多文字。結果發現：模型夠大之後，它不只會接龍，還會寫信、翻譯、回答問題，像是「突然開竅」。兩年後的 ChatGPT 就是在這個基礎上做成的。</li>
+            </ul>
+            <div class="dm-analogy">AlphaGo 證明 AI 能在單一領域打敗人類；Transformer 和 GPT-3 則讓 AI 開始「什麼都能聊一點」。</div>
+          </template>
           <div style="flex-shrink:0;text-align:center;min-width:3.5rem;">
             <div style="font-size:.7rem;font-family:'Space Grotesk',sans-serif;font-weight:700;color:#10B981;background:rgba(16,185,129,.1);border-radius:.5rem;padding:.3rem .5rem;">2010s<br>2020</div>
           </div>
@@ -235,13 +260,21 @@
             <h3 style="font-size:.95rem;font-weight:700;margin-bottom:.4rem;">深度學習與巨量模型 — AI 的突破</h3>
             <ul style="color:#CBD5E1;font-size:.82rem;line-height:1.8;list-style:none;padding:0;">
               <li style="display:flex;gap:.5rem;margin-bottom:.2rem;"><span style="color:#10B981;">→</span> 2016 年 AlphaGo 擊敗圍棋世界冠軍李世乭</li>
-              <li style="display:flex;gap:.5rem;margin-bottom:.2rem;"><span style="color:#10B981;">→</span> 2017 年 Google 提出 Transformer 架構，成為日後 ChatGPT 等聊天 AI 的技術基礎</li>
-              <li style="display:flex;gap:.5rem;"><span style="color:#10B981;">→</span> 2020 年 GPT-3 展現驚人的文本生成能力</li>
+              <li style="display:flex;gap:.5rem;margin-bottom:.2rem;"><span style="color:#10B981;">→</span> <span>2017 年 Google 提出 <strong style="color:#E2E8F0;">Transformer</strong>（讓 AI 一次看完整句話、抓住字與字之間關係的新架構），成為日後 ChatGPT 等聊天 AI 的技術基礎</span></li>
+              <li style="display:flex;gap:.5rem;"><span style="color:#10B981;">→</span> <span>2020 年 <strong style="color:#E2E8F0;">GPT-3</strong>（OpenAI 的大型語言模型，ChatGPT 的前身）證明：模型做得夠大，寫文章、回答問題的能力會突然大躍進</span></li>
             </ul>
           </div>
         </div>
 
-        <div class="glass rev" style="padding:1.5rem;display:flex;gap:1.25rem;align-items:flex-start;border-color:rgba(244,63,94,.2);">
+        <div class="glass rev" data-detail data-detail-title="2021 至今：生成式 AI 的關鍵名詞" data-detail-color="#F43F5E" style="padding:1.5rem;display:flex;gap:1.25rem;align-items:flex-start;border-color:rgba(244,63,94,.2);">
+          <template class="detail-tpl">
+            <p class="dm-plain">「生成式 AI」指的是會<strong>創造新內容</strong>的 AI：寫文章、畫圖、作曲、做影片。以前的 AI 大多只會判斷和預測（例如「這是不是垃圾信」）。</p>
+            <ul class="dm-facts">
+              <li><b>LUI（語言介面）是什麼？</b>以前用電腦要學選單、按鈕在哪裡（圖形介面）；現在直接用說的、打字描述就好：「幫我把這份報告縮短成一頁」。這種「用人話操作電腦」的方式就叫語言介面。</li>
+              <li><b>多模態是什麼？</b>AI 不只看得懂文字，也能同時處理圖片、聲音、影片，例如拍一張照片問它問題。</li>
+              <li><b>推理模型、AI Agent</b>這兩個最新的名詞，頁面上「2025–2026 新名詞白話」有完整說明。</li>
+            </ul>
+          </template>
           <div style="flex-shrink:0;text-align:center;min-width:3.5rem;">
             <div style="font-size:.7rem;font-family:'Space Grotesk',sans-serif;font-weight:700;color:#F43F5E;background:rgba(244,63,94,.1);border-radius:.5rem;padding:.3rem .5rem;">2021<br>至今</div>
           </div>
@@ -251,18 +284,217 @@
               <li style="display:flex;gap:.5rem;margin-bottom:.2rem;"><span style="color:#F43F5E;">→</span> 2021 DALL-E 讓「打字就能畫圖」成真；2022 Midjourney、Stable Diffusion 掀起視覺創作革命</li>
               <li style="display:flex;gap:.5rem;margin-bottom:.2rem;"><span style="color:#F43F5E;">→</span> 2022 年底 ChatGPT 引發「生成式 AI 革命」，大家開始用「說話」的方式操作電腦（稱為 LUI 語言介面）</li>
               <li style="display:flex;gap:.5rem;margin-bottom:.2rem;"><span style="color:#F43F5E;">→</span> 2023–2024 AI 能同時看圖、聽聲音、即時語音對話；文字生成影片（Sora、Runway、Veo 等）出現</li>
-              <li style="display:flex;gap:.5rem;"><span style="color:#F43F5E;">→</span> 2025–2026「推理模型」學會先思考再回答，AI Agent 能代你操作電腦完成任務；台灣與各國開始立法規範 AI</li>
+              <li style="display:flex;gap:.5rem;"><span style="color:#F43F5E;">→</span> 2025–2026「推理模型」學會先思考再回答，「AI Agent」能代你操作電腦完成任務（兩者白話說明見下方）；台灣與各國開始立法規範 AI</li>
             </ul>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="glass rev" style="padding:1.75rem;margin-top:1.5rem;position:relative;z-index:1;border-color:rgba(244,63,94,.25);">
+        <h3 style="font-size:1rem;font-weight:700;margin-bottom:.4rem;">🆕 2025–2026 新名詞白話：它們能幫你做到什麼程度？</h3>
+        <p style="font-size:.82rem;color:#CBD5E1;line-height:1.8;margin-bottom:1.1rem;">這兩個名詞最近很常聽到，聽起來很厲害，但都有明確的能力範圍和風險。</p>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;">
+          <div style="padding:1.25rem;border-radius:1rem;background:rgba(139,92,246,.06);border:1px solid rgba(139,92,246,.22);">
+            <div style="font-weight:700;font-size:.95rem;margin-bottom:.35rem;color:#A78BFA;">🧠 推理模型</div>
+            <p style="font-size:.82rem;color:#CBD5E1;line-height:1.8;margin-bottom:.6rem;">回答前會先在心裡「打草稿」：把問題拆成步驟、一步步檢查，再給你答案。一般模型比較像「想到就說」。</p>
+            <ul style="font-size:.82rem;color:#CBD5E1;line-height:1.8;list-style:none;padding:0;">
+              <li>✅ <strong style="color:#E2E8F0;">擅長</strong>：數學計算、規劃行程、比較多個方案、找出邏輯漏洞。</li>
+              <li>⏳ <strong style="color:#E2E8F0;">限制</strong>：回答比較慢；仍然可能算錯，只是錯得比較少；簡單問題用它有點大材小用。</li>
+              <li>👉 <strong style="color:#E2E8F0;">建議</strong>：重要的金額、劑量、日期，自己再驗算一次。</li>
+            </ul>
+          </div>
+          <div style="padding:1.25rem;border-radius:1rem;background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.22);">
+            <div style="font-weight:700;font-size:.95rem;margin-bottom:.35rem;color:#34D399;">🤖 AI Agent（AI 代理）</div>
+            <p style="font-size:.82rem;color:#CBD5E1;line-height:1.8;margin-bottom:.6rem;">一般聊天機器人「只會回答」；Agent 會<strong style="color:#E2E8F0;">動手做事</strong>：自己開網頁、點按鈕、填表格、整理檔案，像一位幫你跑腿的秘書。</p>
+            <ul style="font-size:.82rem;color:#CBD5E1;line-height:1.8;list-style:none;padding:0;">
+              <li>✅ <strong style="color:#E2E8F0;">能做</strong>：上網查資料並比價、整理成報告、幫你填寫網頁表單、把檔案分類。</li>
+              <li>⚠️ <strong style="color:#E2E8F0;">風險</strong>：可能點錯、買錯；可能被網頁上藏的惡意文字誤導；做得比較慢，常需要你中途確認。</li>
+              <li>👉 <strong style="color:#E2E8F0;">原則</strong>：密碼、信用卡、按下「付款」一律自己來。單元四有詳細介紹。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: AI / ML / DL Relationship -->
+    <section class="rev" style="margin-bottom:3.5rem;">
+      <div class="section-label"><span>1.3</span></div>
+      <h2 style="font-size:clamp(1.4rem,3vw,2rem);font-weight:800;margin-bottom:.5rem;">名詞地圖：AI、ML 與 DL 的關係</h2>
+      <p style="font-size:.9rem;color:#CBD5E1;margin-bottom:1.25rem;line-height:1.8;">這一單元會出現很多名詞，但它們其實分屬<strong style="color:#F1F5F9;">三種不同的問題</strong>。先看這張地圖，後面就不會搞混：</p>
+      <div class="glass" style="padding:1.25rem 1.5rem;margin-bottom:1.75rem;overflow-x:auto;">
+        <table>
+          <thead><tr><th>問的是什麼</th><th>有哪些名詞</th><th>在哪一節</th></tr></thead>
+          <tbody>
+            <tr><td>① 範圍：誰包含誰？</td><td>人工智慧（AI）⊃ 機器學習（ML）⊃ 深度學習（DL）</td><td>1.3（本節）</td></tr>
+            <tr><td>② 怎麼教：AI 用什麼方式學？</td><td>監督式、非監督式、半監督式、強化學習</td><td>1.4</td></tr>
+            <tr><td>③ 拿來做什麼：AI 處理哪種資料？</td><td>電腦視覺（看圖）、自然語言處理（讀字、聽話）</td><td>1.5</td></tr>
+          </tbody>
+        </table>
+        <p style="font-size:.82rem;color:#CBD5E1;line-height:1.8;margin-top:.9rem;">💡 一句話串起來：同一個 AI，可以用<strong style="color:#F1F5F9;">某一種教法</strong>，搭配<strong style="color:#F1F5F9;">深度學習這顆「大腦」</strong>，去做<strong style="color:#F1F5F9;">看圖或讀字</strong>的工作。例如 ChatGPT＝用大量文字教出來的深度學習模型，專門處理語言。</p>
+      </div>
+      <p style="font-size:.9rem;color:#94A3B8;margin-bottom:2rem;line-height:1.7;">如同俄羅斯套娃 — 同一技術體系中的不同層級，層層嵌套：<strong style="color:#CBD5E1;">AI 包含 ML，ML 包含 DL</strong></p>
+
+      <!-- Nested visual diagram -->
+      <div style="display:flex;justify-content:center;margin-bottom:2rem;">
+        <div style="position:relative;padding:1.75rem 1.75rem 1.25rem;border-radius:1.75rem;border:2px solid rgba(59,130,246,.35);background:rgba(59,130,246,.04);min-width:300px;max-width:500px;width:100%;">
+          <div style="font-size:.72rem;font-weight:700;color:#60A5FA;letter-spacing:.08em;margin-bottom:1.25rem;">🤖 人工智慧（AI）— 最外層</div>
+
+          <div style="padding:1.4rem 1.4rem 1rem;border-radius:1.25rem;border:2px solid rgba(139,92,246,.35);background:rgba(139,92,246,.05);">
+            <div style="font-size:.72rem;font-weight:700;color:#A78BFA;letter-spacing:.08em;margin-bottom:1.25rem;">📊 機器學習（ML）— 中間層</div>
+
+            <div style="padding:1.1rem 1.1rem .85rem;border-radius:.875rem;border:2px solid rgba(245,158,11,.35);background:rgba(245,158,11,.06);">
+              <div style="font-size:.72rem;font-weight:700;color:#FBBF24;letter-spacing:.08em;margin-bottom:.4rem;">🧠 深度學習（DL）— 最內層</div>
+              <p style="font-size:.75rem;color:#94A3B8;line-height:1.5;margin:0;">多層神經網路 · 自動特徵擷取</p>
+            </div>
+
+            <p style="font-size:.75rem;color:#A78BFA;line-height:1.5;margin:.7rem 0 0;">從數據中推敲規律 · 訓練演算法</p>
+          </div>
+
+          <p style="font-size:.75rem;color:#60A5FA;line-height:1.5;margin:.7rem 0 0;">讓機器展現人類智慧的所有技術總稱</p>
+        </div>
+      </div>
+
+      <!-- Three layer cards -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem;">
+
+        <div class="glass rev" style="padding:1.5rem;position:relative;overflow:hidden;">
+          <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#3B82F6,transparent);"></div>
+          <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.75rem;">
+            <div style="font-size:1.25rem;">🤖</div>
+            <div>
+              <div style="font-size:.95rem;font-weight:700;">人工智慧</div>
+              <div style="font-size:.68rem;color:#3B82F6;font-family:'Space Grotesk',sans-serif;">AI · Artificial Intelligence · 最外層</div>
+            </div>
+          </div>
+          <p style="font-size:.82rem;color:#CBD5E1;line-height:1.75;margin-bottom:.75rem;">一個寬泛的領域，泛指任何讓機器展現人類智慧的技術。目標是創造能執行思考、學習、決策、感知等任務的智慧型機器。</p>
+          <div style="border-top:1px solid rgba(255,255,255,.06);padding-top:.6rem;">
+            <p style="font-size:.72rem;color:#94A3B8;"><span style="color:#3B82F6;font-weight:500;">包含：</span> 機器學習、專家系統、電腦視覺、NLP……</p>
+          </div>
+        </div>
+
+        <div class="glass rev" style="padding:1.5rem;position:relative;overflow:hidden;">
+          <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#8B5CF6,transparent);"></div>
+          <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.75rem;">
+            <div style="font-size:1.25rem;">📊</div>
+            <div>
+              <div style="font-size:.95rem;font-weight:700;">機器學習</div>
+              <div style="font-size:.68rem;color:#8B5CF6;font-family:'Space Grotesk',sans-serif;">ML · Machine Learning · 中間層</div>
+            </div>
+          </div>
+          <p style="font-size:.82rem;color:#CBD5E1;line-height:1.75;margin-bottom:.75rem;">AI 的一個子領域，核心是從大量數據中推敲規律，讓機器擁有判斷與預測能力。不是明確編寫規則，而是培訓演算法處理資料。</p>
+          <div style="border-top:1px solid rgba(255,255,255,.06);padding-top:.6rem;">
+            <p style="font-size:.72rem;color:#94A3B8;"><span style="color:#8B5CF6;font-weight:500;">包含：</span> 各種學習方式（見 1.4）、深度學習……</p>
+          </div>
+        </div>
+
+        <div class="glass rev" style="padding:1.5rem;position:relative;overflow:hidden;">
+          <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#F59E0B,transparent);"></div>
+          <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.75rem;">
+            <div style="font-size:1.25rem;">🧠</div>
+            <div>
+              <div style="font-size:.95rem;font-weight:700;">深度學習</div>
+              <div style="font-size:.68rem;color:#F59E0B;font-family:'Space Grotesk',sans-serif;">DL · Deep Learning · 最內層</div>
+            </div>
+          </div>
+          <p style="font-size:.82rem;color:#CBD5E1;line-height:1.75;margin-bottom:.75rem;">機器學習的一種特定方法，模仿人類大腦神經網絡結構。依靠深層人工神經網絡（多層非線性學習）自動從資料中進行特徵擷取。</p>
+          <div style="border-top:1px solid rgba(255,255,255,.06);padding-top:.6rem;">
+            <p style="font-size:.72rem;color:#94A3B8;"><span style="color:#F59E0B;font-weight:500;">應用：</span> ChatGPT 對話、圖像生成、語音辨識……</p>
           </div>
         </div>
 
       </div>
     </section>
 
+    <!-- Section: Learning methods -->
+    <section class="rev" style="margin-bottom:3.5rem;">
+      <div class="section-label"><span>1.4</span></div>
+      <h2 style="font-size:clamp(1.4rem,3vw,2rem);font-weight:800;margin-bottom:.5rem;">機器怎麼學：四種學習方式</h2>
+      <p style="font-size:.9rem;color:#CBD5E1;margin-bottom:1.5rem;line-height:1.8;">就像老師教學生有不同教法，AI 也有四種主要的「學習方式」，差別在於<strong style="color:#F1F5F9;">有沒有給標準答案</strong>、<strong style="color:#F1F5F9;">怎麼告訴它做對了沒</strong>。</p>
+
+      <div style="display:flex;flex-direction:column;gap:1rem;">
+
+        <div class="glass rev" style="padding:1.5rem;display:grid;grid-template-columns:auto 1fr;gap:1rem;align-items:start;">
+          <div style="width:3rem;height:3rem;border-radius:1rem;background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1rem;color:#3B82F6;">1</span>
+          </div>
+          <div>
+            <h3 style="font-size:.95rem;font-weight:700;margin-bottom:.25rem;">監督式學習 <span style="font-size:.75rem;color:#3B82F6;font-weight:400;font-family:'Space Grotesk',sans-serif;">Supervised Learning</span></h3>
+            <p style="font-size:.72rem;color:#F59E0B;margin-bottom:.4rem;">比喻：考古題練習</p>
+            <p style="font-size:.82rem;color:#CBD5E1;line-height:1.7;">就像學生做考古題，每道題有「標準答案」。AI 讀了幾萬張標註「這是貓」的照片後，能判斷新照片是哪種動物。</p>
+            <p style="font-size:.72rem;color:#94A3B8;margin-top:.5rem;"><span style="color:#3B82F6;">應用：</span> 垃圾郵件過濾、人臉識別</p>
+          </div>
+        </div>
+
+        <div class="glass rev" style="padding:1.5rem;display:grid;grid-template-columns:auto 1fr;gap:1rem;align-items:start;">
+          <div style="width:3rem;height:3rem;border-radius:1rem;background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1rem;color:#8B5CF6;">2</span>
+          </div>
+          <div>
+            <h3 style="font-size:.95rem;font-weight:700;margin-bottom:.25rem;">非監督式學習 <span style="font-size:.75rem;color:#8B5CF6;font-weight:400;font-family:'Space Grotesk',sans-serif;">Unsupervised Learning</span></h3>
+            <p style="font-size:.72rem;color:#F59E0B;margin-bottom:.4rem;">比喻：超市分眾行銷</p>
+            <p style="font-size:.82rem;color:#CBD5E1;line-height:1.7;">電腦在不知道客戶身份的情況下，發現「買尿布的人通常也買啤酒」，進而把數據群組化。找規律而非找答案。</p>
+            <p style="font-size:.72rem;color:#94A3B8;margin-top:.5rem;"><span style="color:#8B5CF6;">應用：</span> 客戶分類、推薦系統</p>
+          </div>
+        </div>
+
+        <div class="glass rev" style="padding:1.5rem;display:grid;grid-template-columns:auto 1fr;gap:1rem;align-items:start;">
+          <div style="width:3rem;height:3rem;border-radius:1rem;background:rgba(6,182,212,.1);border:1px solid rgba(6,182,212,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1rem;color:#06B6D4;">3</span>
+          </div>
+          <div>
+            <h3 style="font-size:.95rem;font-weight:700;margin-bottom:.25rem;">半監督式學習 <span style="font-size:.75rem;color:#06B6D4;font-weight:400;font-family:'Space Grotesk',sans-serif;">Semi-supervised Learning</span></h3>
+            <p style="font-size:.72rem;color:#F59E0B;margin-bottom:.4rem;">比喻：老師帶進門，修行在個人</p>
+            <p style="font-size:.82rem;color:#CBD5E1;line-height:1.7;">先給 AI 幾百張有標籤照片，剩下幾萬張讓它自己舉一反三找相似性。少量監督＋大量自主學習。</p>
+            <p style="font-size:.72rem;color:#94A3B8;margin-top:.5rem;"><span style="color:#06B6D4;">應用：</span> 語音辨識、醫療影像分析</p>
+          </div>
+        </div>
+
+        <div class="glass rev" style="padding:1.5rem;display:grid;grid-template-columns:auto 1fr;gap:1rem;align-items:start;">
+          <div style="width:3rem;height:3rem;border-radius:1rem;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1rem;color:#10B981;">4</span>
+          </div>
+          <div>
+            <h3 style="font-size:.95rem;font-weight:700;margin-bottom:.25rem;">強化學習 <span style="font-size:.75rem;color:#10B981;font-weight:400;font-family:'Space Grotesk',sans-serif;">Reinforcement Learning</span></h3>
+            <p style="font-size:.72rem;color:#F59E0B;margin-bottom:.4rem;">比喻：教小狗坐下</p>
+            <p style="font-size:.82rem;color:#CBD5E1;line-height:1.7;">小狗做對給零食（獎勵），做錯不給。AI 在遊戲中不斷嘗試，贏了得分輸了扣分，練出最優策略。</p>
+            <p style="font-size:.72rem;color:#94A3B8;margin-top:.5rem;"><span style="color:#10B981;">應用：</span> 自動駕駛、玩電玩遊戲、機器人控制</p>
+          </div>
+        </div>
+
+      </div>
+
+
+      <div class="glass rev" style="padding:1.5rem;margin-top:1rem;border-color:rgba(245,158,11,.3);background:rgba(245,158,11,.05);">
+        <p style="font-size:.95rem;font-weight:700;margin-bottom:.5rem;color:#FBBF24;">🧠 那「深度學習」呢？它不是第五種教法</p>
+        <p style="font-size:.82rem;color:#CBD5E1;line-height:1.8;">深度學習是 AI 的<strong style="color:#F1F5F9;">「大腦結構」</strong>：用很多層的「神經網路」一層一層處理資料。上面四種教法，都可以拿這顆大腦來學。所以它和學習方式是不同層次的東西，在 1.3 的套娃圖裡，它是機器學習最裡面那一層。</p>
+        <p style="font-size:.82rem;color:#CBD5E1;line-height:1.8;margin-top:.5rem;"><span style="color:#FBBF24;">比喻：品酒師的感官。</span>品酒師先聞香氣、再嚐酸甜、最後辨別年份，一層比一層深入；深度學習也是一層一層從簡單的特徵看到複雜的意義。今天的 ChatGPT、照片修圖、語音翻譯，背後都是深度學習。</p>
+      </div>
+
+      <!-- Reference video: reinforcement learning -->
+      <div class="glass rev" style="padding:1.5rem 1.75rem;margin-top:1rem;">
+        <div style="font-size:.7rem;font-weight:700;color:#10B981;letter-spacing:.12em;margin-bottom:.6rem;">📺 延伸影片：看「強化學習」怎麼練出高手</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.25rem;align-items:center;">
+          <a href="https://www.youtube.com/watch?v=B7bYZ5ZFbl0" target="_blank" rel="noopener" style="display:block;position:relative;aspect-ratio:16/9;border-radius:12px;overflow:hidden;background:#000;text-decoration:none;">
+            <img src="https://img.youtube.com/vi/B7bYZ5ZFbl0/hqdefault.jpg" alt="影片：格鬥之王！AI 寫出來的 AI 竟然這麼強" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
+            <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;">
+              <div style="width:52px;height:52px;border-radius:50%;background:rgba(255,0,0,.9);display:flex;align-items:center;justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div>
+            </div>
+          </a>
+          <div>
+            <p style="font-size:.9rem;font-weight:700;margin-bottom:.3rem;">《格鬥之王！AI 寫出來的 AI 竟然這麼強！》</p>
+            <p style="font-size:.72rem;color:#94A3B8;margin-bottom:.6rem;">YouTube 頻道：林亦LYi（簡體中文）</p>
+            <p style="font-size:.82rem;color:#CBD5E1;line-height:1.8;">影片中的 AI 像真人玩家一樣，只能「看畫面、按按鍵」來打格鬥遊戲，沒有偷改遊戲程式。它靠著上萬場對戰、打中得分、被打扣分，自己練出越來越強的打法。這正是上面第 4 種「強化學習」。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Section 1.3: Core technologies -->
     <section class="rev" style="margin-bottom:3.5rem;">
-      <div class="section-label"><span>1.3</span></div>
-      <h2 style="font-size:clamp(1.4rem,3vw,2rem);font-weight:800;margin-bottom:1.5rem;">三大核心技術</h2>
+      <div class="section-label"><span>1.5</span></div>
+      <h2 style="font-size:clamp(1.4rem,3vw,2rem);font-weight:800;margin-bottom:.5rem;">三大核心技術：一個方法、兩種應用</h2>
+      <p style="font-size:.9rem;color:#CBD5E1;margin-bottom:1.5rem;line-height:1.8;"><strong style="color:#F1F5F9;">機器學習</strong>是讓 AI 變聰明的「方法」；<strong style="color:#F1F5F9;">電腦視覺</strong>和<strong style="color:#F1F5F9;">自然語言處理</strong>是 AI 最常被拿來做的兩類「工作」（看圖、讀字），而它們現在大多也是用機器學習與深度學習做出來的。</p>
 
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.25rem;">
         <div class="glass rev" data-detail data-detail-title="機器學習：讓電腦自己找規律" data-detail-color="#3B82F6" style="padding:1.75rem;position:relative;overflow:hidden;">
@@ -325,193 +557,118 @@
       </div>
 
       <div class="glass rev" style="padding:1.25rem 1.5rem;margin-top:1.25rem;border-color:rgba(59,130,246,.15);">
-        <p style="font-size:.82rem;color:#CBD5E1;line-height:1.8;"><span style="color:#3B82F6;">💡 總結：</span>「機器學習」是基礎演算法，「電腦視覺」用其分析影像，「自然語言處理」用其理解語言，三者共同推動現代 AI 發展。</p>
+        <p style="font-size:.82rem;color:#CBD5E1;line-height:1.8;"><span style="color:#3B82F6;">💡 總結：</span>「機器學習」是讓電腦自己找規律的方法；「電腦視覺」用這個方法看懂影像，「自然語言處理」用這個方法理解語言。三者一起撐起了今天的 AI。</p>
       </div>
     </section>
 
-    <!-- Section: AI / ML / DL Relationship -->
+    <!-- Section 1.6: How AI computes an answer -->
     <section class="rev" style="margin-bottom:3.5rem;">
-      <div class="section-label"><span>關係圖</span></div>
-      <h2 style="font-size:clamp(1.4rem,3vw,2rem);font-weight:800;margin-bottom:.5rem;">AI、ML 與 DL 的關係</h2>
-      <p style="font-size:.9rem;color:#94A3B8;margin-bottom:2rem;line-height:1.7;">如同俄羅斯套娃 — 同一技術體系中的不同層級，層層嵌套：<strong style="color:#CBD5E1;">AI 包含 ML，ML 包含 DL</strong></p>
+      <div class="section-label"><span>1.6</span></div>
+      <h2 style="font-size:clamp(1.4rem,3vw,2rem);font-weight:800;margin-bottom:.5rem;">AI 是怎麼「算」出答案的？</h2>
+      <p style="font-size:.9rem;color:#CBD5E1;margin-bottom:1.5rem;line-height:1.8;">AI 訓練好之後，你每問一次問題，它都會跑一遍下面五個步驟，不需要懂數學也能理解。</p>
 
-      <!-- Nested visual diagram -->
-      <div style="display:flex;justify-content:center;margin-bottom:2rem;">
-        <div style="position:relative;padding:1.75rem 1.75rem 1.25rem;border-radius:1.75rem;border:2px solid rgba(59,130,246,.35);background:rgba(59,130,246,.04);min-width:300px;max-width:500px;width:100%;">
-          <div style="font-size:.72rem;font-weight:700;color:#60A5FA;letter-spacing:.08em;margin-bottom:1.25rem;">🤖 人工智慧（AI）— 最外層</div>
-
-          <div style="padding:1.4rem 1.4rem 1rem;border-radius:1.25rem;border:2px solid rgba(139,92,246,.35);background:rgba(139,92,246,.05);">
-            <div style="font-size:.72rem;font-weight:700;color:#A78BFA;letter-spacing:.08em;margin-bottom:1.25rem;">📊 機器學習（ML）— 中間層</div>
-
-            <div style="padding:1.1rem 1.1rem .85rem;border-radius:.875rem;border:2px solid rgba(245,158,11,.35);background:rgba(245,158,11,.06);">
-              <div style="font-size:.72rem;font-weight:700;color:#FBBF24;letter-spacing:.08em;margin-bottom:.4rem;">🧠 深度學習（DL）— 最內層</div>
-              <p style="font-size:.75rem;color:#94A3B8;line-height:1.5;margin:0;">多層神經網路 · 自動特徵擷取</p>
-            </div>
-
-            <p style="font-size:.75rem;color:#A78BFA;line-height:1.5;margin:.7rem 0 0;">從數據中推敲規律 · 訓練演算法</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.75rem;margin-bottom:1.5rem;">
+          <div style="padding:1rem;border-radius:1rem;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);">
+            <div style="font-size:.68rem;font-weight:700;color:#3B82F6;letter-spacing:.1em;margin-bottom:.35rem;">STEP 1</div>
+            <div style="font-weight:700;font-size:.9rem;margin-bottom:.3rem;">📥 輸入</div>
+            <p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">你打的一句話、上傳的一張照片。</p>
           </div>
+          <div style="padding:1rem;border-radius:1rem;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);">
+            <div style="font-size:.68rem;font-weight:700;color:#8B5CF6;letter-spacing:.1em;margin-bottom:.35rem;">STEP 2</div>
+            <div style="font-weight:700;font-size:.9rem;margin-bottom:.3rem;">✂️ 切成小塊</div>
+            <p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">文字切成一個個「Token」（大約一個中文字或半個英文單字）；照片拆成一格格的像素。</p>
+          </div>
+          <div style="padding:1rem;border-radius:1rem;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);">
+            <div style="font-size:.68rem;font-weight:700;color:#06B6D4;letter-spacing:.1em;margin-bottom:.35rem;">STEP 3</div>
+            <div style="font-weight:700;font-size:.9rem;margin-bottom:.3rem;">🔢 變成數字</div>
+            <p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">電腦只懂數字，所以每一小塊都換成一串數字。</p>
+          </div>
+          <div style="padding:1rem;border-radius:1rem;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);">
+            <div style="font-size:.68rem;font-weight:700;color:#10B981;letter-spacing:.1em;margin-bottom:.35rem;">STEP 4</div>
+            <div style="font-weight:700;font-size:.9rem;margin-bottom:.3rem;">⚙️ 模型計算</div>
+            <p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">數字經過一層層的神經網路。每一層裡有幾十億個訓練時就調好的「旋鈕」（參數）。</p>
+          </div>
+          <div style="padding:1rem;border-radius:1rem;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);">
+            <div style="font-size:.68rem;font-weight:700;color:#F43F5E;letter-spacing:.1em;margin-bottom:.35rem;">STEP 5</div>
+            <div style="font-weight:700;font-size:.9rem;margin-bottom:.3rem;">📤 選出最可能的答案</div>
+            <p style="font-size:.78rem;color:#CBD5E1;line-height:1.7;">算出每個可能答案的機率，選出最有可能的那一個輸出。</p>
+          </div>
+      </div>
 
-          <p style="font-size:.75rem;color:#60A5FA;line-height:1.5;margin:.7rem 0 0;">讓機器展現人類智慧的所有技術總稱</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;margin-bottom:1.25rem;">
+        <div class="glass rev" style="padding:1.5rem;">
+          <div style="font-weight:700;font-size:.95rem;margin-bottom:.6rem;">💬 例子一：聊天 AI 其實在玩「文字接龍」</div>
+          <p style="font-size:.82rem;color:#CBD5E1;line-height:1.8;margin-bottom:.6rem;">你輸入「今天天氣真」，AI 算出下一個字的機率：</p>
+          <div style="font-size:.82rem;line-height:2;font-family:'Space Grotesk','Noto Sans TC',sans-serif;">
+            <div>好 <span style="display:inline-block;width:70%;max-width:150px;height:.5rem;border-radius:99px;background:#3B82F6;vertical-align:middle;"></span> 70%</div>
+            <div>熱 <span style="display:inline-block;width:20%;max-width:43px;height:.5rem;border-radius:99px;background:#8B5CF6;vertical-align:middle;"></span> 20%</div>
+            <div>冷 <span style="display:inline-block;width:8%;max-width:17px;height:.5rem;border-radius:99px;background:#06B6D4;vertical-align:middle;"></span> 8%</div>
+          </div>
+          <p style="font-size:.82rem;color:#CBD5E1;line-height:1.8;margin-top:.6rem;">它選了「好」，再把「今天天氣真好」整句放回去，算下一個字……<strong style="color:#F1F5F9;">一次接一個字</strong>，就接成一整段回答。</p>
+        </div>
+        <div class="glass rev" style="padding:1.5rem;">
+          <div style="font-weight:700;font-size:.95rem;margin-bottom:.6rem;">🖼️ 例子二：看照片認出「貓」</div>
+          <ol style="list-style:decimal;font-size:.82rem;color:#CBD5E1;line-height:1.8;padding-left:1.2rem;">
+            <li>前幾層：先找出線條、邊角、顏色。</li>
+            <li>中間幾層：把線條組合成耳朵、眼睛、鬍鬚。</li>
+            <li>最後幾層：判斷「這些組合起來像一隻貓」。</li>
+          </ol>
+          <p style="font-size:.82rem;color:#CBD5E1;line-height:1.8;margin-top:.6rem;">輸出：<strong style="color:#F1F5F9;">貓 95%、狗 4%、其他 1%</strong>，於是告訴你「這是一隻貓」。</p>
         </div>
       </div>
 
-      <!-- Three layer cards -->
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem;">
+      <div class="dm-you rev" style="font-size:.88rem;line-height:1.85;margin-bottom:1.25rem;">AI 是在<strong>「猜最有可能的下一個字」</strong>，不是去資料庫查正確答案。所以它可能寫出一段很通順、卻是錯的內容，這就是常聽到的「AI 幻覺」。重要的事一定要查證，單元三有「查證 AI 答案三步驟」。</div>
 
-        <div class="glass rev" style="padding:1.5rem;position:relative;overflow:hidden;">
-          <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#3B82F6,transparent);"></div>
-          <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.75rem;">
-            <div style="font-size:1.25rem;">🤖</div>
-            <div>
-              <div style="font-size:.95rem;font-weight:700;">人工智慧</div>
-              <div style="font-size:.68rem;color:#3B82F6;font-family:'Space Grotesk',sans-serif;">AI · Artificial Intelligence · 最外層</div>
-            </div>
-          </div>
-          <p style="font-size:.82rem;color:#CBD5E1;line-height:1.75;margin-bottom:.75rem;">一個寬泛的領域，泛指任何讓機器展現人類智慧的技術。目標是創造能執行思考、學習、決策、感知等任務的智慧型機器。</p>
-          <div style="border-top:1px solid rgba(255,255,255,.06);padding-top:.6rem;">
-            <p style="font-size:.72rem;color:#94A3B8;"><span style="color:#3B82F6;font-weight:500;">包含：</span> 機器學習、專家系統、電腦視覺、NLP……</p>
-          </div>
-        </div>
-
-        <div class="glass rev" style="padding:1.5rem;position:relative;overflow:hidden;">
-          <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#8B5CF6,transparent);"></div>
-          <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.75rem;">
-            <div style="font-size:1.25rem;">📊</div>
-            <div>
-              <div style="font-size:.95rem;font-weight:700;">機器學習</div>
-              <div style="font-size:.68rem;color:#8B5CF6;font-family:'Space Grotesk',sans-serif;">ML · Machine Learning · 中間層</div>
-            </div>
-          </div>
-          <p style="font-size:.82rem;color:#CBD5E1;line-height:1.75;margin-bottom:.75rem;">AI 的一個子領域，核心是從大量數據中推敲規律，讓機器擁有判斷與預測能力。不是明確編寫規則，而是培訓演算法處理資料。</p>
-          <div style="border-top:1px solid rgba(255,255,255,.06);padding-top:.6rem;">
-            <p style="font-size:.72rem;color:#94A3B8;"><span style="color:#8B5CF6;font-weight:500;">包含：</span> 監督式學習、非監督式學習、深度學習……</p>
-          </div>
-        </div>
-
-        <div class="glass rev" style="padding:1.5rem;position:relative;overflow:hidden;">
-          <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#F59E0B,transparent);"></div>
-          <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.75rem;">
-            <div style="font-size:1.25rem;">🧠</div>
-            <div>
-              <div style="font-size:.95rem;font-weight:700;">深度學習</div>
-              <div style="font-size:.68rem;color:#F59E0B;font-family:'Space Grotesk',sans-serif;">DL · Deep Learning · 最內層</div>
-            </div>
-          </div>
-          <p style="font-size:.82rem;color:#CBD5E1;line-height:1.75;margin-bottom:.75rem;">機器學習的一種特定方法，模仿人類大腦神經網絡結構。依靠深層人工神經網絡（多層非線性學習）自動從資料中進行特徵擷取。</p>
-          <div style="border-top:1px solid rgba(255,255,255,.06);padding-top:.6rem;">
-            <p style="font-size:.72rem;color:#94A3B8;"><span style="color:#F59E0B;font-weight:500;">應用：</span> ChatGPT 對話、圖像生成、語音辨識……</p>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- Section: Learning methods -->
-    <section class="rev" style="margin-bottom:3.5rem;">
-      <div class="section-label"><span>AI 學習方式</span></div>
-      <h2 style="font-size:clamp(1.4rem,3vw,2rem);font-weight:800;margin-bottom:1.5rem;">五種學習方法</h2>
-
-      <div style="display:flex;flex-direction:column;gap:1rem;">
-
-        <div class="glass rev" style="padding:1.5rem;display:grid;grid-template-columns:auto 1fr;gap:1rem;align-items:start;">
-          <div style="width:3rem;height:3rem;border-radius:1rem;background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-            <span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1rem;color:#3B82F6;">1</span>
-          </div>
-          <div>
-            <h3 style="font-size:.95rem;font-weight:700;margin-bottom:.25rem;">監督式學習 <span style="font-size:.75rem;color:#3B82F6;font-weight:400;font-family:'Space Grotesk',sans-serif;">Supervised Learning</span></h3>
-            <p style="font-size:.72rem;color:#F59E0B;margin-bottom:.4rem;">比喻：考古題練習</p>
-            <p style="font-size:.82rem;color:#CBD5E1;line-height:1.7;">就像學生做考古題，每道題有「標準答案」。AI 讀了幾萬張標註「這是貓」的照片後，能判斷新照片是哪種動物。</p>
-            <p style="font-size:.72rem;color:#94A3B8;margin-top:.5rem;"><span style="color:#3B82F6;">應用：</span> 垃圾郵件過濾、人臉識別</p>
-          </div>
-        </div>
-
-        <div class="glass rev" style="padding:1.5rem;display:grid;grid-template-columns:auto 1fr;gap:1rem;align-items:start;">
-          <div style="width:3rem;height:3rem;border-radius:1rem;background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-            <span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1rem;color:#8B5CF6;">2</span>
-          </div>
-          <div>
-            <h3 style="font-size:.95rem;font-weight:700;margin-bottom:.25rem;">非監督式學習 <span style="font-size:.75rem;color:#8B5CF6;font-weight:400;font-family:'Space Grotesk',sans-serif;">Unsupervised Learning</span></h3>
-            <p style="font-size:.72rem;color:#F59E0B;margin-bottom:.4rem;">比喻：超市分眾行銷</p>
-            <p style="font-size:.82rem;color:#CBD5E1;line-height:1.7;">電腦在不知道客戶身份的情況下，發現「買尿布的人通常也買啤酒」，進而把數據群組化。找規律而非找答案。</p>
-            <p style="font-size:.72rem;color:#94A3B8;margin-top:.5rem;"><span style="color:#8B5CF6;">應用：</span> 客戶分類、推薦系統</p>
-          </div>
-        </div>
-
-        <div class="glass rev" style="padding:1.5rem;display:grid;grid-template-columns:auto 1fr;gap:1rem;align-items:start;">
-          <div style="width:3rem;height:3rem;border-radius:1rem;background:rgba(6,182,212,.1);border:1px solid rgba(6,182,212,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-            <span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1rem;color:#06B6D4;">3</span>
-          </div>
-          <div>
-            <h3 style="font-size:.95rem;font-weight:700;margin-bottom:.25rem;">半監督式學習 <span style="font-size:.75rem;color:#06B6D4;font-weight:400;font-family:'Space Grotesk',sans-serif;">Semi-supervised Learning</span></h3>
-            <p style="font-size:.72rem;color:#F59E0B;margin-bottom:.4rem;">比喻：老師帶進門，修行在個人</p>
-            <p style="font-size:.82rem;color:#CBD5E1;line-height:1.7;">先給 AI 幾百張有標籤照片，剩下幾萬張讓它自己舉一反三找相似性。少量監督＋大量自主學習。</p>
-            <p style="font-size:.72rem;color:#94A3B8;margin-top:.5rem;"><span style="color:#06B6D4;">應用：</span> 語音辨識、醫療影像分析</p>
-          </div>
-        </div>
-
-        <div class="glass rev" style="padding:1.5rem;display:grid;grid-template-columns:auto 1fr;gap:1rem;align-items:start;">
-          <div style="width:3rem;height:3rem;border-radius:1rem;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-            <span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1rem;color:#10B981;">4</span>
-          </div>
-          <div>
-            <h3 style="font-size:.95rem;font-weight:700;margin-bottom:.25rem;">強化學習 <span style="font-size:.75rem;color:#10B981;font-weight:400;font-family:'Space Grotesk',sans-serif;">Reinforcement Learning</span></h3>
-            <p style="font-size:.72rem;color:#F59E0B;margin-bottom:.4rem;">比喻：教小狗坐下</p>
-            <p style="font-size:.82rem;color:#CBD5E1;line-height:1.7;">小狗做對給零食（獎勵），做錯不給。AI 在遊戲中不斷嘗試，贏了得分輸了扣分，練出最優策略。</p>
-            <p style="font-size:.72rem;color:#94A3B8;margin-top:.5rem;"><span style="color:#10B981;">應用：</span> 自動駕駛、玩電玩遊戲、機器人控制</p>
-          </div>
-        </div>
-
-        <div class="glass rev" style="padding:1.5rem;display:grid;grid-template-columns:auto 1fr;gap:1rem;align-items:start;">
-          <div style="width:3rem;height:3rem;border-radius:1rem;background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-            <span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1rem;color:#F59E0B;">5</span>
-          </div>
-          <div>
-            <h3 style="font-size:.95rem;font-weight:700;margin-bottom:.25rem;">深度學習 <span style="font-size:.75rem;color:#F59E0B;font-weight:400;font-family:'Space Grotesk',sans-serif;">Deep Learning (技術底層 / 進階架構)</span></h3>
-            <p style="font-size:.72rem;color:#F59E0B;margin-bottom:.4rem;">比喻：品酒師的感官</p>
-            <p style="font-size:.82rem;color:#CBD5E1;line-height:1.7;">機器學習的一種「架構」。像品酒師透過多層次感官解析酒的成分，深度學習利用「多層神經網路」解析複雜數據。</p>
-            <p style="font-size:.72rem;color:#94A3B8;margin-top:.5rem;"><span style="color:#F59E0B;">應用：</span> ChatGPT 對話、照片濾鏡修圖、語音翻譯</p>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Reference videos + Quick Draw -->
-      <div class="glass rev" style="padding:1.75rem 2rem;margin-top:2rem;">
-        <div style="font-size:.7rem;font-weight:700;color:#10B981;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.75rem;">📺 參考影片</div>
-        <p style="font-size:.85rem;color:#94A3B8;line-height:1.75;margin-bottom:1.5rem;">用「魔法對抗魔法」—它的運作邏輯跟人類完全一樣，沒有修改遊戲內部的任何一行程式碼。從技術結構上來說，它更像是一個「反應速度與決策精度達到人類巔峰」的數位玩家。</p>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;margin-bottom:1.5rem;">
+      <div class="glass rev" style="padding:1.5rem 1.75rem;">
+        <div style="font-size:.7rem;font-weight:700;color:#10B981;letter-spacing:.12em;margin-bottom:.6rem;">📺 延伸影片：大型語言模型是怎麼學會說話的</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.25rem;align-items:center;">
           <a href="https://www.youtube.com/watch?v=6-wpuac27Bk" target="_blank" rel="noopener" style="display:block;position:relative;aspect-ratio:16/9;border-radius:12px;overflow:hidden;background:#000;text-decoration:none;">
-            <img src="https://img.youtube.com/vi/6-wpuac27Bk/hqdefault.jpg" alt="參考影片 1" style="width:100%;height:100%;object-fit:cover;display:block;transition:opacity .2s;" onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='1'">
+            <img src="https://img.youtube.com/vi/6-wpuac27Bk/hqdefault.jpg" alt="影片：大模型是怎麼學會講人話的" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
             <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;">
-              <div style="width:56px;height:56px;border-radius:50%;background:rgba(255,0,0,.9);display:flex;align-items:center;justify-content:center;">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
-              </div>
+              <div style="width:52px;height:52px;border-radius:50%;background:rgba(255,0,0,.9);display:flex;align-items:center;justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div>
             </div>
           </a>
-          <a href="https://www.youtube.com/watch?v=B7bYZ5ZFbl0" target="_blank" rel="noopener" style="display:block;position:relative;aspect-ratio:16/9;border-radius:12px;overflow:hidden;background:#000;text-decoration:none;">
-            <img src="https://img.youtube.com/vi/B7bYZ5ZFbl0/hqdefault.jpg" alt="參考影片 2" style="width:100%;height:100%;object-fit:cover;display:block;transition:opacity .2s;" onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='1'">
-            <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;">
-              <div style="width:56px;height:56px;border-radius:50%;background:rgba(255,0,0,.9);display:flex;align-items:center;justify-content:center;">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
-              </div>
-            </div>
-          </a>
-        </div>
-        <a href="https://quickdraw.withgoogle.com/" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:.85rem;padding:.9rem 1.25rem;background:rgba(16,185,129,.07);border:1px solid rgba(16,185,129,.2);border-radius:12px;text-decoration:none;transition:border-color .2s;" onmouseover="this.style.borderColor='rgba(16,185,129,.5)'" onmouseout="this.style.borderColor='rgba(16,185,129,.2)'">
-          <span style="font-size:1.75rem;flex-shrink:0;">✏️</span>
           <div>
-            <div style="font-size:.88rem;font-weight:700;color:#fff;margin-bottom:.2rem;">互動範例：Quick, Draw!</div>
-            <div style="font-size:.78rem;color:#CBD5E1;line-height:1.5;">體驗 AI 如何透過神經網路辨識你的塗鴉 &nbsp;<span style="color:#10B981;font-weight:700;">前往體驗 →</span></div>
+            <p style="font-size:.9rem;font-weight:700;margin-bottom:.3rem;">《大模型是怎麼學會講人話的？》</p>
+            <p style="font-size:.72rem;color:#94A3B8;margin-bottom:.6rem;">YouTube 頻道：林亦LYi（簡體中文）</p>
+            <p style="font-size:.82rem;color:#CBD5E1;line-height:1.8;">用動畫說明 ChatGPT 這類大型語言模型怎麼從「文字接龍」開始，一步步學會像人一樣對話。看完會更了解上面的五個步驟。</p>
           </div>
-        </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 1.7: Generative vs traditional AI -->
+    <section class="rev" style="margin-bottom:3.5rem;">
+      <div class="section-label"><span>1.7</span></div>
+      <h2 style="font-size:clamp(1.4rem,3vw,2rem);font-weight:800;margin-bottom:.5rem;">生成式 AI vs 傳統 AI</h2>
+      <p style="font-size:.9rem;color:#CBD5E1;margin-bottom:1.5rem;line-height:1.8;">兩者都是 AI，但用途不同。你每天其實早就在用傳統 AI，只是沒注意到。</p>
+      <div class="glass rev" style="padding:1.25rem 1.5rem;overflow-x:auto;margin-bottom:1.25rem;">
+        <table>
+          <thead><tr><th>比較</th><th>傳統 AI（判斷、預測）</th><th>生成式 AI（創作新內容）</th></tr></thead>
+          <tbody>
+            <tr><td>在做什麼</td><td>從選項裡挑答案：是不是、多少、哪一個</td><td>創造原本不存在的文字、圖片、聲音</td></tr>
+            <tr><td>生活例子</td><td>垃圾信過濾、信用卡盜刷提醒、導航路線、刷臉解鎖</td><td>ChatGPT、Gemini 寫信與回答問題、AI 繪圖、AI 作曲</td></tr>
+            <tr><td>答案特性</td><td>穩定，同樣的輸入通常得到同樣的結果</td><td>每次說法都不同，可能出現「幻覺」</td></tr>
+            <tr><td>最適合</td><td>分類、預測、偵測異常</td><td>寫作、翻譯、發想點子、整理重點</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="glass rev" style="padding:1.5rem 1.75rem;border-color:rgba(16,185,129,.25);">
+        <p style="font-size:.95rem;font-weight:700;margin-bottom:.75rem;color:#34D399;">🤔 什麼時候其實「不必」用生成式 AI？問自己三個問題</p>
+        <ol style="list-style:decimal;font-size:.82rem;color:#CBD5E1;line-height:1.8;padding-left:1.2rem;">
+          <li><strong style="color:#F1F5F9;">需要精確計算嗎？</strong>算帳、算利息、加總金額，用計算機或 Excel 最準；生成式 AI 偶爾會算錯。</li>
+          <li><strong style="color:#F1F5F9;">每次都要一模一樣嗎？</strong>固定格式的通知、收據、提醒，用範本或手機內建的提醒功能就好。</li>
+          <li><strong style="color:#F1F5F9;">涉及金錢、法律或醫療決定嗎？</strong>AI 可以幫你整理資料、列出該問的問題，但最後的決定要交給你自己和專業人士。</li>
+        </ol>
+        <p style="font-size:.82rem;color:#CBD5E1;line-height:1.8;margin-top:.75rem;">💡 反過來，需要「寫、改、想、整理、解釋」的事，就是生成式 AI 最能幫上忙的地方。</p>
       </div>
     </section>
 
     <!-- Section 1.4: AI Mindset -->
     <section class="rev" style="margin-bottom:3.5rem;">
-      <div class="section-label"><span>1.4</span></div>
+      <div class="section-label"><span>1.8</span></div>
       <h2 style="font-size:clamp(1.4rem,3vw,2rem);font-weight:800;margin-bottom:1.5rem;">培養 AI 思維</h2>
-      <p style="color:#CBD5E1;font-size:.875rem;line-height:1.8;margin-bottom:1.75rem;">運用這套框架，您就能系統性地解決複雜問題，訓練出具備真正價值的 AI 模型。</p>
+      <p style="color:#CBD5E1;font-size:.875rem;line-height:1.8;margin-bottom:1.75rem;">這五個步驟是工程師打造 AI 的流程。你不需要自己訓練 AI，但了解它，就會明白 AI 為什麼有時很準、有時會出錯，也會更懂得怎麼用 AI。</p>
 
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.25rem;margin-bottom:2rem;">
 
@@ -525,7 +682,7 @@
           <div style="font-size:.68rem;font-weight:600;color:#60A5FA;letter-spacing:.1em;margin-bottom:.5rem;">STEP 01</div>
           <h3 style="font-size:.95rem;font-weight:700;margin-bottom:.4rem;">問題定義</h3>
           <p style="font-size:.7rem;color:#F59E0B;margin-bottom:.6rem;font-style:italic;">「問對問題比找到答案更重要」</p>
-          <p style="font-size:.8rem;color:#CBD5E1;line-height:1.7;">將模糊現實問題轉化為明確 ML 任務。是分類、預測還是生成問題？定義「成功」的量化指標。</p>
+          <p style="font-size:.8rem;color:#CBD5E1;line-height:1.7;">把模糊的需求變成電腦能回答的明確問題：是要<strong>分類</strong>（這封信是不是垃圾信）、<strong>預測</strong>（明天會賣出幾個）還是<strong>生成</strong>（寫一篇文章）？並先定好「怎樣才算成功」。</p>
         </div>
 
         <div class="glass rev" data-detail data-detail-title="資料收集：餵什麼，就學到什麼" data-detail-color="#8B5CF6" style="padding:1.5rem;position:relative;overflow:hidden;">
@@ -539,7 +696,7 @@
           <div style="font-size:.68rem;font-weight:600;color:#A78BFA;letter-spacing:.1em;margin-bottom:.5rem;">STEP 02</div>
           <h3 style="font-size:.95rem;font-weight:700;margin-bottom:.4rem;">資料收集</h3>
           <p style="font-size:.7rem;color:#F59E0B;margin-bottom:.6rem;font-style:italic;">「垃圾進，垃圾出 (GIGO)」</p>
-          <p style="font-size:.8rem;color:#CBD5E1;line-height:1.7;">AI 能力上限由資料決定。資料需具代表性，覆蓋所有 Edge Cases，質量比數量更重要。</p>
+          <p style="font-size:.8rem;color:#CBD5E1;line-height:1.7;">AI 的能力上限由資料決定。資料要夠全面，也要包含 Edge Cases（少見但重要的特殊情況）；品質比數量更重要。</p>
         </div>
 
         <div class="glass rev" data-detail data-detail-title="模式識別：在大量資料裡找規律" data-detail-color="#06B6D4" style="padding:1.5rem;position:relative;overflow:hidden;">
@@ -552,7 +709,7 @@
           <div style="font-size:.68rem;font-weight:600;color:#22D3EE;letter-spacing:.1em;margin-bottom:.5rem;">STEP 03</div>
           <h3 style="font-size:.95rem;font-weight:700;margin-bottom:.4rem;">模式識別</h3>
           <p style="font-size:.7rem;color:#F59E0B;margin-bottom:.6rem;font-style:italic;">「在數據中找規律」</p>
-          <p style="font-size:.8rem;color:#CBD5E1;line-height:1.7;">AI 擅長發現人類難以察覺的高維度關係。特徵工程、演算法選擇、數據可視化初步觀察。</p>
+          <p style="font-size:.8rem;color:#CBD5E1;line-height:1.7;">AI 擅長在牽涉很多因素的資料裡找出人眼看不出的規律。做法包括特徵工程（挑出最重要的資料，例如估房價要看坪數和地段，而不是門牌號碼）、選擇合適的演算法、先把資料畫成圖表觀察。</p>
         </div>
 
         <div class="glass rev" data-detail data-detail-title="決策優化：一次次調整到最好" data-detail-color="#10B981" style="padding:1.5rem;position:relative;overflow:hidden;">
@@ -570,7 +727,7 @@
           <div style="font-size:.68rem;font-weight:600;color:#34D399;letter-spacing:.1em;margin-bottom:.5rem;">STEP 04</div>
           <h3 style="font-size:.95rem;font-weight:700;margin-bottom:.4rem;">決策優化</h3>
           <p style="font-size:.7rem;color:#F59E0B;margin-bottom:.6rem;font-style:italic;">「迭代與調參」</p>
-          <p style="font-size:.8rem;color:#CBD5E1;line-height:1.7;">模型很少一次做到最好。平衡過擬合與欠擬合，調整超參數，使用驗證集測試真實能力。</p>
+          <p style="font-size:.8rem;color:#CBD5E1;line-height:1.7;">模型很少一次就做好。要避免過擬合（像死背考古題，換一題就不會）與欠擬合（書沒讀熟，連考古題都不會）；調整超參數（訓練前先設定好的「旋鈕」）；再用 AI 沒看過的題目測試真實能力。</p>
         </div>
 
         <div class="glass rev" data-detail data-detail-title="反饋學習：上線後還要持續進步" data-detail-color="#F43F5E" style="padding:1.5rem;position:relative;overflow:hidden;">
@@ -584,7 +741,7 @@
           <div style="font-size:.68rem;font-weight:600;color:#FB7185;letter-spacing:.1em;margin-bottom:.5rem;">STEP 05</div>
           <h3 style="font-size:.95rem;font-weight:700;margin-bottom:.4rem;">反饋學習</h3>
           <p style="font-size:.7rem;color:#F59E0B;margin-bottom:.6rem;font-style:italic;">「自動化進化」</p>
-          <p style="font-size:.8rem;color:#CBD5E1;line-height:1.7;">AI 系統是動態的。監測概念漂移，人機協作補足信心低的決策，持續學習保持最新狀態。</p>
+          <p style="font-size:.8rem;color:#CBD5E1;line-height:1.7;">AI 上線後還要持續照顧。要留意概念漂移（世界變了，舊規律慢慢不準），AI 沒把握的決定交給人判斷（人機協作），並不斷用新資料學習。</p>
         </div>
 
       </div>
@@ -606,6 +763,44 @@
       </div>
     </section>
 
+    <!-- Section 1.9: First hands-on steps -->
+    <section class="rev" style="margin-bottom:3.5rem;">
+      <div class="section-label"><span>1.9</span></div>
+      <h2 style="font-size:clamp(1.4rem,3vw,2rem);font-weight:800;margin-bottom:.5rem;">動手玩第一步</h2>
+      <p style="font-size:.9rem;color:#CBD5E1;margin-bottom:1.5rem;line-height:1.8;">讀完觀念，最好的學習方式就是親手試試看。以下三站由淺到深，都可以免費使用，不需要安裝軟體。</p>
+
+      <div style="display:flex;flex-direction:column;gap:1rem;">
+        <a href="https://quickdraw.withgoogle.com/" target="_blank" rel="noopener" class="glass rev" style="padding:1.35rem 1.5rem;display:flex;gap:1rem;align-items:flex-start;text-decoration:none;color:inherit;">
+          <div style="font-size:1.75rem;flex-shrink:0;">✏️</div>
+          <div>
+            <div style="font-size:.68rem;font-weight:700;color:#10B981;letter-spacing:.1em;margin-bottom:.25rem;">第 1 站・5 分鐘</div>
+            <div style="font-weight:700;font-size:.95rem;margin-bottom:.3rem;">Quick, Draw!：看 AI 猜你的塗鴉</div>
+            <p style="font-size:.82rem;color:#CBD5E1;line-height:1.8;">Google 的小遊戲：題目出現後在 20 秒內畫出來，AI 會一邊看一邊猜你畫的是什麼。你會親眼看到 1.6 說的「一層層看線條、猜出答案」。<span style="color:#10B981;font-weight:700;">前往體驗 →</span></p>
+          </div>
+        </a>
+        <a href="https://teachablemachine.withgoogle.com/" target="_blank" rel="noopener" class="glass rev" style="padding:1.35rem 1.5rem;display:flex;gap:1rem;align-items:flex-start;text-decoration:none;color:inherit;">
+          <div style="font-size:1.75rem;flex-shrink:0;">📷</div>
+          <div>
+            <div style="font-size:.68rem;font-weight:700;color:#3B82F6;letter-spacing:.1em;margin-bottom:.25rem;">第 2 站・15 分鐘</div>
+            <div style="font-weight:700;font-size:.95rem;margin-bottom:.3rem;">Teachable Machine：自己教 AI 認東西</div>
+            <p style="font-size:.82rem;color:#CBD5E1;line-height:1.8;">Google 的免費網頁工具。用電腦鏡頭拍幾十張「杯子」、幾十張「手機」的照片，按下訓練，它就學會分辨兩者。這就是 1.4 的「監督式學習」：你給了照片和標準答案。<span style="color:#3B82F6;font-weight:700;">前往體驗 →</span></p>
+          </div>
+        </a>
+        <div class="glass rev" style="padding:1.35rem 1.5rem;display:flex;gap:1rem;align-items:flex-start;">
+          <div style="font-size:1.75rem;flex-shrink:0;">💬</div>
+          <div style="flex:1;min-width:0;">
+            <div style="font-size:.68rem;font-weight:700;color:#8B5CF6;letter-spacing:.1em;margin-bottom:.25rem;">第 3 站・10 分鐘</div>
+            <div style="font-weight:700;font-size:.95rem;margin-bottom:.3rem;">第一次和 AI 對話</div>
+            <p style="font-size:.82rem;color:#CBD5E1;line-height:1.8;">打開 ChatGPT 或 Gemini（認明官方網站或 App），按「複製」把下面任一句貼上送出：</p>
+            <div class="prompt-block"><span class="prompt-label">用簡單的話解釋</span><pre>請用國小學生聽得懂的話，解釋什麼是人工智慧，並舉三個我每天生活中會遇到的例子。</pre></div>
+            <div class="prompt-block"><span class="prompt-label">考考我</span><pre>我剛學了 AI 的四大能力：學習、推理與判斷、自我修正、理解與創作。請出 3 題選擇題考我，等我回答後再告訴我答案和解釋。</pre></div>
+            <div class="prompt-block"><span class="prompt-label">親手驗證「文字接龍」</span><pre>請把同一個問題「推薦一道適合晚餐的家常菜」回答兩次，然後告訴我：為什麼你兩次的答案不一樣？</pre></div>
+            <p style="font-size:.82rem;color:#CBD5E1;line-height:1.8;margin-top:.75rem;">想學更多寫法？<a href="unit3.html" style="color:#A78BFA;">單元三</a>有完整的 ChatGPT、Gemini 實作教學。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Learning checklist -->
     <div class="glass rev" style="padding:2rem;border-color:rgba(59,130,246,.2);">
       <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:1.5rem;">
@@ -613,11 +808,14 @@
         <h2 style="font-size:1rem;font-weight:700;">學習檢定</h2>
       </div>
       <div>
-        <div class="checklist-item"><div class="check-icon"><iconify-icon icon="mdi:check" width="12" style="color:#3B82F6;"></iconify-icon></div><span style="font-size:.875rem;color:#94A3B8;">能解釋 AI 的基本定義與四大核心能力</span></div>
+        <div class="checklist-item"><div class="check-icon"><iconify-icon icon="mdi:check" width="12" style="color:#3B82F6;"></iconify-icon></div><span style="font-size:.875rem;color:#94A3B8;">能解釋 AI 的基本定義與四大核心能力，並分清楚「學習」和「推理」</span></div>
         <div class="checklist-item"><div class="check-icon"><iconify-icon icon="mdi:check" width="12" style="color:#3B82F6;"></iconify-icon></div><span style="font-size:.875rem;color:#94A3B8;">能說明 AI 發展的五個歷史時期</span></div>
         <div class="checklist-item"><div class="check-icon"><iconify-icon icon="mdi:check" width="12" style="color:#3B82F6;"></iconify-icon></div><span style="font-size:.875rem;color:#94A3B8;">了解機器學習、電腦視覺、自然語言處理的差異與應用</span></div>
-        <div class="checklist-item"><div class="check-icon"><iconify-icon icon="mdi:check" width="12" style="color:#3B82F6;"></iconify-icon></div><span style="font-size:.875rem;color:#94A3B8;">了解 AI 五大學習方式（監督/非監督/半監督/強化/深度）</span></div>
-        <div class="checklist-item" style="border:none;"><div class="check-icon"><iconify-icon icon="mdi:check" width="12" style="color:#3B82F6;"></iconify-icon></div><span style="font-size:.875rem;color:#94A3B8;">能培養 AI 思維的基本步驟（問題定義→資料收集→模式識別→決策優化→反饋學習）</span></div>
+        <div class="checklist-item"><div class="check-icon"><iconify-icon icon="mdi:check" width="12" style="color:#3B82F6;"></iconify-icon></div><span style="font-size:.875rem;color:#94A3B8;">了解 AI 四種學習方式（監督/非監督/半監督/強化），並知道深度學習是 AI 的「大腦結構」</span></div>
+        <div class="checklist-item"><div class="check-icon"><iconify-icon icon="mdi:check" width="12" style="color:#3B82F6;"></iconify-icon></div><span style="font-size:.875rem;color:#94A3B8;">能用自己的話說明 AI 怎麼算出答案，以及為什麼會出現幻覺</span></div>
+        <div class="checklist-item"><div class="check-icon"><iconify-icon icon="mdi:check" width="12" style="color:#3B82F6;"></iconify-icon></div><span style="font-size:.875rem;color:#94A3B8;">分得出生成式 AI 和傳統 AI，並知道什麼時候不必用 AI</span></div>
+        <div class="checklist-item"><div class="check-icon"><iconify-icon icon="mdi:check" width="12" style="color:#3B82F6;"></iconify-icon></div><span style="font-size:.875rem;color:#94A3B8;">能培養 AI 思維的基本步驟（問題定義→資料收集→模式識別→決策優化→反饋學習）</span></div>
+        <div class="checklist-item" style="border:none;"><div class="check-icon"><iconify-icon icon="mdi:check" width="12" style="color:#3B82F6;"></iconify-icon></div><span style="font-size:.875rem;color:#94A3B8;">完成「動手玩第一步」的至少一站</span></div>
       </div>
     </div>
 
@@ -681,6 +879,36 @@
       document.querySelector('.nav-bar').style.padding=window.scrollY>60?'.55rem 1.5rem':'.9rem 1.5rem';
     });
   </script>
+<script>
+  document.querySelectorAll('.prompt-block').forEach(function (block) {
+    var pre = block.querySelector('pre');
+    if (!pre) return;
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'copy-btn';
+    btn.textContent = '複製';
+    function done() {
+      btn.textContent = '✓ 已複製';
+      btn.classList.add('copied');
+      setTimeout(function () { btn.textContent = '複製'; btn.classList.remove('copied'); }, 2000);
+    }
+    btn.addEventListener('click', function () {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(pre.innerText).then(done, fallback);
+      } else { fallback(); }
+    });
+    function fallback() {
+      var ta = document.createElement('textarea');
+      ta.value = pre.innerText;
+      ta.style.cssText = 'position:fixed;opacity:0;';
+      document.body.appendChild(ta); ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      done();
+    }
+    block.appendChild(btn);
+  });
+</script>
 <script src="theme.js"></script>
 
 <!-- 圖靈測試 image lightbox -->

@@ -322,6 +322,10 @@
   .has-tooltip:hover .tooltip {
     opacity: 1; transform: translateY(0);
   }
+  @media (max-width: 600px) {
+    .has-tooltip .tooltip { position: static; opacity: 1; transform: none; white-space: normal; margin-top: .6rem; box-shadow: none; font-size: .8rem; }
+    .has-tooltip .tooltip::after { display: none; }
+  }
   html.light-mode .has-tooltip .tooltip {
     background: rgba(255,251,235,0.98);
     border-color: rgba(249,115,22,0.35);
@@ -496,8 +500,15 @@
     <div class="num-deco">01</div>
     <p class="section-label rev">使用限制</p>
     <h2 class="section-title rev">ChatGPT &amp; Gemini<br>使用限制與注意事項</h2>
-    <p class="section-subtitle rev">掌握 AI 工具的邊界，才能更安全有效地使用它們。</p>
+    <p class="section-subtitle rev">掌握 AI 工具的邊界，才能更安全有效地使用它們。以下分成三組：先認識 AI 的弱點，再看要注意的風險，最後養成好習慣。點開卡片可看詳細說明。</p>
 
+    <div class="rev" style="display:flex;align-items:center;gap:.85rem;margin:0 0 1rem;">
+      <div style="flex-shrink:0;width:2.4rem;height:2.4rem;border-radius:.75rem;background:rgba(6,182,212,.12);border:1px solid rgba(6,182,212,.35);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:800;color:#22D3EE;">A</div>
+      <div>
+        <div style="font-weight:800;font-size:1.1rem;color:#fff;">能力與資料限制</div>
+        <div style="font-size:.9rem;color:rgba(255,255,255,.6);line-height:1.6;">先認識 AI 的弱點：會忘記、會說錯、會過時、看圖看檔案也會出錯。</div>
+      </div>
+    </div>
     <div class="limits-grid">
 
       <div class="glass limit-card rev">
@@ -505,13 +516,13 @@
         <div class="limit-title">上下文限制 (Context Window)</div>
         <div class="limit-sub">AI 並不是「無限記憶」</div>
         <div class="limit-body">
-          對話太長時前面內容可能被忘記；上傳文件太大可能無法完整分析；長篇文章可能只抓重點摘要。
+          對話太長時前面內容可能被忘記；上傳文件太大可能無法完整分析；長篇文章可能只抓重點摘要。免費版一次能記住的內容也比付費版少很多。
         </div>
-        <div class="limit-tip">💡 建議：分段提問，定期重新整理需求，提供重點摘要給 AI</div>
+        <div class="limit-tip">💡 建議：一個主題開一個新對話；對話很長時，先請 AI「整理目前的重點」再接著問</div>
         <div class="limit-more" hidden>
 <div class="dm-analogy">就像和一位記性有限的朋友聊天：聊了兩個小時，他可能已經忘記你一開始說的事。AI 一次能「記住」的文字量是有上限的。</div>
 <div class="dm-example">你在同一個對話裡規劃旅遊、又問了料理、又問了保險，最後再問「剛剛那個行程第二天住哪？」，它可能就答錯了。</div>
-<div class="dm-you">一個主題開一個新對話。對話很長時，請它「先幫我整理目前的重點」，再接著問。</div>
+<div class="dm-you">現在的 AI 一次能讀的量比以前大很多，但「讀得多」不等於「記得準」：同一個對話塞了太多無關內容，中間的細節還是可能漏掉，或前後說法矛盾。所以「一個主題一個對話」依然是最好的習慣。</div>
         </div>
       </div>
 
@@ -533,21 +544,6 @@
 
       <div class="glass limit-card rev">
         <div class="limit-num">03</div>
-        <div class="limit-title">資料隱私與安全</div>
-        <div class="limit-sub">不要把敏感資料直接丟給 AI</div>
-        <div class="limit-body">
-          不建議輸入：身分證字號、密碼、銀行資訊、公司機密、客戶個資。
-        </div>
-        <div class="limit-tip">💡 使用匿名資料，遮蔽敏感資訊，公司內部建立 AI 使用規範</div>
-        <div class="limit-more" hidden>
-<div class="dm-analogy">把資料打進 AI，就像把文件交給一家公司保管：大部分時候沒事，但你無法完全掌控它會被怎麼存放、誰看得到。</div>
-<div class="dm-example">要 AI 幫忙寫申訴信時，把「王大明、身分證 A123…」換成「我」「某某」就好，AI 一樣寫得出來。</div>
-<div class="dm-you">可以到設定裡關閉「用對話訓練模型」，單元五有逐步教學。</div>
-        </div>
-      </div>
-
-      <div class="glass limit-card rev">
-        <div class="limit-num">04</div>
         <div class="limit-title">知識更新限制</div>
         <div class="limit-sub">AI 不一定知道最新資訊</div>
         <div class="limit-body">
@@ -562,7 +558,7 @@
       </div>
 
       <div class="glass limit-card rev">
-        <div class="limit-num">05</div>
+        <div class="limit-num">04</div>
         <div class="limit-title">回答不穩定</div>
         <div class="limit-sub">同樣問題可能得到不同答案</div>
         <div class="limit-body">
@@ -576,7 +572,7 @@
       </div>
 
       <div class="glass limit-card rev">
-        <div class="limit-num">06</div>
+        <div class="limit-num">05</div>
         <div class="limit-title">無法真正理解世界</div>
         <div class="limit-sub">AI 是「預測文字」，不是真正理解</div>
         <div class="limit-body">
@@ -590,13 +586,14 @@
       </div>
 
       <div class="glass limit-card rev">
-        <div class="limit-num">07</div>
+        <div class="limit-num">06</div>
         <div class="limit-title">圖片生成限制</div>
         <div class="limit-sub">視覺細節容易出錯</div>
         <div class="limit-body">
           手指、文字等細節偶爾變形（已比過去少很多）；圖中的中文字已大幅改善，但仍可能寫錯字；多張圖的人物長相不易保持一致。名人肖像、版權角色、敏感內容受到限制。
         </div>
         <div class="limit-tip">💡 一次只改一個地方，用「保留其他部分，只把…改成…」逐步修正</div>
+        <div class="limit-tip">💡 要讓同一個人物出現在多張圖裡：上傳清楚的參考照片，並寫明「五官、髮型、服裝都不要變」，比只用文字形容穩定很多（下方 LINE 貼圖範例就是這樣寫）</div>
         <div class="limit-more" hidden>
 <div class="dm-example">請 AI 畫「全家福」，可能出現六根手指，或第二張圖裡爸爸的臉變了一個人。</div>
 <div class="dm-you">做好的圖片放大看一下手、文字、背景是否正確再使用；涉及真人的圖片，記得尊重對方的肖像權。</div>
@@ -604,7 +601,7 @@
       </div>
 
       <div class="glass limit-card rev">
-        <div class="limit-num">08</div>
+        <div class="limit-num">07</div>
         <div class="limit-title">檔案分析限制</div>
         <div class="limit-sub">非純文字格式容易出問題</div>
         <div class="limit-body">
@@ -617,13 +614,38 @@
         </div>
       </div>
 
+    </div>
+    <div class="rev" style="display:flex;align-items:center;gap:.85rem;margin:2.25rem 0 1rem;">
+      <div style="flex-shrink:0;width:2.4rem;height:2.4rem;border-radius:.75rem;background:rgba(244,63,94,.1);border:1px solid rgba(244,63,94,.35);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:800;color:#FB7185;">B</div>
+      <div>
+        <div style="font-weight:800;font-size:1.1rem;color:#fff;">風險與規範</div>
+        <div style="font-size:.9rem;color:rgba(255,255,255,.6);line-height:1.6;">用 AI 時要保護的東西：你的個資、你的錢包、別人的著作權。</div>
+      </div>
+    </div>
+    <div class="limits-grid">
+
+      <div class="glass limit-card rev">
+        <div class="limit-num">08</div>
+        <div class="limit-title">資料隱私與安全</div>
+        <div class="limit-sub">不要把敏感資料直接丟給 AI</div>
+        <div class="limit-body">
+          不建議輸入：身分證字號、密碼、銀行資訊、公司機密、客戶個資。另外要注意：<strong style="color:#fff">分享對話連結</strong>前先檢查內容，拿到連結的人都看得到；讓 AI <strong style="color:#fff">連接 Gmail、雲端硬碟</strong>等服務時，只開真正需要的權限。
+        </div>
+        <div class="limit-tip">💡 使用匿名資料，遮蔽敏感資訊，公司內部建立 AI 使用規範</div>
+        <div class="limit-more" hidden>
+<div class="dm-analogy">把資料打進 AI，就像把文件交給一家公司保管：大部分時候沒事，但你無法完全掌控它會被怎麼存放、誰看得到。</div>
+<div class="dm-example">要 AI 幫忙寫申訴信時，把「王大明、身分證 A123…」換成「我」「某某」就好，AI 一樣寫得出來。</div>
+<div class="dm-you">可以到設定裡關閉「用對話訓練模型」，單元五有逐步教學。不再需要的分享連結，可以在設定裡的「已分享的連結」刪除；不用的連結服務（例如 Gmail）也可以隨時取消連結。</div>
+        </div>
+      </div>
+
       <div class="glass limit-card rev">
         <div class="limit-num">09</div>
         <div class="limit-title">免費版與付費版差異</div>
         <div class="limit-sub">功能差距顯著</div>
         <div class="limit-body">
           <strong style="color:#fff">免費版</strong>：可聊天、上網搜尋、語音對話，也能分析檔案與圖片，但有次數限制。<br>
-          <strong style="color:#fff">付費版</strong>：更強的模型、更多次數、能記住更長的對話，以及影片生成、深度研究等進階功能。
+          <strong style="color:#fff">付費版</strong>：更強的模型、更多次數、<strong style="color:#fff">一次能讀更多資料</strong>（記得更長的對話、看得完更大的檔案），以及影片生成、深度研究（AI 自動查很多網頁，再整理成一份報告）等進階功能。
         </div>
         <div class="limit-tip">💡 先用免費版學習，真的不夠用再考慮升級；記得確認自動續訂</div>
         <div class="limit-more" hidden>
@@ -646,46 +668,36 @@
         </div>
       </div>
 
-      <div class="glass limit-card rev">
-        <div class="limit-num">11</div>
-        <div class="limit-title">過度依賴 AI</div>
-        <div class="limit-sub">保持獨立思考能力</div>
-        <div class="limit-body">
-          缺乏獨立思考、不再查證資料、寫作能力下降。
-        </div>
-        <div class="limit-tip">💡 AI 是「助手」，不是完全替代</div>
-        <div class="limit-more" hidden>
-<div class="dm-analogy">就像一直用導航開車，久了可能就不太認得路。AI 用得越多，越要保留自己思考的習慣。</div>
-<div class="dm-you">先自己想一想、寫一個草稿，再請 AI 幫忙修改，比直接叫它全部寫好更能維持腦力。</div>
-        </div>
+    </div>
+    <div class="rev" style="display:flex;align-items:center;gap:.85rem;margin:2.25rem 0 1rem;">
+      <div style="flex-shrink:0;width:2.4rem;height:2.4rem;border-radius:.75rem;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.35);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:800;color:#34D399;">C</div>
+      <div>
+        <div style="font-weight:800;font-size:1.1rem;color:#fff;">正確使用心法</div>
+        <div style="font-size:.9rem;color:rgba(255,255,255,.6);line-height:1.6;">把上面的提醒變成每天的好習慣。</div>
       </div>
-
-      <div class="glass limit-card rev">
-        <div class="limit-num">12</div>
-        <div class="limit-title">各平台差異</div>
-        <div class="limit-sub">ChatGPT vs Gemini</div>
-        <div class="limit-body">
-          各有優勢，適合不同場景。詳見下方比較表。
-        </div>
-        <div class="limit-tip">💡 同一個問題可以兩個都問，比較後選最合用的答案</div>
-        <div class="limit-more" hidden>
-<div class="dm-you">不用只選一個。ChatGPT 和 Gemini 都有免費版，可以都註冊，看哪一個用起來比較順手。</div>
-        </div>
-      </div>
+    </div>
+    <div class="limits-grid">
 
       <div class="glass limit-card rev" style="grid-column: 1 / -1">
-        <div class="limit-num">13</div>
-        <div class="limit-title">AI 使用最佳實務</div>
+        <div class="limit-num">11</div>
+        <div class="limit-title">AI 使用最佳實務：讓 AI 當助手，不當老闆</div>
         <div class="limit-sub">養成好習慣，讓 AI 成為可信賴的夥伴</div>
+        <div class="limit-body">
+          AI 用久了，容易不再自己思考、不再查證資料，寫作能力也會下降。記得 AI 是「助手」，不是完全替代。另外，ChatGPT 和 Gemini 各有擅長的地方（見下方比較表），同一個問題可以兩個都問，比較後選最合用的答案。
+        </div>
         <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap:0.75rem; margin-top:0.5rem">
           <div class="limit-tip">✅ AI 產出要人工覆核</div>
           <div class="limit-tip">✅ 重要資訊必須查證</div>
           <div class="limit-tip">✅ 不輸入敏感資料</div>
           <div class="limit-tip">✅ 清楚描述需求</div>
           <div class="limit-tip">✅ 善用多輪對話修正結果</div>
+          <div class="limit-tip">✅ 先自己想，再請 AI 幫忙</div>
+        </div>
+        <div class="limit-more" hidden>
+<div class="dm-analogy">就像一直用導航開車，久了可能就不太認得路。AI 用得越多，越要保留自己思考的習慣。</div>
+<div class="dm-you">先自己想一想、寫一個草稿，再請 AI 幫忙修改，比直接叫它全部寫好更能維持腦力。ChatGPT 和 Gemini 都有免費版，可以都註冊，看哪一個用起來比較順手。</div>
         </div>
       </div>
-
     </div>
 
     <div class="scenario-full rev" style="margin-top:2rem; border-color: rgba(16,185,129,0.3)">
@@ -752,7 +764,7 @@
           <tr>
             <td><strong style="color:#fff">自訂 AI 助理</strong></td>
             <td>GPTs — 功能完整，生態成熟</td>
-            <td>Gems — 可分享給他人；個人帳號自 2026 年 11 月起陸續轉為「技能」</td>
+            <td>Gems — 可分享給他人；個人帳號自 2026 年 11 月起轉為「技能」（存起來、可重複使用的自訂指令，輸入 / 就能叫出；限年滿 18 歲）</td>
           </tr>
           <tr>
             <td><strong style="color:#fff">中文理解</strong></td>
@@ -1264,7 +1276,7 @@
               <li>AI 秘書 — 行程與郵件管理</li>
               <li>AI 教師 — 個人化學習</li>
             </ul>
-            <p style="margin-top:.6rem;font-size:.9em;opacity:.85">📢 2026 年 11 月起，Gemini 個人帳號的 Gems 會陸續自動轉為「技能（Skills）」，在對話框輸入「/」就能叫出來；做好的助理也能分享給家人朋友一起用。</p>
+            <p style="margin-top:.6rem;font-size:.9em;opacity:.85">📢 2026 年 11 月起，Gemini 個人帳號的 Gems 轉為「技能（Skills）」，舊的 Gem 移除後會自動變成技能。技能就是「存起來、可以重複使用的自訂指令」：在對話框輸入「/」加上技能名稱就能叫出來（Google 表示之後會改成「@」），Gemini 也會在適合的時候自動套用。目前限年滿 18 歲的個人帳號使用；做好的技能也能分享給家人朋友。</p>
           </div>
         </div>
       </div>
@@ -1597,7 +1609,7 @@
       </div>
       <div class="check-item rev">
         <div class="check-box"></div>
-        我了解 GPTs 或 Gems 可以建立專屬 AI 助理
+        我了解 GPTs 或 Gemini 的「技能」（原 Gems）可以建立專屬 AI 助理
       </div>
       <div class="check-item rev">
         <div class="check-box"></div>
