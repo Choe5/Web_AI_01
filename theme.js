@@ -11,17 +11,17 @@
           /color\s*:\s*rgba\(\s*255\s*,\s*255\s*,\s*255\s*,\s*([\d.]+)\s*\)/gi,
           function (_, a) {
             var alpha = parseFloat(a);
-            if (alpha >= 0.75) return 'color:#431407';
-            if (alpha >= 0.45) return 'color:#7C2D12';
-            return 'color:#92400E';
+            if (alpha >= 0.75) return 'color:#0F2A4A';
+            if (alpha >= 0.45) return 'color:#1E3A5F';
+            return 'color:#3D5A80';
           }
         )
-        .replace(/color\s*:\s*#fff\b/gi,            'color:#431407')
-        .replace(/color\s*:\s*#ffffff\b/gi,         'color:#431407')
-        .replace(/color\s*:\s*#(?:e2e8f0|E2E8F0)/g,'color:#431407')
-        .replace(/color\s*:\s*#(?:f1f5f9|F1F5F9)/g,'color:#431407')
-        .replace(/color\s*:\s*#(?:cbd5e1|CBD5E1)/g,'color:#7C2D12')
-        .replace(/color\s*:\s*#(?:94a3b8|94A3B8)/g,'color:#92400E');
+        .replace(/color\s*:\s*#fff\b/gi,            'color:#0F2A4A')
+        .replace(/color\s*:\s*#ffffff\b/gi,         'color:#0F2A4A')
+        .replace(/color\s*:\s*#(?:e2e8f0|E2E8F0)/g,'color:#0F2A4A')
+        .replace(/color\s*:\s*#(?:f1f5f9|F1F5F9)/g,'color:#0F2A4A')
+        .replace(/color\s*:\s*#(?:cbd5e1|CBD5E1)/g,'color:#1E3A5F')
+        .replace(/color\s*:\s*#(?:94a3b8|94A3B8)/g,'color:#3D5A80');
       if (fixed !== orig) {
         el.setAttribute('data-dark-style', orig);
         el.setAttribute('style', fixed);
