@@ -206,6 +206,14 @@
   /* ---- Init on DOM ready ---- */
   document.addEventListener('DOMContentLoaded', function () {
     injectToggle();
+    /* 窄螢幕導覽列可左右滑：把目前所在單元捲到看得到的位置 */
+    var act = document.querySelector('.site-links .active');
+    if (act) {
+      var bar = act.parentNode;
+      if (bar.scrollWidth > bar.clientWidth) {
+        bar.scrollLeft = act.offsetLeft - bar.offsetLeft - (bar.clientWidth - act.offsetWidth) / 2;
+      }
+    }
     /* Class already set by inline <head> script if needed;
        just run the inline color fixer if we're in light mode. */
     if (ROOT.classList.contains('light-mode')) {

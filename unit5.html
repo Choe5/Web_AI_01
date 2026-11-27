@@ -23,14 +23,6 @@
     body.hovering #cursorRing{width:64px;height:64px;border-color:rgba(244,63,94,.35);}
     .glass{background:var(--glass);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:var(--r);transition:all .35s cubic-bezier(.16,1,.3,1);}
     .glass:hover{background:rgba(255,255,255,.065);border-color:rgba(255,255,255,.14);}
-    .nav-bar{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(6,9,18,.78);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);padding:.9rem 1.5rem;display:flex;align-items:center;justify-content:space-between;transition:padding .3s;}
-    .logo{display:flex;align-items:center;gap:.625rem;}
-    .logo-icon{width:2rem;height:2rem;border-radius:.5rem;background:linear-gradient(135deg,#3B82F6,#8B5CF6);display:flex;align-items:center;justify-content:center;}
-    .nav-links{display:flex;align-items:center;gap:2rem;font-size:.82rem;color:#CBD5E1;}
-    .nav-links a{text-decoration:none;color:#CBD5E1;transition:color .2s;}
-    .nav-links a:hover{color:#F1F5F9;} .nav-links a.active{color:#FB7185;}
-    .btn-ghost{border:1px solid rgba(255,255,255,.15);border-radius:999px;color:rgba(255,255,255,.9);font-weight:500;padding:.45rem 1.1rem;transition:all .3s;display:inline-flex;align-items:center;gap:.4rem;font-size:.82rem;text-decoration:none;cursor:none;}
-    .btn-ghost:hover{border-color:rgba(255,255,255,.35);color:#fff;background:rgba(255,255,255,.06);}
     .guide-lines{position:absolute;inset:0;display:flex;justify-content:space-evenly;pointer-events:none;}
     .guide-line{width:1px;height:100%;background:rgba(255,255,255,.028);}
     .num-deco{font-family:'Space Grotesk',sans-serif;font-weight:900;color:rgba(255,255,255,.022);line-height:1;position:absolute;user-select:none;pointer-events:none;}
@@ -44,7 +36,7 @@
     table td{padding:.65rem 1rem;font-size:.82rem;color:#94A3B8;border-bottom:1px solid rgba(255,255,255,.04);line-height:1.6;}
     table td:first-child{color:#E2E8F0;font-weight:500;}
     ::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-track{background:var(--bg);}::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:2px;}
-    @media(max-width:768px){#cursorDot,#cursorRing{display:none;}body{cursor:auto;}.nav-links{display:none;}}
+    @media(max-width:768px){#cursorDot,#cursorRing{display:none;}body{cursor:auto;}}
     .checklist-item{display:flex;align-items:flex-start;gap:.75rem;padding:.75rem 0;border-bottom:1px solid rgba(255,255,255,.05);}
   </style>
 <link rel="stylesheet" href="theme.css">
@@ -56,12 +48,10 @@
   <div id="cursorDot"></div>
   <div id="cursorRing"></div>
 
-  <nav class="nav-bar">
-    <div class="logo"><div class="logo-icon"><iconify-icon icon="mdi:robot-outline" width="16" style="color:white;"></iconify-icon></div><span style="font-weight:700;font-size:.875rem;">AI 課程</span></div>
-    <div class="nav-links">
-      <a href="index.html">首頁</a><a href="unit1.html">單元一</a><a href="unit2.html">單元二</a><a href="unit3.html">單元三</a><a href="unit4.html">單元四</a><a href="unit5.html" class="active">單元五</a>
-    </div>
-    <a href="index.html" class="btn-ghost"><iconify-icon icon="mdi:arrow-left" width="14"></iconify-icon> 返回首頁</a>
+  <nav class="site-nav" style="--nav-active:#FB7185;" aria-label="課程導覽">
+    <a href="index.html" class="site-logo"><span class="site-logo-icon"><iconify-icon icon="mdi:robot-outline" width="16"></iconify-icon></span><span>AI 課程</span></a>
+    <div class="site-links"><a href="unit1.html">單元一</a><a href="unit2.html">單元二</a><a href="unit3.html">單元三</a><a href="unit4.html">單元四</a><a href="unit5.html" class="active" aria-current="page">單元五</a><a href="unit6.html">名詞解釋</a><a href="unit7.html">講師介紹</a></div>
+    <a href="index.html" class="site-home"><iconify-icon icon="mdi:arrow-left" width="14"></iconify-icon><span class="site-home-full">返回首頁</span><span class="site-home-short">首頁</span></a>
   </nav>
 
   <!-- Hero -->
@@ -464,7 +454,7 @@
     document.querySelectorAll('a,button,.glass').forEach(el=>{el.addEventListener('mouseenter',()=>document.body.classList.add('hovering'));el.addEventListener('mouseleave',()=>document.body.classList.remove('hovering'));});
     gsap.from('#heroContent',{opacity:0,y:48,duration:1,ease:'power3.out',delay:.15});
     gsap.utils.toArray('.rev').forEach((el,i)=>{gsap.fromTo(el,{opacity:0,y:40},{opacity:1,y:0,duration:.85,ease:'power3.out',delay:(i%3)*.08,scrollTrigger:{trigger:el,start:'top 88%',toggleActions:'play none none none'}});});
-    window.addEventListener('scroll',()=>{document.querySelector('.nav-bar').style.padding=window.scrollY>60?'.55rem 1.5rem':'.9rem 1.5rem';});
+    window.addEventListener('scroll',()=>{document.querySelector('.site-nav').classList.toggle('shrunk',window.scrollY>60);});
   </script>
 <script src="theme.js"></script>
 </body>

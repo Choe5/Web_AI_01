@@ -433,18 +433,6 @@ html.light-mode .dm-prompt {
 /* 既有彈窗：長內容可捲動，不再溢出畫面 */
 #termModalBox, #promptCardModal > div { max-height: 85vh; overflow-y: auto; }
 
-/* 手機：unit3／unit4 頂部導覽列避免文字被擠成直排 */
-@media (max-width: 600px) {
-  #nav { padding: .75rem 1rem; gap: .5rem; }
-  #nav .nav-logo, #nav .nav-links a { white-space: nowrap; }
-  #nav .nav-logo { font-size: .9rem; }
-  #nav .nav-links { gap: .5rem; }
-  #nav .nav-links a { font-size: .75rem; }
-  #nav .nav-links a[href="index.html"] { display: none; } /* Logo 已可回首頁 */
-  #nav .nav-pill { padding: .3rem .6rem; }
-  #nav #theme-toggle { margin-left: .4rem; padding: .3rem .55rem; }
-}
-
 /* 3) 手機：過寬的表格改為可水平捲動，避免內容被擠出畫面 */
 @media (max-width: 768px) {
   table {
@@ -454,3 +442,81 @@ html.light-mode .dm-prompt {
     -webkit-overflow-scrolling: touch;
   }
 }
+
+/* ================================================
+   共用頂部導覽列（unit1～unit7 同一套）
+   ================================================ */
+.site-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; gap: 1rem;
+  padding: .9rem 1.5rem;
+  background: rgba(6,9,18,.82);
+  backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  transition: padding .3s;
+  font-family: 'Noto Sans TC', sans-serif;
+}
+.site-nav.shrunk { padding-top: .55rem; padding-bottom: .55rem; }
+.site-logo {
+  display: flex; align-items: center; gap: .625rem; flex-shrink: 0;
+  color: #F1F5F9; font-weight: 700; font-size: .875rem; text-decoration: none; white-space: nowrap;
+}
+.site-logo-icon {
+  width: 2rem; height: 2rem; border-radius: .5rem; color: #fff;
+  background: linear-gradient(135deg,#3B82F6,#8B5CF6);
+  display: flex; align-items: center; justify-content: center;
+}
+.site-links {
+  flex: 1; min-width: 0;
+  display: flex; align-items: center; justify-content: center; gap: 1.5rem;
+  font-size: .82rem;
+}
+.site-links a {
+  color: #CBD5E1; text-decoration: none; white-space: nowrap;
+  padding: .25rem 0; border-bottom: 2px solid transparent; transition: color .2s;
+}
+.site-links a:hover { color: #F1F5F9; }
+.site-links a.active {
+  color: var(--nav-active, #F1F5F9); font-weight: 700;
+  border-bottom-color: var(--nav-active, #F1F5F9);
+}
+.site-home {
+  display: inline-flex; align-items: center; gap: .4rem; flex-shrink: 0;
+  padding: .45rem 1.1rem; border: 1px solid rgba(255,255,255,.15); border-radius: 999px;
+  color: rgba(255,255,255,.9); font-size: .82rem; font-weight: 500;
+  text-decoration: none; white-space: nowrap; transition: all .3s;
+}
+.site-home:hover { border-color: rgba(255,255,255,.35); color: #fff; background: rgba(255,255,255,.06); }
+.site-home-short { display: none; }
+.site-nav #theme-toggle { margin-left: 0; }
+
+/* 窄螢幕：第一列 logo＋返回首頁＋亮暗鈕，第二列連結可左右滑 */
+@media (max-width: 960px) {
+  .site-nav { flex-wrap: wrap; gap: .5rem .75rem; padding: .6rem 1rem 0; }
+  .site-nav.shrunk { padding-top: .45rem; padding-bottom: 0; }
+  .site-logo { margin-right: auto; }
+  .site-links {
+    order: 3; flex: 0 0 calc(100% + 2rem); margin: 0 -1rem;
+    justify-content: flex-start; gap: 1.25rem;
+    overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch;
+    padding: .1rem 1rem .3rem;
+  }
+  .site-links::-webkit-scrollbar { display: none; }
+  .site-links a { font-size: .85rem; padding: .35rem 0; }
+}
+@media (max-width: 480px) {
+  .site-home { padding: .35rem .75rem; font-size: .78rem; }
+  .site-home-full { display: none; }
+  .site-home-short { display: inline; }
+}
+
+html.light-mode .site-nav {
+  background: rgba(255,247,237,.97) !important;
+  border-bottom-color: rgba(249,115,22,.14) !important;
+}
+html.light-mode .site-logo { color: #431407 !important; }
+html.light-mode .site-links a { color: #92400E !important; }
+html.light-mode .site-links a:hover,
+html.light-mode .site-links a.active { color: #431407 !important; }
+html.light-mode .site-home { border-color: rgba(249,115,22,.28) !important; color: #92400E !important; }
+html.light-mode .site-home:hover { background: rgba(249,115,22,.08) !important; color: #431407 !important; }

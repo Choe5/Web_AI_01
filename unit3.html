@@ -69,31 +69,6 @@
   }
 
   /* Nav */
-  #nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    padding: 1.25rem 2rem;
-    display: flex; align-items: center; justify-content: space-between;
-    transition: background 0.4s, backdrop-filter 0.4s, padding 0.4s;
-  }
-  #nav.shrunk {
-    background: rgba(8,8,16,0.85);
-    backdrop-filter: blur(20px);
-    padding: 0.75rem 2rem;
-    border-bottom: 1px solid var(--glass-border);
-  }
-  .nav-logo { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1rem; color: #fff; text-decoration: none; }
-  .nav-links { display: flex; gap: 1.5rem; align-items: center; }
-  .nav-links a {
-    color: rgba(255,255,255,0.6); font-size: 0.85rem; text-decoration: none;
-    transition: color 0.2s;
-  }
-  .nav-links a:hover { color: #fff; }
-  .nav-pill {
-    background: var(--accent); color: #000; font-weight: 700;
-    padding: 0.4rem 1.1rem; border-radius: 99px; font-size: 0.8rem;
-    text-decoration: none; transition: opacity 0.2s;
-  }
-  .nav-pill:hover { opacity: 0.85; }
 
   /* Hero */
   .hero {
@@ -462,14 +437,10 @@
 </svg>
 
 <!-- Nav -->
-<nav id="nav">
-  <a href="index.html" class="nav-logo">AI 課程</a>
-  <div class="nav-links">
-    <a href="index.html">首頁</a>
-    <a href="unit2.html">上一單元</a>
-    <a href="unit4.html">下一單元</a>
-    <a href="unit6.html" class="nav-pill">名詞解釋</a>
-  </div>
+<nav class="site-nav" style="--nav-active:#22D3EE;" aria-label="課程導覽">
+  <a href="index.html" class="site-logo"><span class="site-logo-icon"><span class="iconify" data-icon="mdi:robot-outline" data-width="16"></span></span><span>AI 課程</span></a>
+  <div class="site-links"><a href="unit1.html">單元一</a><a href="unit2.html">單元二</a><a href="unit3.html" class="active" aria-current="page">單元三</a><a href="unit4.html">單元四</a><a href="unit5.html">單元五</a><a href="unit6.html">名詞解釋</a><a href="unit7.html">講師介紹</a></div>
+  <a href="index.html" class="site-home"><span class="iconify" data-icon="mdi:arrow-left" data-width="14"></span><span class="site-home-full">返回首頁</span><span class="site-home-short">首頁</span></a>
 </nav>
 
 <!-- Hero -->
@@ -1673,7 +1644,7 @@
   });
 
   // Nav shrink
-  const nav = document.getElementById('nav');
+  const nav = document.querySelector('.site-nav');
   window.addEventListener('scroll', () => {
     nav.classList.toggle('shrunk', window.scrollY > 60);
   });
